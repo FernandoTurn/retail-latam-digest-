@@ -1,4 +1,3 @@
-cat > build.py << 'EOF'
 #!/usr/bin/env python3
 import os
 import json
@@ -11,13 +10,16 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import unicodedata
 
-# Feeds
 FEEDS = [
-    {"url": "https://news.google.com/rss/search?q=retail+moda+Argentina&hl=es-419&gl=AR&ceid=AR:es-419", "section": "Moda y calzado", "source_label": "Google News"},
-    {"url": "https://news.google.com/rss/search?q=supermercados+Argentina&hl=es-419&gl=AR&ceid=AR:es-419", "section": "Grocery", "source_label": "Google News"},
+    {"url": "https://news.google.com/rss/search?q=retail+moda+Argentina&hl=es-419&gl=AR&ceid=AR:es-419", "section": "Moda y calzado", "source_label": "Google News", "country": "AR"},
+    {"url": "https://news.google.com/rss/search?q=retail+calzado+Argentina&hl=es-419&gl=AR&ceid=AR:es-419", "section": "Moda y calzado", "source_label": "Google News", "country": "AR"},
+    {"url": "https://news.google.com/rss/search?q=supermercados+Argentina&hl=es-419&gl=AR&ceid=AR:es-419", "section": "Grocery", "source_label": "Google News", "country": "AR"},
+    {"url": "https://news.google.com/rss/search?q=retail+moda+Mexico&hl=es-419&gl=MX&ceid=MX:es-419", "section": "Moda y calzado", "source_label": "Google News", "country": "MX"},
+    {"url": "https://news.google.com/rss/search?q=supermercados+Mexico&hl=es-419&gl=MX&ceid=MX:es-419", "section": "Grocery", "source_label": "Google News", "country": "MX"},
 ]
 
-EXCLUDE_TERMS = ["robo", "robar", "detienen"]
+EXCLUDE_TERMS = ["robo", "robar", "detienen", "detenido", "asalto", "hurto"]
+EXCLUDE_COUNTRIES = ["España", "Madrid", "Barcelona", "Europa", "italiano", "portugués", "francés", "EE.UU", "USA", "California", "Texas"]
 
 def normalize(text):
     return unicodedata.normalize('NFKD', text.lower()).encode('ASCII', 'ignore').decode('ASCII')
@@ -46,6 +48,10 @@ def get_summary(title, snippet):
         return message.content[0].text
     except:
         return snippet[:150]
+
+def has_excluded_country(text):
+    text_lower = text.lower()
+    return any(country.lower() in text_lower for country in EXCLUDE_COUNTRIES)
 
 def build_html(items_by_section):
     html = '<html><body style="font-family: Georgia, serif; max-width: 700px; margin: 0 auto; padding: 20px;">'
@@ -84,6 +90,9 @@ def main():
                 snippet = entry.get("summary", "")[:200]
                 
                 if any(term in title.lower() for term in EXCLUDE_TERMS):
+                    continue
+                
+                if has_excluded_country(title) or has_excluded_country(snippet):
                     continue
                 
                 h = get_hash(title)
@@ -137,4 +146,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-EOF
