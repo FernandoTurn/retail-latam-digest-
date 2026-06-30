@@ -62,5 +62,69 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Volkswagen_T-Roc_(2021)_1X7A0330.jpg",
     "query": "Volkswagen T-Roc"
+  },
+  "rasnov_fortress": {
+    "title": "Râşnov Citadel (Rosenauer Burg) 01.jpg",
+    "artist": "Pudelek",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:R%C3%A2%C5%9Fnov_Citadel_(Rosenauer_Burg)_01.jpg",
+    "query": "Râșnov Citadel"
+  },
+  "alpine_coaster": {
+    "title": "Cheile Gradistei Fundata - panoramio.jpg",
+    "artist": "Andrei Dan Suciu",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Cheile_Gradistei_Fundata_-_panoramio.jpg",
+    "query": "Cheile Gradistei Fundata"
+  },
+  "dambovicioara": {
+    "title": "Cheile Dambovicioarei-2012.jpg",
+    "artist": "Miehs at Romanian Wikipedia",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "source": "https://commons.wikimedia.org/wiki/File:Cheile_Dambovicioarei-2012.jpg",
+    "query": "Cheile Dambovicioarei"
+  },
+  "ialomita_cave": {
+    "title": "Sfinții Voievozi Monastery inside.jpg",
+    "artist": "Costică Axinte",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "source": "https://commons.wikimedia.org/wiki/File:Sfin%C8%9Bii_Voievozi_Monastery_inside.jpg",
+    "query": "Ialomita Monastery"
+  },
+  "sinaia_cablecar": {
+    "title": "Erebia pronoe Bucegi Cota 2000 Sinaia 2.jpg",
+    "artist": "Xulescu g",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Erebia_pronoe_Bucegi_Cota_2000_Sinaia_2.jpg",
+    "query": "Cota 2000 Sinaia"
+  },
+  "busteni_cablecar": {
+    "title": "Bucegi-Babele.JPG",
+    "artist": "Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Bucegi-Babele.JPG",
+    "query": "Babele Bucegi"
+  },
+  "afi_cotroceni": {
+    "title": "Bucharest Day 4 - AFI Cotroceni (9434236245).jpg",
+    "artist": "Stefan Jurca from Munich, Germany",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Bucharest_Day_4_-_AFI_Cotroceni_(9434236245).jpg",
+    "query": "AFI Palace Cotroceni"
+  },
+  "museum_senses": {
+    "title": "The Museum of Sense from AFI Cotroceni (Bucharest, Bucharest).jpg",
+    "artist": "Neoclassicism Enthusiast",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:The_Museum_of_Sense_from_AFI_Cotroceni_(Bucharest,_Bucharest).jpg",
+    "query": "Museum of Senses Bucharest"
   }
 }
