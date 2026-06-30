@@ -57,7 +57,7 @@ SLOTS = {
     "alpine_coaster": ["Cheile Gradistei Fundata", "Alpine coaster Romania"],
     "dambovicioara":  ["Cheile Dambovicioarei", "Dambovicioara gorge", "Pestera Dambovicioara"],
     "ialomita_cave":  ["Ialomita Monastery", "Pestera Ialomitei", "Ialomita Cave"],
-    "sinaia_cablecar":["Cota 2000 Sinaia", "Telecabina Sinaia", "Sinaia cable car"],
+    "sinaia_cablecar":["Telecabina Sinaia", "Sinaia gondola cable car", "Sinaia Cota 1400"],
     "busteni_cablecar":["Babele Bucegi", "Telecabina Busteni"],
     "afi_cotroceni":  ["AFI Palace Cotroceni", "AFI Cotroceni"],
     "gymboland":      ["Gymboland Bucharest"],
