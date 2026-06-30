@@ -51,6 +51,17 @@ SLOTS = {
     "therme":         ["Therme Bucuresti", "Therme Bucharest", "Aqua park indoor palms"],
     "airplane":       ["El Al Boeing 737", "El Al aircraft", "Boeing 737 takeoff"],
     "car":            ["Volkswagen T-Roc", "VW T-Roc"],
+    # --- atracciones individuales ---
+    "dino_parc":      ["Dino Parc Rasnov", "Dinosaur park Rasnov Romania"],
+    "rasnov_fortress":["Râșnov Citadel", "Cetatea Rasnov", "Rasnov fortress"],
+    "alpine_coaster": ["Cheile Gradistei Fundata", "Alpine coaster Romania"],
+    "dambovicioara":  ["Cheile Dambovicioarei", "Dambovicioara gorge", "Pestera Dambovicioara"],
+    "ialomita_cave":  ["Ialomita Monastery", "Pestera Ialomitei", "Ialomita Cave"],
+    "sinaia_cablecar":["Cota 2000 Sinaia", "Telecabina Sinaia", "Sinaia cable car"],
+    "busteni_cablecar":["Babele Bucegi", "Telecabina Busteni"],
+    "afi_cotroceni":  ["AFI Palace Cotroceni", "AFI Cotroceni"],
+    "gymboland":      ["Gymboland Bucharest"],
+    "museum_senses":  ["Museum of Senses Bucharest"],
 }
 
 FREE_HINTS = ("cc", "public domain", "pd", "no restrictions", "free")

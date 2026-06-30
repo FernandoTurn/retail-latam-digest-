@@ -108,6 +108,23 @@
     header.top h1{font-size:1.3rem}
     .infocard{flex-direction:row}
   }
+  /* Attractions */
+  .attractions{margin-top:6px;display:flex;flex-direction:column;gap:8px}
+  .attr{display:flex;gap:10px;align-items:center;text-decoration:none;color:inherit;
+    border:1px solid var(--line);border-radius:12px;padding:7px;background:#fbfcfd}
+  .attr:active{background:#eef2f7}
+  .attr-photo{flex:0 0 64px;width:64px;height:64px;border-radius:9px;overflow:hidden;
+    background:#dce3ea;position:relative}
+  .attr-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .attr-photo .ph-fallback{position:absolute;inset:0;display:flex;align-items:center;
+    justify-content:center;text-align:center;padding:4px;font-size:.6rem;font-weight:600;
+    color:#43586a;background:linear-gradient(135deg,#eef2f6,#dbe4ec);line-height:1.12}
+  .attr-info{flex:1;min-width:0}
+  .attr-name{font-weight:600;font-size:.95rem;display:flex;align-items:center;gap:5px}
+  .attr-name .ext{opacity:.55;font-size:.85em;flex:0 0 auto}
+  .attr-meta{margin-top:3px;font-size:.8rem;color:var(--muted);
+    display:flex;flex-wrap:wrap;gap:3px 12px}
+  .pricenote{font-size:.74rem;color:var(--muted);margin-top:8px;font-style:italic}
   /* RTL fine-tuning */
   html[dir="rtl"] .langbtn{font-weight:700}
 </style>
@@ -180,6 +197,8 @@ const UI = {
   ret:     {en:"Return", he:"החזרה"},
   by:      {en:"by", he:"מאת"},
   loading: {en:"loading…", he:"טוען…"},
+  priceNote:{en:"Approx. prices (≈5 RON = €1) — check the official sites.",
+             he:"מחירים משוערים (≈5 RON = €1) — בדקו באתרים הרשמיים."},
 };
 
 /* mapsQ: a Google Maps query (place or "lat,lng"). photo: key into /img. */
@@ -204,6 +223,26 @@ const LEGS = [
     lodgingNote:{en:"Check-out Aug 7", he:"עזיבה 7 באוג׳"},
     acts:{en:["Bran Castle","Dino Parc Râșnov + Râșnov fortress","Alpine Coaster at Cheile Grădiștei (Fundata)","Cheile Dâmbovicioarei gorge","Mountain villages"],
           he:["טירת בראן","דינו פארק רשנוב + מבצר רשנוב","רכבת הרים אלפינית בקֵיילה גרדישטיי (פונדטה)","ערוץ קֵיילה דמבוביצ'ואארה","כפרי הרים"]},
+    attr:[
+      {name:{en:"Bran Castle",he:"טירת בראן"}, photo:"bran_castle",
+        url:"https://www.bran-castle.com/",
+        cost:{en:"Adults ≈70 · kids ≈15 RON",he:"מבוגר ≈70 · ילד ≈15 RON"},
+        time:{en:"1.5–2 h",he:"1.5–2 ש׳"}},
+      {name:{en:"Dino Parc Râșnov",he:"דינו פארק רשנוב"}, photo:"dino_parc",
+        url:"https://dinoparc.ro/",
+        cost:{en:"Adults ≈50 · kids ≈40 RON",he:"מבוגר ≈50 · ילד ≈40 RON"},
+        time:{en:"≈2 h",he:"≈2 ש׳"}},
+      {name:{en:"Râșnov Fortress",he:"מבצר רשנוב"}, photo:"rasnov_fortress",
+        maps:"Rasnov Citadel",
+        cost:{en:"≈12 RON",he:"≈12 RON"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
+      {name:{en:"Alpine Coaster — Cheile Grădiștei (Fundata)",he:"רכבת הרים אלפינית — קֵיילה גרדישטיי (פונדטה)"},
+        photo:"alpine_coaster", url:"https://cheilegradistei.ro/",
+        cost:{en:"≈20 RON/ride",he:"≈20 RON/סבב"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
+      {name:{en:"Cheile Dâmbovicioarei gorge + cave",he:"ערוץ ומערת דמבוביצ'ואארה"},
+        photo:"dambovicioara", maps:"Cheile Dambovicioarei",
+        cost:{en:"Cave ≈12 RON · gorge free",he:"מערה ≈12 RON · ערוץ חינם"},
+        time:{en:"1–2 h",he:"1–2 ש׳"}},
+    ],
     veg:{en:"Veggie for Chen: Vila Bran", he:"צמחוני לצ'ן: Vila Bran"},
     mapsQ:"Bran Castle", caption:{en:"Bran Castle",he:"טירת בראן"},
   },
@@ -216,6 +255,18 @@ const LEGS = [
     lodgingNote:{en:"Check-out Aug 9", he:"עזיבה 9 באוג׳"},
     acts:{en:["Ialomița Cave + monastery","Bucegi plateau (Babele, the Sphinx)","Spa & wellness"],
           he:["מערת יאלומיצה + מנזר","מישור בוצֶ'גי (באבלה, הספינקס)","ספא ובריאות"]},
+    attr:[
+      {name:{en:"Ialomița Cave + Monastery",he:"מערת יאלומיצה + מנזר"},
+        photo:"ialomita_cave", maps:"Pestera Ialomitei",
+        cost:{en:"Cave ≈20 RON · monastery free",he:"מערה ≈20 RON · מנזר חינם"},
+        time:{en:"≈1 h",he:"≈1 ש׳"}},
+      {name:{en:"Bucegi plateau — Sphinx & Babele",he:"מישור בוצֶ'גי — הספינקס ובאבלה"},
+        photo:"bucegi", maps:"Babele Bucegi",
+        cost:{en:"Bușteni cable car ≈70 RON",he:"רכבל בושטֶני ≈70 RON"},
+        time:{en:"Half day",he:"חצי יום"}},
+      {name:{en:"Spa & wellness (hotel)",he:"ספא ובריאות (במלון)"},
+        cost:{en:"Included",he:"כלול"}, time:{en:"Relax",he:"רגיעה"}},
+    ],
     mapsQ:"Hotel Pestera Padina Bucegi", caption:{en:"Bucegi Mtns / Sphinx",he:"הרי בוצֶ'גי / הספינקס"},
   },
   {
@@ -227,6 +278,18 @@ const LEGS = [
     lodgingNote:{en:"Check-out Aug 11", he:"עזיבה 11 באוג׳"},
     acts:{en:["Peleș Castle (go Sun Aug 9 — closed Mon/Tue)","Sinaia or Bușteni cable car to Babele / the Sphinx"],
           he:["טירת פלֶש (ללכת א׳ 9 באוג׳ — סגור ב׳/ג׳)","רכבל סינאיה או בושטֶני לבאבלה / הספינקס"]},
+    attr:[
+      {name:{en:"Peleș Castle",he:"טירת פלֶש"}, photo:"peles",
+        url:"https://peles.ro/",
+        cost:{en:"Ground floor ≈60 · kids ≈15 RON",he:"קומת קרקע ≈60 · ילד ≈15 RON"},
+        time:{en:"≈1.5 h · closed Mon/Tue",he:"≈1.5 ש׳ · סגור ב׳/ג׳"}},
+      {name:{en:"Sinaia cable car (Cota 2000)",he:"רכבל סינאיה (קוטה 2000)"},
+        photo:"sinaia_cablecar", maps:"Telecabina Sinaia",
+        cost:{en:"≈50 RON return",he:"≈50 RON הלוך-חזור"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
+      {name:{en:"Bușteni cable car (Babele)",he:"רכבל בושטֶני (באבלה)"},
+        photo:"busteni_cablecar", maps:"Telecabina Busteni",
+        cost:{en:"≈70 RON return",he:"≈70 RON הלוך-חזור"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
+    ],
     veg:{en:"Veggie for Chen: Kuib", he:"צמחוני לצ'ן: Kuib"},
     mapsQ:"Peles Castle Sinaia", caption:{en:"Peleș Castle",he:"טירת פלֶש"},
   },
@@ -239,6 +302,17 @@ const LEGS = [
     lodgingNote:{en:"Check-out Aug 12", he:"עזיבה 12 באוג׳"},
     acts:{en:["Shopping: AFI Cotroceni + Primark","Kids: Gymboland / Museum of Senses"],
           he:["קניות: AFI Cotroceni + Primark","לילדים: Gymboland / מוזיאון החושים"]},
+    attr:[
+      {name:{en:"AFI Cotroceni + Primark",he:"AFI Cotroceni + Primark"},
+        photo:"afi_cotroceni", url:"https://www.aficotroceni.ro/",
+        cost:{en:"Free entry",he:"כניסה חינם"}, time:{en:"2–3 h",he:"2–3 ש׳"}},
+      {name:{en:"Gymboland (kids)",he:"Gymboland (לילדים)"},
+        photo:"gymboland", url:"https://gymboland.ro/",
+        cost:{en:"≈40 RON/kid",he:"≈40 RON/ילד"}, time:{en:"1–2 h",he:"1–2 ש׳"}},
+      {name:{en:"Museum of Senses",he:"מוזיאון החושים"},
+        photo:"museum_senses", url:"https://museumofsenses.ro/",
+        cost:{en:"≈50 · kids ≈40 RON",he:"≈50 · ילד ≈40 RON"}, time:{en:"1–1.5 h",he:"1–1.5 ש׳"}},
+    ],
     mapsQ:"AFI Cotroceni Bucharest", caption:{en:"Bucharest old town",he:"העיר העתיקה של בוקרשט"},
   },
   {
@@ -250,6 +324,12 @@ const LEGS = [
     lodgingNote:null,
     acts:{en:["Therme București (Galaxy area)","Relax before the flight home"],
           he:["ת'רמה בוקרשט (אזור Galaxy)","רגיעה לפני הטיסה הביתה"]},
+    attr:[
+      {name:{en:"Therme București (Galaxy)",he:"ת'רמה בוקרשט (Galaxy)"},
+        photo:"therme", url:"https://therme.ro/",
+        cost:{en:"From ≈69 RON",he:"החל מ-≈69 RON"},
+        time:{en:"Half / full day",he:"חצי / יום שלם"}},
+    ],
     mapsQ:"Therme Bucuresti", caption:{en:"Water park",he:"פארק מים"},
   },
   {
@@ -317,6 +397,22 @@ function attachFallbacks(){
   });
 }
 
+// One attraction row: photo + name (link) + cost + visit time.
+function attrItem(a, lang){
+  const href = a.url ? a.url : mapsUrl(a.maps || a.name.en);
+  const thumb = a.photo
+    ? '<img src="img/'+a.photo+'.jpg" alt="'+esc(a.name[lang])+'" loading="lazy" data-fb="'+esc(a.name[lang])+'">'
+    : '<div class="ph-fallback">'+esc(a.name[lang])+'</div>';
+  const ext = a.url ? '<span class="ext">↗</span>' : '<span class="ext">'+pinIcon()+'</span>';
+  return '<a class="attr" href="'+href+'" target="_blank" rel="noopener">'+
+    '<span class="attr-photo">'+thumb+'</span>'+
+    '<span class="attr-info">'+
+      '<span class="attr-name">'+esc(a.name[lang])+ext+'</span>'+
+      '<span class="attr-meta"><span>💶 '+esc(a.cost[lang])+'</span>'+
+        '<span>⏱️ '+esc(a.time[lang])+'</span></span>'+
+    '</span></a>';
+}
+
 function legCard(leg, lang){
   const st = leg.status;
   const badge = '<span class="badge '+st+'">'+esc((st==="g"?UI.badgeBooked:UI.badgeNot)[lang])+'</span>';
@@ -335,9 +431,15 @@ function legCard(leg, lang){
   if(leg.conf) html += '<div class="conf">'+esc(UI.conf[lang])+' <code>'+esc(leg.conf)+'</code></div>';
   if(leg.lodgingNote) html += '<div class="conf">'+esc(leg.lodgingNote[lang])+'</div>';
   html += '</div>';
-  // activities
-  html += '<div class="block"><div class="lbl">📍 '+esc(UI.acts[lang])+'</div><ul class="acts">'+
-          leg.acts[lang].map(a=>'<li>'+esc(a)+'</li>').join("")+'</ul></div>';
+  // activities / attractions
+  html += '<div class="block"><div class="lbl">📍 '+esc(UI.acts[lang])+'</div>';
+  if(leg.attr){
+    html += '<div class="attractions">'+leg.attr.map(a=>attrItem(a,lang)).join("")+'</div>'+
+            '<div class="pricenote">'+esc(UI.priceNote[lang])+'</div>';
+  } else {
+    html += '<ul class="acts">'+leg.acts[lang].map(a=>'<li>'+esc(a)+'</li>').join("")+'</ul>';
+  }
+  html += '</div>';
   if(leg.veg) html += '<div class="note veg">'+esc(leg.veg[lang])+'</div>';
   html += '</div></div>';
   return html;
@@ -353,7 +455,12 @@ function carCard(lang){
 }
 
 function renderCredits(lang){
-  const order = LEGS.map(l=>l.key).concat([CAR.key]);
+  const order = [];
+  LEGS.forEach(l=>{
+    order.push(l.key);
+    (l.attr||[]).forEach(a=>{ if(a.photo) order.push(a.photo); });
+  });
+  order.push(CAR.key);
   const seen = new Set();
   const rows = [];
   for(const key of order){
