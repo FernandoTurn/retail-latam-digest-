@@ -1,0 +1,55 @@
+name: Build Romania trip photos
+
+# Descarga las fotos reales de Wikimedia Commons (el runner si tiene acceso),
+# las redimensiona con Pillow y las commitea en romania/img/. El sitio se sirve
+# por GitHub Pages desde la raiz de la rama (no necesita un deploy aparte).
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - "build_images.py"
+      - "romania/index.html"
+      - ".github/workflows/romania-images.yml"
+      # NO incluimos romania/img/** a proposito: asi el commit de fotos
+      # que hace este workflow no vuelve a dispararlo (evita un loop).
+
+permissions:
+  contents: write
+
+concurrency:
+  group: romania-images
+  cancel-in-progress: false
+
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Pillow
+        run: pip install Pillow
+
+      - name: Fetch & resize photos from Wikimedia Commons
+        run: python build_images.py
+
+      - name: Commit photos if they changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add romania/img
+          if git diff --cached --quiet; then
+            echo "Sin cambios en las fotos."
+          else
+            git commit -m "Update Romania trip photos [skip ci]"
+            git push
+          fi

@@ -24,7 +24,7 @@ import urllib.request
 from PIL import Image
 
 API = "https://commons.wikimedia.org/w/api.php"
-OUT_DIR = os.path.join(os.path.dirname(__file__), "docs", "img")
+OUT_DIR = os.path.join(os.path.dirname(__file__), "romania", "img")
 USER_AGENT = "RomaniaTripSite/1.0 (static GitHub Pages site; contact via repo)"
 
 MAX_WIDTH = 1100          # ancho maximo del JPG final

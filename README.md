@@ -5,11 +5,11 @@ This repo contains two independent things:
 1. **Daily retail digest** — `build.py` + `.github/workflows/digest.yml` (the
    original newsletter, unchanged).
 2. **Romania trip site** — a single-page, shareable site published to GitHub
-   Pages from [`docs/`](docs/).
+   Pages at the [`/romania/`](romania/) path.
 
 ## Romania trip site
 
-A self-contained `docs/index.html` (CSS + JS embedded, no external
+A self-contained `romania/index.html` (CSS + JS embedded, no external
 dependencies) with the family's August 2026 Romania road-trip plan:
 
 - **EN / עברית** language toggle (Hebrew is RTL); the choice is remembered
@@ -21,20 +21,21 @@ dependencies) with the family's August 2026 Romania road-trip plan:
   footer with each photo's license attribution.
 - Photos are real images from **Wikimedia Commons** (free licenses), fetched
   and resized by [`build_images.py`](build_images.py) and served locally from
-  `docs/img/` (no hotlinking).
+  `romania/img/` (no hotlinking).
 
 ### Publish to GitHub Pages
 
-Deployment is handled by `.github/workflows/pages.yml`, which downloads the
-photos, resizes them, and deploys `docs/`.
+The site is served by GitHub Pages straight from the **default branch root**
+(the same setup that publishes the retail newsletter at `/`):
 
-1. Push the branch (see commands below).
-2. In the repo: **Settings → Pages → Build and deployment → Source =
-   GitHub Actions**.
-3. The workflow runs on pushes to `master` / `main` (and can be triggered
-   manually from the **Actions** tab via *Run workflow*). The site URL appears
-   in the workflow's **deploy** job summary, typically
-   `https://<user>.github.io/retail-latam-digest-/`.
+- **Newsletter** → `https://<user>.github.io/retail-latam-digest-/`
+- **Romania trip** → `https://<user>.github.io/retail-latam-digest-/romania/`
 
-> GitHub Pages deploys from the repository's **default branch**. Merge this
-> branch into the default branch (or run the workflow manually) to publish.
+So nothing special is needed to publish — just keep Pages on
+**Settings → Pages → Deploy from a branch → `master` / `(root)`**.
+
+The photos live in `romania/img/` and are produced by
+`.github/workflows/romania-images.yml`: on a push that touches
+`build_images.py` / `romania/index.html` (or via **Actions → Run workflow**),
+it downloads + resizes the images on the runner and commits them back to the
+branch, where Pages serves them.
