@@ -18,6 +18,7 @@ import os
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -25,7 +26,14 @@ from PIL import Image
 
 API = "https://commons.wikimedia.org/w/api.php"
 OUT_DIR = os.path.join(os.path.dirname(__file__), "romania", "img")
-USER_AGENT = "RomaniaTripSite/1.0 (static GitHub Pages site; contact via repo)"
+# Wikimedia pide un User-Agent descriptivo con contacto; los genericos desde
+# IPs de cloud (runners) se rate-limitean al toque.
+USER_AGENT = ("RomaniaTripSite/1.0 "
+              "(https://github.com/FernandoTurn/retail-latam-digest-; "
+              "turn.fernando@gmail.com)")
+
+MAX_RETRIES = 6          # reintentos por request ante 429 / errores transitorios
+REQUEST_PAUSE = 1.5      # pausa base entre requests (cortesia con Wikimedia)
 
 MAX_WIDTH = 1100          # ancho maximo del JPG final
 JPEG_QUALITY = 80         # calidad de compresion
@@ -49,9 +57,38 @@ FREE_HINTS = ("cc", "public domain", "pd", "no restrictions", "free")
 
 
 def http_get(url):
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return r.read()
+    """GET con reintentos y backoff que respeta Retry-After ante HTTP 429."""
+    last_err = None
+    for attempt in range(MAX_RETRIES):
+        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                data = r.read()
+            time.sleep(REQUEST_PAUSE)        # cortesia entre requests exitosos
+            return data
+        except urllib.error.HTTPError as e:
+            last_err = e
+            if e.code == 429 or 500 <= e.code < 600:
+                # respeta Retry-After si viene; sino backoff exponencial
+                ra = e.headers.get("Retry-After") if e.headers else None
+                try:
+                    wait = int(ra) if ra else 0
+                except ValueError:
+                    wait = 0
+                wait = max(wait, 2 ** (attempt + 1))   # 2,4,8,16,32,64
+                wait = min(wait, 60)
+                print(f"  . {e.code} en {url[:60]}…; espero {wait}s "
+                      f"(intento {attempt+1}/{MAX_RETRIES})", file=sys.stderr)
+                time.sleep(wait)
+                continue
+            raise
+        except (urllib.error.URLError, TimeoutError) as e:
+            last_err = e
+            wait = min(2 ** (attempt + 1), 60)
+            print(f"  . error de red en {url[:60]}…; espero {wait}s "
+                  f"(intento {attempt+1}/{MAX_RETRIES})", file=sys.stderr)
+            time.sleep(wait)
+    raise last_err if last_err else RuntimeError("http_get agoto reintentos")
 
 
 def strip_html(s):
