@@ -14,5 +14,53 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
     "source": "https://commons.wikimedia.org/wiki/File:Bran_castle_courtyard_round_tower.jpg",
     "query": "Bran Castle"
+  },
+  "bucegi": {
+    "title": "Bucegi Sphinx - Romania - July 2009.jpg",
+    "artist": "Radu Privantu",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Bucegi_Sphinx_-_Romania_-_July_2009.jpg",
+    "query": "Sphinx Bucegi"
+  },
+  "peles": {
+    "title": "Castle Peleş in 2009.jpg",
+    "artist": "Pudelek (Marcin Szala)",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Castle_Pele%C5%9F_in_2009.jpg",
+    "query": "Peles Castle"
+  },
+  "bucharest_old": {
+    "title": "36, Strada Lipscani, Bucharest (Romania).jpg",
+    "artist": "Neoclassicism Enthusiast",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:36,_Strada_Lipscani,_Bucharest_(Romania).jpg",
+    "query": "Lipscani Bucharest"
+  },
+  "therme": {
+    "title": "ThermeBucuresti.jpg",
+    "artist": "Daniele Napolitano",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:ThermeBucuresti.jpg",
+    "query": "Therme Bucuresti"
+  },
+  "airplane": {
+    "title": "Gear Actuation-Boeing-737-800 EL-AL approaching VIE-DSC 3259w.jpg",
+    "artist": "Peter Haas",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Gear_Actuation-Boeing-737-800_EL-AL_approaching_VIE-DSC_3259w.jpg",
+    "query": "El Al Boeing 737"
+  },
+  "car": {
+    "title": "Volkswagen T-Roc (2021) 1X7A0330.jpg",
+    "artist": "Alexander Migl",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Volkswagen_T-Roc_(2021)_1X7A0330.jpg",
+    "query": "Volkswagen T-Roc"
   }
 }
