@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5132">
+<title>Romania Trip — Aug 2026</title>
+<meta name="description" content="Family road-trip plan through Romania, August 2026.">
+<style>
+  :root{
+    --green:#1a7f4b; --green-bg:#e7f6ec; --green-line:#9ed8b5;
+    --amber:#b9770e; --amber-bg:#fdf3e1; --amber-line:#f0cd86;
+    --ink:#1f2733; --muted:#5d6b7a; --line:#e3e8ee; --bg:#f5f7fa;
+    --card:#ffffff; --accent:#0f5132; --radius:16px;
+    --shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+      "Noto Sans Hebrew","Arial Hebrew",sans-serif;
+    color:var(--ink); background:var(--bg); line-height:1.5;
+    -webkit-text-size-adjust:100%;
+  }
+  a{color:var(--accent)}
+  .wrap{max-width:760px;margin:0 auto;padding:16px 16px 56px}
+  /* Header */
+  header.top{
+    background:linear-gradient(135deg,#0f5132,#15803d);
+    color:#fff;border-radius:var(--radius);padding:20px 18px;box-shadow:var(--shadow);
+    position:relative;overflow:hidden;
+  }
+  header.top h1{margin:0 0 4px;font-size:1.5rem;letter-spacing:.2px}
+  header.top .sub{opacity:.92;font-size:.95rem}
+  header.top .meta{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}
+  .pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);
+    padding:3px 10px;border-radius:999px;font-size:.8rem;white-space:nowrap}
+  .langbtn{
+    position:absolute;top:14px;inset-inline-end:14px;
+    background:#fff;color:#0f5132;border:0;border-radius:999px;
+    padding:7px 14px;font-weight:700;font-size:.85rem;cursor:pointer;
+    box-shadow:0 2px 6px rgba(0,0,0,.2);
+  }
+  .langbtn:active{transform:scale(.97)}
+  /* Legend */
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin:16px 2px 4px;font-size:.85rem;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .dot.g{background:var(--green)} .dot.a{background:var(--amber)}
+  /* Drive segment */
+  .drive{display:flex;align-items:center;gap:8px;color:var(--muted);
+    font-size:.85rem;margin:14px 0 14px 6px}
+  .drive svg{flex:0 0 auto}
+  /* Cards */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden;margin:0}
+  .card .photo{display:block;position:relative;background:#dce3ea;aspect-ratio:16/9}
+  .card .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .card .photo .ph-fallback{position:absolute;inset:0;display:flex;align-items:center;
+    justify-content:center;text-align:center;padding:14px;color:#43586a;
+    background:linear-gradient(135deg,#eef2f6,#dbe4ec);font-weight:600;font-size:.95rem}
+  .card .photo .map-tag{position:absolute;inset-inline-start:10px;bottom:10px;
+    background:rgba(15,23,32,.78);color:#fff;font-size:.74rem;font-weight:600;
+    padding:5px 9px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;
+    backdrop-filter:blur(2px)}
+  .card .body{padding:14px 16px 16px}
+  .card .head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .card .when{font-size:.8rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+  .card h2{margin:2px 0 0;font-size:1.18rem}
+  .badge{flex:0 0 auto;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:999px;
+    border:1px solid;white-space:nowrap}
+  .badge.g{color:var(--green);background:var(--green-bg);border-color:var(--green-line)}
+  .badge.a{color:var(--amber);background:var(--amber-bg);border-color:var(--amber-line)}
+  .card.g{border-top:4px solid var(--green)}
+  .card.a{border-top:4px solid var(--amber)}
+  .block{margin-top:12px}
+  .block .lbl{font-size:.72rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+    color:var(--muted);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+  .lodging{font-weight:600}
+  .conf{font-size:.8rem;color:var(--muted)}
+  .conf code{background:#f0f3f7;border-radius:5px;padding:1px 6px;font-size:.92em}
+  ul.acts{margin:4px 0 0;padding-inline-start:18px}
+  ul.acts li{margin:2px 0}
+  .note{margin-top:10px;font-size:.83rem;background:var(--green-bg);border:1px solid var(--green-line);
+    color:#155d36;border-radius:10px;padding:8px 10px}
+  .note.veg::before{content:"🥗 "}
+  /* Car card */
+  .infocard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:14px 16px;margin-top:14px;display:flex;gap:14px;align-items:center}
+  .infocard .ic-photo{flex:0 0 96px;width:96px;height:72px;border-radius:10px;overflow:hidden;
+    background:#dce3ea;position:relative}
+  .infocard .ic-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .infocard .ic-photo .ph-fallback{position:absolute;inset:0;display:flex;align-items:center;
+    justify-content:center;font-size:1.6rem}
+  .infocard h3{margin:0 0 3px;font-size:1.02rem}
+  .infocard .det{font-size:.84rem;color:var(--muted)}
+  .sectionlabel{margin:26px 4px 2px;font-size:.78rem;font-weight:700;letter-spacing:.6px;
+    text-transform:uppercase;color:var(--muted)}
+  /* Footer */
+  footer{margin-top:30px;border-top:1px solid var(--line);padding-top:16px;
+    font-size:.78rem;color:var(--muted)}
+  footer h4{margin:0 0 8px;font-size:.82rem;color:var(--ink)}
+  footer ul{margin:0;padding-inline-start:16px}
+  footer li{margin:3px 0}
+  footer a{color:var(--muted);text-decoration:underline}
+  .stack{display:flex;flex-direction:column;gap:14px}
+  @media (max-width:430px){
+    header.top h1{font-size:1.3rem}
+    .infocard{flex-direction:row}
+  }
+  /* RTL fine-tuning */
+  html[dir="rtl"] .langbtn{font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <button class="langbtn" id="langbtn" type="button" aria-label="Switch language">עברית</button>
+    <h1 id="t-title">Romania Family Trip</h1>
+    <div class="sub" id="t-sub">2–13 August 2026</div>
+    <div class="meta">
+      <span class="pill" id="t-fam">Fernando, Chen, Ari &amp; Omer (7–8)</span>
+      <span class="pill" id="t-night">No night driving</span>
+    </div>
+  </header>
+
+  <div class="legend">
+    <span><span class="dot g"></span><b id="t-leg-g">Booked</b></span>
+    <span><span class="dot a"></span><b id="t-leg-a">Not booked</b></span>
+    <span id="t-leg-hint">Tap a photo to open the map</span>
+  </div>
+
+  <div class="sectionlabel" id="t-sec-trip">Itinerary</div>
+  <div class="stack" id="itinerary"></div>
+
+  <div class="sectionlabel" id="t-sec-car">Car rental</div>
+  <div id="car"></div>
+
+  <footer>
+    <h4 id="t-cred-title">Photo credits</h4>
+    <div id="credits"></div>
+    <p id="t-cred-note" style="margin-top:10px">
+      All photos are from Wikimedia Commons under free licenses, downloaded and
+      resized, and served locally from <code>/img</code> (no hotlinking).
+    </p>
+  </footer>
+
+</div>
+
+<script>
+/* ----------------------------------------------------------------------------
+   All content lives here as {en, he} pairs so the page renders in either
+   language from one source. Hebrew (he) is RTL.
+---------------------------------------------------------------------------- */
+const UI = {
+  title:   {en:"Romania Family Trip", he:"טיול משפחתי ברומניה"},
+  sub:     {en:"2–13 August 2026", he:"2–13 באוגוסט 2026"},
+  fam:     {en:"Fernando, Chen, Ari & Omer (7–8)", he:"פרננדו, צ'ן, ארי ועומר (בני 7–8)"},
+  night:   {en:"No night driving", he:"לא נוהגים בלילה"},
+  legBooked:   {en:"Booked", he:"הוזמן"},
+  legNot:      {en:"Not booked", he:"לא הוזמן"},
+  legHint:     {en:"Tap a photo to open the map", he:"לחצו על תמונה לפתיחת המפה"},
+  secTrip: {en:"Itinerary", he:"מסלול"},
+  secCar:  {en:"Car rental", he:"השכרת רכב"},
+  lodging: {en:"Stay", he:"לינה"},
+  acts:    {en:"Activities", he:"פעילויות"},
+  conf:    {en:"Conf.", he:"אישור"},
+  checkout:{en:"Check-out", he:"עזיבה"},
+  nights:  {en:"nights", he:"לילות"},
+  night1:  {en:"night", he:"לילה"},
+  mapcta:  {en:"Open in Maps", he:"פתיחה במפות"},
+  drive:   {en:"Drive", he:"נסיעה"},
+  credTitle:{en:"Photo credits", he:"קרדיט לתמונות"},
+  credNote:{en:"All photos are from Wikimedia Commons under free licenses, downloaded and resized, and served locally from /img (no hotlinking).",
+            he:"כל התמונות מ-Wikimedia Commons תחת רישיונות חופשיים, הורדו והוקטנו, ומוגשות מקומית מתוך /img (ללא קישור חיצוני)."},
+  badgeBooked:{en:"Booked", he:"הוזמן"},
+  badgeNot:{en:"Not booked", he:"לא הוזמן"},
+  pickup:  {en:"Pick-up", he:"איסוף"},
+  ret:     {en:"Return", he:"החזרה"},
+  by:      {en:"by", he:"מאת"},
+  loading: {en:"loading…", he:"טוען…"},
+};
+
+/* mapsQ: a Google Maps query (place or "lat,lng"). photo: key into /img. */
+const LEGS = [
+  {
+    key:"bucharest", status:"g",
+    when:{en:"Sun 2 Aug · 1 night", he:"א׳ 2 באוג׳ · לילה 1"},
+    place:{en:"Bucharest / Otopeni", he:"בוקרשט / אוטופני"},
+    lodging:{en:"Ramada by Wyndham", he:"Ramada by Wyndham"},
+    conf:"92104EE034749",
+    lodgingNote:{en:"Check-out Aug 3", he:"עזיבה 3 באוג׳"},
+    acts:{en:["Arrival evening near the airport","Easy start before heading to the mountains"],
+          he:["ערב הגעה ליד שדה התעופה","התחלה רגועה לפני העלייה להרים"]},
+    mapsQ:"Ramada by Wyndham Bucharest North", caption:{en:"Bucharest",he:"בוקרשט"},
+  },
+  {
+    key:"bran_castle", status:"g", drive:{en:"Otopeni → Bran · ~2.5–3 h",he:"אוטופני → בראן · ~2.5–3 ש׳"},
+    when:{en:"3–6 Aug · 4 nights", he:"3–6 באוג׳ · 4 לילות"},
+    place:{en:"Bran / Sohodol", he:"בראן / סוהודול"},
+    lodging:{en:"Kapa Chalet — kitchen, jacuzzi, A/C", he:"Kapa Chalet — מטבח, ג'קוזי, מיזוג"},
+    conf:null,
+    lodgingNote:{en:"Check-out Aug 7", he:"עזיבה 7 באוג׳"},
+    acts:{en:["Bran Castle","Dino Parc Râșnov + Râșnov fortress","Alpine Coaster at Cheile Grădiștei (Fundata)","Cheile Dâmbovicioarei gorge","Mountain villages"],
+          he:["טירת בראן","דינו פארק רשנוב + מבצר רשנוב","רכבת הרים אלפינית בקֵיילה גרדישטיי (פונדטה)","ערוץ קֵיילה דמבוביצ'ואארה","כפרי הרים"]},
+    veg:{en:"Veggie for Chen: Vila Bran", he:"צמחוני לצ'ן: Vila Bran"},
+    mapsQ:"Bran Castle", caption:{en:"Bran Castle",he:"טירת בראן"},
+  },
+  {
+    key:"bucegi", status:"g", drive:{en:"Bran → Peștera-Padina · ~1–1.5 h (mountain)",he:"בראן → פשטרה-פדינה · ~1–1.5 ש׳ (הרים)"},
+    when:{en:"7–8 Aug · 2 nights", he:"7–8 באוג׳ · 2 לילות"},
+    place:{en:"Bucegi / Peștera-Padina", he:"בוצֶ'גי / פשטרה-פדינה"},
+    lodging:{en:"Hotel Peștera Wellness & Spa ⭐⭐⭐⭐⭐ — spa + breakfast", he:"Hotel Peștera Wellness & Spa ⭐⭐⭐⭐⭐ — ספא + ארוחת בוקר"},
+    conf:"573846176",
+    lodgingNote:{en:"Check-out Aug 9", he:"עזיבה 9 באוג׳"},
+    acts:{en:["Ialomița Cave + monastery","Bucegi plateau (Babele, the Sphinx)","Spa & wellness"],
+          he:["מערת יאלומיצה + מנזר","מישור בוצֶ'גי (באבלה, הספינקס)","ספא ובריאות"]},
+    mapsQ:"Hotel Pestera Padina Bucegi", caption:{en:"Bucegi Mtns / Sphinx",he:"הרי בוצֶ'גי / הספינקס"},
+  },
+  {
+    key:"peles", status:"a", drive:{en:"Peștera → Sinaia · ~2 h",he:"פשטרה → סינאיה · ~2 ש׳"},
+    when:{en:"9–10 Aug · 2 nights", he:"9–10 באוג׳ · 2 לילות"},
+    place:{en:"Sinaia", he:"סינאיה"},
+    lodging:{en:"Not booked yet — need kitchen + A/C", he:"עדיין לא הוזמן — צריך מטבח + מיזוג"},
+    conf:null,
+    lodgingNote:{en:"Check-out Aug 11", he:"עזיבה 11 באוג׳"},
+    acts:{en:["Peleș Castle (go Sun Aug 9 — closed Mon/Tue)","Sinaia or Bușteni cable car to Babele / the Sphinx"],
+          he:["טירת פלֶש (ללכת א׳ 9 באוג׳ — סגור ב׳/ג׳)","רכבל סינאיה או בושטֶני לבאבלה / הספינקס"]},
+    veg:{en:"Veggie for Chen: Kuib", he:"צמחוני לצ'ן: Kuib"},
+    mapsQ:"Peles Castle Sinaia", caption:{en:"Peleș Castle",he:"טירת פלֶש"},
+  },
+  {
+    key:"bucharest_old", status:"a", drive:{en:"Sinaia → Bucharest · ~2 h",he:"סינאיה → בוקרשט · ~2 ש׳"},
+    when:{en:"11 Aug · 1 night", he:"11 באוג׳ · לילה 1"},
+    place:{en:"Bucharest", he:"בוקרשט"},
+    lodging:{en:"Not booked yet — 4★+ hotel with A/C", he:"עדיין לא הוזמן — מלון 4★+ עם מיזוג"},
+    conf:null,
+    lodgingNote:{en:"Check-out Aug 12", he:"עזיבה 12 באוג׳"},
+    acts:{en:["Shopping: AFI Cotroceni + Primark","Kids: Gymboland / Museum of Senses"],
+          he:["קניות: AFI Cotroceni + Primark","לילדים: Gymboland / מוזיאון החושים"]},
+    mapsQ:"AFI Cotroceni Bucharest", caption:{en:"Bucharest old town",he:"העיר העתיקה של בוקרשט"},
+  },
+  {
+    key:"therme", status:"g",
+    when:{en:"12 Aug · 1 night", he:"12 באוג׳ · לילה 1"},
+    place:{en:"Bucharest", he:"בוקרשט"},
+    lodging:{en:"Ramada by Wyndham", he:"Ramada by Wyndham"},
+    conf:"92104EE034750",
+    lodgingNote:null,
+    acts:{en:["Therme București (Galaxy area)","Relax before the flight home"],
+          he:["ת'רמה בוקרשט (אזור Galaxy)","רגיעה לפני הטיסה הביתה"]},
+    mapsQ:"Therme Bucuresti", caption:{en:"Water park",he:"פארק מים"},
+  },
+  {
+    key:"airplane", status:"g", flight:true,
+    when:{en:"Thu 13 Aug", he:"ה׳ 13 באוג׳"},
+    place:{en:"Fly home: OTP → TLV", he:"טיסה הביתה: OTP → TLV"},
+    lodging:{en:"EL AL · departs 12:30", he:"אל על · המראה 12:30"},
+    conf:"XAEK28",
+    lodgingNote:null,
+    acts:{en:["Drop the car at Otopeni (return Aug 12, 10:30)","Henri Coandă Intl (OTP)"],
+          he:["החזרת הרכב באוטופני (החזרה 12 באוג׳, 10:30)","נמל התעופה אנרי קואנדה (OTP)"]},
+    mapsQ:"Henri Coanda International Airport Otopeni", caption:{en:"Departure",he:"המראה"},
+  },
+];
+
+const CAR = {
+  key:"car",
+  title:{en:"VW T-Roc or similar", he:"פולקסווגן T-Roc או דומה"},
+  det:{
+    en:"Automatic · 5 seats · Klass Wagen · Conf. B24612852 · Pick-up Aug 3, 10:30 · Return Aug 12, 10:30 · Otopeni",
+    he:"אוטומט · 5 מקומות · Klass Wagen · אישור B24612852 · איסוף 3 באוג׳ 10:30 · החזרה 12 באוג׳ 10:30 · אוטופני"
+  },
+  mapsQ:"Klass Wagen Otopeni Bucharest Airport",
+};
+
+let CREDITS = {};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const mapsUrl = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+
+function driveIcon(){
+  return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" '+
+    'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+
+    '<path d="M5 16l-1.5-5A2 2 0 0 1 5.4 8.5h13.2A2 2 0 0 1 20.5 11L19 16"/>'+
+    '<circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>';
+}
+function pinIcon(){
+  return '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">'+
+    '<path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>';
+}
+
+function photoBlock(key, mapsQ, caption, lang){
+  // <a> wraps img; if the image is missing the fallback is added in attachFallbacks()
+  return '<a class="photo" href="'+mapsUrl(mapsQ)+'" target="_blank" rel="noopener" '+
+    'aria-label="'+esc(caption[lang])+' — '+esc(UI.mapcta[lang])+'">'+
+    '<img src="img/'+key+'.jpg" alt="'+esc(caption[lang])+'" loading="lazy" '+
+    'data-fb="'+esc(caption[lang])+'">'+
+    '<span class="map-tag">'+pinIcon()+' '+esc(UI.mapcta[lang])+'</span>'+
+  '</a>';
+}
+
+// Replace any image that fails to load with a styled caption fallback.
+function attachFallbacks(){
+  document.querySelectorAll("img[data-fb]").forEach(img=>{
+    const show = ()=>{
+      if(img.dataset.done) return; img.dataset.done="1";
+      img.style.display="none";
+      const d=document.createElement("div");
+      d.className="ph-fallback";
+      d.textContent=img.dataset.fb;
+      img.insertAdjacentElement("afterend", d);
+    };
+    img.addEventListener("error", show);
+    if(img.complete && img.naturalWidth===0) show();   // already failed (e.g. cached)
+  });
+}
+
+function legCard(leg, lang){
+  const st = leg.status;
+  const badge = '<span class="badge '+st+'">'+esc((st==="g"?UI.badgeBooked:UI.badgeNot)[lang])+'</span>';
+  let html = "";
+  if(leg.drive){
+    html += '<div class="drive">'+driveIcon()+'<span><b>'+esc(UI.drive[lang])+':</b> '+esc(leg.drive[lang])+'</span></div>';
+  }
+  html += '<div class="card '+st+'">';
+  html += photoBlock(leg.key, leg.mapsQ, leg.caption, lang);
+  html += '<div class="body">';
+  html += '<div class="head"><div><div class="when">'+esc(leg.when[lang])+'</div>'+
+          '<h2>'+esc(leg.place[lang])+'</h2></div>'+badge+'</div>';
+  // stay
+  html += '<div class="block"><div class="lbl">🏨 '+esc(UI.lodging[lang])+'</div>'+
+          '<div class="lodging">'+esc(leg.lodging[lang])+'</div>';
+  if(leg.conf) html += '<div class="conf">'+esc(UI.conf[lang])+' <code>'+esc(leg.conf)+'</code></div>';
+  if(leg.lodgingNote) html += '<div class="conf">'+esc(leg.lodgingNote[lang])+'</div>';
+  html += '</div>';
+  // activities
+  html += '<div class="block"><div class="lbl">📍 '+esc(UI.acts[lang])+'</div><ul class="acts">'+
+          leg.acts[lang].map(a=>'<li>'+esc(a)+'</li>').join("")+'</ul></div>';
+  if(leg.veg) html += '<div class="note veg">'+esc(leg.veg[lang])+'</div>';
+  html += '</div></div>';
+  return html;
+}
+
+function carCard(lang){
+  return '<div class="infocard">'+
+    '<a class="ic-photo" href="'+mapsUrl(CAR.mapsQ)+'" target="_blank" rel="noopener" aria-label="'+esc(UI.mapcta[lang])+'">'+
+      '<img src="img/'+CAR.key+'.jpg" alt="'+esc(CAR.title[lang])+'" loading="lazy" data-fb="🚗">'+
+    '</a>'+
+    '<div><h3>'+esc(CAR.title[lang])+'</h3><div class="det">'+esc(CAR.det[lang])+'</div></div>'+
+  '</div>';
+}
+
+function renderCredits(lang){
+  const order = LEGS.map(l=>l.key).concat([CAR.key]);
+  const seen = new Set();
+  const rows = [];
+  for(const key of order){
+    if(seen.has(key)) continue; seen.add(key);
+    const c = CREDITS[key];
+    if(!c){ continue; }
+    const lic = c.licenseUrl
+      ? '<a href="'+esc(c.licenseUrl)+'" target="_blank" rel="noopener">'+esc(c.license||"free license")+'</a>'
+      : esc(c.license||"free license");
+    const src = c.source ? ' · <a href="'+esc(c.source)+'" target="_blank" rel="noopener">Wikimedia Commons</a>' : '';
+    rows.push('<li><b>'+esc(c.title||key)+'</b> — '+esc(UI.by[lang])+' '+esc(c.artist||"—")+' · '+lic+src+'</li>');
+  }
+  $("#credits").innerHTML = rows.length
+    ? '<ul>'+rows.join("")+'</ul>'
+    : '<p>'+esc(UI.loading[lang])+'</p>';
+}
+
+function setText(){
+  const lang = document.documentElement.lang === "he" ? "he":"en";
+  document.documentElement.dir = lang==="he" ? "rtl":"ltr";
+  $("#t-title").textContent = UI.title[lang];
+  $("#t-sub").textContent   = UI.sub[lang];
+  $("#t-fam").textContent   = UI.fam[lang];
+  $("#t-night").textContent = UI.night[lang];
+  $("#t-leg-g").textContent = UI.legBooked[lang];
+  $("#t-leg-a").textContent = UI.legNot[lang];
+  $("#t-leg-hint").textContent = UI.legHint[lang];
+  $("#t-sec-trip").textContent = UI.secTrip[lang];
+  $("#t-sec-car").textContent  = UI.secCar[lang];
+  $("#t-cred-title").textContent = UI.credTitle[lang];
+  $("#t-cred-note").textContent  = UI.credNote[lang];
+  $("#langbtn").textContent = lang==="he" ? "English":"עברית";
+  document.title = UI.title[lang] + " — Aug 2026";
+  $("#itinerary").innerHTML = LEGS.map(l=>legCard(l,lang)).join("");
+  $("#car").innerHTML = carCard(lang);
+  attachFallbacks();
+  renderCredits(lang);
+}
+
+function setLang(lang){
+  document.documentElement.lang = lang;
+  try{ localStorage.setItem("trip-lang", lang); }catch(e){}
+  setText();
+}
+
+document.getElementById("langbtn").addEventListener("click",()=>{
+  setLang(document.documentElement.lang==="he" ? "en":"he");
+});
+
+(function init(){
+  let lang = "en";
+  try{ lang = localStorage.getItem("trip-lang") || "en"; }catch(e){}
+  document.documentElement.lang = lang;
+  setText();
+  // Load photo credits written by build_images.py (present after deploy).
+  fetch("img/credits.json",{cache:"no-store"})
+    .then(r=>r.ok?r.json():{})
+    .then(j=>{ CREDITS=j||{}; renderCredits(document.documentElement.lang==="he"?"he":"en"); })
+    .catch(()=>{});
+})();
+</script>
+</body>
+</html>

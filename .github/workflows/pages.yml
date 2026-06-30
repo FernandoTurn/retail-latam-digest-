@@ -1,0 +1,65 @@
+name: Deploy Romania trip site to Pages
+
+# Descarga las fotos reales de Wikimedia Commons (el runner si tiene acceso),
+# las redimensiona con Pillow y publica docs/ en GitHub Pages.
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - claude/romania-vacation-site-11x9xp
+    paths:
+      - "docs/**"
+      - "build_images.py"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permite una sola publicacion concurrente; no cancela una en curso.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Pillow
+        run: pip install Pillow
+
+      - name: Fetch & resize photos from Wikimedia Commons
+        run: python build_images.py
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
