@@ -117,6 +117,8 @@
   .route-head .route-cta{margin-inline-start:auto;font-size:.8rem;font-weight:700;white-space:nowrap}
   .route .map{margin-top:11px;width:100%;max-width:340px;display:block;margin-inline:auto;
     background:#eef5f0;border:1px solid var(--green-line);border-radius:12px}
+  /* keep text-anchor start/end consistent even when the page is RTL */
+  .route .map text{direction:ltr}
   .route-legend{margin-top:11px;display:flex;flex-direction:column;gap:7px}
   .rlg{display:flex;align-items:center;gap:8px;font-size:.83rem}
   .rlg .sw{flex:0 0 auto;width:18px;height:5px;border-radius:3px}
@@ -434,45 +436,36 @@ function mapIcon(){
     'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+
     '<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>';
 }
-// Project lat/lng to SVG x/y with a uniform, letter-boxed fit (north = up).
-function projectNodes(points, W, H, pad){
-  const k = Math.cos(45*Math.PI/180);           // longitude shrink at ~45°N
-  const vals = Object.values(points);
-  const xs = vals.map(n=>n.lng*k), ys = vals.map(n=>n.lat);
-  const minX=Math.min(...xs), maxX=Math.max(...xs), minY=Math.min(...ys), maxY=Math.max(...ys);
-  const spanX=(maxX-minX)||1, spanY=(maxY-minY)||1;
-  const availW=W-2*pad, availH=H-2*pad;
-  const s=Math.min(availW/spanX, availH/spanY);
-  const offX=pad+(availW-spanX*s)/2, offY=pad+(availH-spanY*s)/2;
-  const out={};
-  for(const [key,n] of Object.entries(points))
-    out[key]={ x:offX+(n.lng*k-minX)*s, y:offY+(maxY-n.lat)*s };
-  return out;
-}
+// Real Romania silhouette (projected to the 360×300 viewBox) + city pixel
+// positions in the SAME projection, so the route sits geographically on the map.
+const ROMANIA_PATH="M101.9,52.1 L117.1,41.2 L139.0,46.8 L161.6,47.0 L178.0,59.4 L190.0,51.6 L216.1,46.7 L225.0,34.9 L239.9,34.9 L250.6,39.8 L261.5,54.9 L272.7,76.3 L293.1,106.5 L294.2,128.8 L290.5,150.5 L296.8,173.7 L312.6,183.1 L329.2,174.9 L345.2,183.6 L346.0,196.7 L328.9,207.6 L318.2,202.9 L308.3,264.2 L287.5,258.8 L261.9,240.4 L220.3,252.2 L202.8,265.1 L151.0,262.5 L123.8,254.5 L110.2,258.3 L100.0,237.4 L93.5,228.5 L101.7,219.9 L93.0,213.6 L81.9,225.0 L61.4,210.2 L58.6,189.3 L37.1,177.4 L33.1,161.2 L14.0,141.2 L42.3,131.6 L63.6,97.2 L80.3,62.7 L101.9,52.1 Z";
+// mountain trio spread ~2.6× around their centroid so the short daily legs are
+// legible (they sit within ~15 km IRL); Bucharest kept at its true position.
+const RXY={bran:[190.6,164.6], bucegi:[198.9,180.0], sinaia:[207.2,186.5], bucharest:[221.2,223.9]};
 
 function routeCard(lang){
-  const W=300, H=340, pad=40;
-  const P=projectNodes(ROUTE.points, W, H, pad);
+  const W=360, H=300;
   let lines="";
   ROUTE.segs.forEach(sg=>{
-    const a=P[sg.from], b=P[sg.to];
-    lines+='<line x1="'+a.x.toFixed(1)+'" y1="'+a.y.toFixed(1)+'" x2="'+b.x.toFixed(1)+
-      '" y2="'+b.y.toFixed(1)+'" stroke="'+sg.color+'" stroke-width="4.5" stroke-linecap="round"/>';
+    const a=RXY[sg.from], b=RXY[sg.to];
+    lines+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+
+      '" stroke="'+sg.color+'" stroke-width="3.5" stroke-linecap="round"/>';
   });
   const lbl={
-    bran:{dx:-9,dy:4,anchor:"end"}, bucegi:{dx:0,dy:-11,anchor:"middle"},
-    sinaia:{dx:9,dy:4,anchor:"start"}, bucharest:{dx:0,dy:18,anchor:"middle"},
+    bran:{dx:0,dy:-9,anchor:"middle"}, bucegi:{dx:-9,dy:5,anchor:"end"},
+    sinaia:{dx:9,dy:5,anchor:"start"}, bucharest:{dx:0,dy:17,anchor:"middle"},
   };
   let dots="";
   for(const [k,n] of Object.entries(ROUTE.points)){
-    const p=P[k], L=lbl[k]||{dx:0,dy:-10,anchor:"middle"};
-    dots+='<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="5.5" fill="#0f5132" stroke="#fff" stroke-width="2"/>'+
-      '<text x="'+(p.x+L.dx).toFixed(1)+'" y="'+(p.y+L.dy).toFixed(1)+'" text-anchor="'+L.anchor+
-      '" font-size="12" font-weight="700" fill="#1f2733" paint-order="stroke" stroke="#eef5f0" stroke-width="3.5">'+
+    const p=RXY[k], L=lbl[k];
+    dots+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4.5" fill="#0f5132" stroke="#fff" stroke-width="1.8"/>'+
+      '<text x="'+(p[0]+L.dx)+'" y="'+(p[1]+L.dy)+'" text-anchor="'+L.anchor+
+      '" font-size="12" font-weight="700" fill="#12331f" paint-order="stroke" stroke="#dcefe3" stroke-width="3.5">'+
       esc(n[lang])+'</text>';
   }
   const svg='<svg class="map" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(UI.routeTitle[lang])+'">'+
-    '<text x="'+(W-10)+'" y="20" text-anchor="end" font-size="11" fill="#8aa595" font-weight="700">N ↑</text>'+
+    '<path d="'+ROMANIA_PATH+'" fill="#dcefe3" stroke="#7cc79b" stroke-width="1.4" stroke-linejoin="round"/>'+
+    '<text x="'+(W-12)+'" y="22" text-anchor="end" font-size="12" fill="#5f9e7c" font-weight="700">N ↑</text>'+
     lines+dots+'</svg>';
   const legend='<div class="route-legend">'+ROUTE.segs.map(sg=>
     '<div class="rlg"><span class="sw" style="background:'+sg.color+'"></span>'+
