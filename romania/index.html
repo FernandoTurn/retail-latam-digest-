@@ -239,16 +239,16 @@ const ROUTE = {
   },
   // one segment per driving day, each its own colour
   segs:[
-    {from:"bucharest",to:"bran",   color:"#2563eb",
+    {from:"bucharest",to:"bran",   color:"#2563eb", bow:30,
       day:{en:"Aug 3",he:"3.8"},  label:{en:"Otopeni → Bran",he:"אוטופני → בראן"},
       dur:{en:"~2.5–3 h",he:"~2.5–3 ש׳"}},
-    {from:"bran",to:"bucegi",      color:"#16a34a",
+    {from:"bran",to:"bucegi",      color:"#16a34a", bow:0,
       day:{en:"Aug 7",he:"7.8"},  label:{en:"Bran → Bucegi",he:"בראן → בוצֶ'גי"},
       dur:{en:"~1–1.5 h",he:"~1–1.5 ש׳"}},
-    {from:"bucegi",to:"sinaia",    color:"#f59e0b",
+    {from:"bucegi",to:"sinaia",    color:"#f59e0b", bow:0,
       day:{en:"Aug 9",he:"9.8"},  label:{en:"Bucegi → Sinaia",he:"בוצֶ'גי → סינאיה"},
       dur:{en:"~2 h",he:"~2 ש׳"}},
-    {from:"sinaia",to:"bucharest", color:"#db2777",
+    {from:"sinaia",to:"bucharest", color:"#db2777", bow:30,
       day:{en:"Aug 11",he:"11.8"},label:{en:"Sinaia → Bucharest",he:"סינאיה → בוקרשט"},
       dur:{en:"~2 h",he:"~2 ש׳"}},
   ],
@@ -445,11 +445,25 @@ const RXY={bran:[190.6,164.6], bucegi:[198.9,180.0], sinaia:[207.2,186.5], bucha
 
 function routeCard(lang){
   const W=360, H=300;
-  let lines="";
+  let lines="", arrows="";
   ROUTE.segs.forEach(sg=>{
-    const a=RXY[sg.from], b=RXY[sg.to];
-    lines+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+
-      '" stroke="'+sg.color+'" stroke-width="3.5" stroke-linecap="round"/>';
+    const a=RXY[sg.from], b=RXY[sg.to], bow=sg.bow||0;
+    const dx=b[0]-a[0], dy=b[1]-a[1], len=Math.hypot(dx,dy)||1;
+    const ux=dx/len, uy=dy/len, nx=-uy, ny=ux;            // unit dir + left normal
+    const mx=(a[0]+b[0])/2, my=(a[1]+b[1])/2;
+    if(bow){
+      const cx=mx+nx*bow, cy=my+ny*bow;
+      lines+='<path d="M'+a[0]+','+a[1]+' Q'+cx.toFixed(1)+','+cy.toFixed(1)+' '+b[0]+','+b[1]+
+        '" fill="none" stroke="'+sg.color+'" stroke-width="3.5" stroke-linecap="round"/>';
+      // direction arrow at the curve midpoint (tangent ≈ chord direction)
+      const px=mx+0.5*bow*nx, py=my+0.5*bow*ny;
+      const tip=[px+ux*5.5,py+uy*5.5], l=[px-ux*3+nx*4.2,py-uy*3+ny*4.2], r=[px-ux*3-nx*4.2,py-uy*3-ny*4.2];
+      arrows+='<path d="M'+tip[0].toFixed(1)+','+tip[1].toFixed(1)+' L'+l[0].toFixed(1)+','+l[1].toFixed(1)+
+        ' L'+r[0].toFixed(1)+','+r[1].toFixed(1)+' Z" fill="'+sg.color+'"/>';
+    } else {
+      lines+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+
+        '" stroke="'+sg.color+'" stroke-width="3.5" stroke-linecap="round"/>';
+    }
   });
   const lbl={
     bran:{dx:0,dy:-9,anchor:"middle"}, bucegi:{dx:-9,dy:5,anchor:"end"},
@@ -466,7 +480,7 @@ function routeCard(lang){
   const svg='<svg class="map" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(UI.routeTitle[lang])+'">'+
     '<path d="'+ROMANIA_PATH+'" fill="#dcefe3" stroke="#7cc79b" stroke-width="1.4" stroke-linejoin="round"/>'+
     '<text x="'+(W-12)+'" y="22" text-anchor="end" font-size="12" fill="#5f9e7c" font-weight="700">N ↑</text>'+
-    lines+dots+'</svg>';
+    lines+arrows+dots+'</svg>';
   const legend='<div class="route-legend">'+ROUTE.segs.map(sg=>
     '<div class="rlg"><span class="sw" style="background:'+sg.color+'"></span>'+
     '<span class="d">'+esc(sg.day[lang])+'</span>&nbsp;'+esc(sg.label[lang])+
