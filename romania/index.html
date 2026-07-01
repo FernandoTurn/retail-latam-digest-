@@ -115,10 +115,13 @@
   .route:active{background:#e2f1e8}
   .route-head{display:flex;align-items:center;gap:8px;color:var(--accent);font-size:.95rem}
   .route-head .route-cta{margin-inline-start:auto;font-size:.8rem;font-weight:700;white-space:nowrap}
-  .route-line{margin-top:9px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 4px}
-  .rstop{background:#fff;border:1px solid var(--green-line);color:#155d36;font-weight:600;
-    font-size:.82rem;padding:3px 9px;border-radius:999px}
-  .rsep{color:var(--green);font-weight:700;opacity:.7}
+  .route .map{margin-top:11px;width:100%;max-width:340px;display:block;margin-inline:auto;
+    background:#eef5f0;border:1px solid var(--green-line);border-radius:12px}
+  .route-legend{margin-top:11px;display:flex;flex-direction:column;gap:7px}
+  .rlg{display:flex;align-items:center;gap:8px;font-size:.83rem}
+  .rlg .sw{flex:0 0 auto;width:18px;height:5px;border-radius:3px}
+  .rlg .d{font-weight:700;color:var(--ink)}
+  .rlg .dur{margin-inline-start:auto;color:var(--muted);white-space:nowrap;font-size:.78rem}
   /* Stay photo link */
   .staylink{display:inline-flex;align-items:center;gap:5px;margin-top:7px;
     font-size:.82rem;font-weight:600;text-decoration:none;color:var(--accent);
@@ -217,17 +220,35 @@ const UI = {
   loading: {en:"loading…", he:"טוען…"},
   priceNote:{en:"Approx. prices (≈5 RON = €1) — check the official sites.",
              he:"מחירים משוערים (≈5 RON = €1) — בדקו באתרים הרשמיים."},
-  routeTitle:{en:"Route map", he:"מפת מסלול"},
+  routeTitle:{en:"Driving route · Romania", he:"מסלול נסיעה · רומניה"},
   routeCta:{en:"Open in Google Maps", he:"פתיחה ב-Google Maps"},
   stayPhotos:{en:"Photos", he:"תמונות"},
   stayOptions:{en:"See options", he:"אפשרויות"},
 };
 
-/* Full driving loop for the route-map banner. */
+/* Car-only driving route inside Romania, drawn as an SVG map coloured per day.
+   Cities carry real lat/lng so their relative positions are geographically true. */
 const ROUTE = {
-  stops:[
-    {en:"Otopeni",he:"אוטופני"},{en:"Bran",he:"בראן"},{en:"Bucegi",he:"בוצֶ'גי"},
-    {en:"Sinaia",he:"סינאיה"},{en:"Bucharest",he:"בוקרשט"},{en:"Otopeni",he:"אוטופני"},
+  points:{
+    bran:{lat:45.515,lng:25.367, en:"Bran",he:"בראן"},
+    bucegi:{lat:45.400,lng:25.460, en:"Bucegi",he:"בוצֶ'גי"},
+    sinaia:{lat:45.350,lng:25.550, en:"Sinaia",he:"סינאיה"},
+    bucharest:{lat:44.500,lng:26.090, en:"București / Otopeni",he:"בוקרשט / אוטופני"},
+  },
+  // one segment per driving day, each its own colour
+  segs:[
+    {from:"bucharest",to:"bran",   color:"#2563eb",
+      day:{en:"Aug 3",he:"3.8"},  label:{en:"Otopeni → Bran",he:"אוטופני → בראן"},
+      dur:{en:"~2.5–3 h",he:"~2.5–3 ש׳"}},
+    {from:"bran",to:"bucegi",      color:"#16a34a",
+      day:{en:"Aug 7",he:"7.8"},  label:{en:"Bran → Bucegi",he:"בראן → בוצֶ'גי"},
+      dur:{en:"~1–1.5 h",he:"~1–1.5 ש׳"}},
+    {from:"bucegi",to:"sinaia",    color:"#f59e0b",
+      day:{en:"Aug 9",he:"9.8"},  label:{en:"Bucegi → Sinaia",he:"בוצֶ'גי → סינאיה"},
+      dur:{en:"~2 h",he:"~2 ש׳"}},
+    {from:"sinaia",to:"bucharest", color:"#db2777",
+      day:{en:"Aug 11",he:"11.8"},label:{en:"Sinaia → Bucharest",he:"סינאיה → בוקרשט"},
+      dur:{en:"~2 h",he:"~2 ש׳"}},
   ],
   url:"https://www.google.com/maps/dir/?api=1"
       +"&origin="+encodeURIComponent("Henri Coanda International Airport Otopeni")
@@ -413,13 +434,54 @@ function mapIcon(){
     'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+
     '<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>';
 }
+// Project lat/lng to SVG x/y with a uniform, letter-boxed fit (north = up).
+function projectNodes(points, W, H, pad){
+  const k = Math.cos(45*Math.PI/180);           // longitude shrink at ~45°N
+  const vals = Object.values(points);
+  const xs = vals.map(n=>n.lng*k), ys = vals.map(n=>n.lat);
+  const minX=Math.min(...xs), maxX=Math.max(...xs), minY=Math.min(...ys), maxY=Math.max(...ys);
+  const spanX=(maxX-minX)||1, spanY=(maxY-minY)||1;
+  const availW=W-2*pad, availH=H-2*pad;
+  const s=Math.min(availW/spanX, availH/spanY);
+  const offX=pad+(availW-spanX*s)/2, offY=pad+(availH-spanY*s)/2;
+  const out={};
+  for(const [key,n] of Object.entries(points))
+    out[key]={ x:offX+(n.lng*k-minX)*s, y:offY+(maxY-n.lat)*s };
+  return out;
+}
+
 function routeCard(lang){
-  const chips = ROUTE.stops.map(s=>'<span class="rstop">'+esc(s[lang])+'</span>')
-    .join('<span class="rsep">·</span>');
+  const W=300, H=340, pad=40;
+  const P=projectNodes(ROUTE.points, W, H, pad);
+  let lines="";
+  ROUTE.segs.forEach(sg=>{
+    const a=P[sg.from], b=P[sg.to];
+    lines+='<line x1="'+a.x.toFixed(1)+'" y1="'+a.y.toFixed(1)+'" x2="'+b.x.toFixed(1)+
+      '" y2="'+b.y.toFixed(1)+'" stroke="'+sg.color+'" stroke-width="4.5" stroke-linecap="round"/>';
+  });
+  const lbl={
+    bran:{dx:-9,dy:4,anchor:"end"}, bucegi:{dx:0,dy:-11,anchor:"middle"},
+    sinaia:{dx:9,dy:4,anchor:"start"}, bucharest:{dx:0,dy:18,anchor:"middle"},
+  };
+  let dots="";
+  for(const [k,n] of Object.entries(ROUTE.points)){
+    const p=P[k], L=lbl[k]||{dx:0,dy:-10,anchor:"middle"};
+    dots+='<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="5.5" fill="#0f5132" stroke="#fff" stroke-width="2"/>'+
+      '<text x="'+(p.x+L.dx).toFixed(1)+'" y="'+(p.y+L.dy).toFixed(1)+'" text-anchor="'+L.anchor+
+      '" font-size="12" font-weight="700" fill="#1f2733" paint-order="stroke" stroke="#eef5f0" stroke-width="3.5">'+
+      esc(n[lang])+'</text>';
+  }
+  const svg='<svg class="map" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(UI.routeTitle[lang])+'">'+
+    '<text x="'+(W-10)+'" y="20" text-anchor="end" font-size="11" fill="#8aa595" font-weight="700">N ↑</text>'+
+    lines+dots+'</svg>';
+  const legend='<div class="route-legend">'+ROUTE.segs.map(sg=>
+    '<div class="rlg"><span class="sw" style="background:'+sg.color+'"></span>'+
+    '<span class="d">'+esc(sg.day[lang])+'</span>&nbsp;'+esc(sg.label[lang])+
+    '<span class="dur">'+esc(sg.dur[lang])+'</span></div>').join('')+'</div>';
   return '<a class="route" href="'+ROUTE.url+'" target="_blank" rel="noopener">'+
     '<div class="route-head">'+mapIcon()+'<b>'+esc(UI.routeTitle[lang])+'</b>'+
       '<span class="route-cta">'+esc(UI.routeCta[lang])+' →</span></div>'+
-    '<div class="route-line">'+chips+'</div>'+
+    svg+legend+
   '</a>';
 }
 
