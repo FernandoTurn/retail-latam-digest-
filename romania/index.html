@@ -129,6 +129,14 @@
     font-size:.82rem;font-weight:600;text-decoration:none;color:var(--accent);
     border:1px solid var(--line);border-radius:999px;padding:4px 11px;background:#f8fafc}
   .staylink:active{background:#eef2f7}
+  /* Tips + guide button */
+  ul.tips{margin:8px 2px 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+  ul.tips li{position:relative;padding-inline-start:26px;font-size:.9rem;line-height:1.45}
+  ul.tips li::before{content:"💡";position:absolute;inset-inline-start:0;top:0}
+  .guide-btn{display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;
+    margin-top:16px;background:linear-gradient(135deg,#0f5132,#15803d);color:#fff;text-decoration:none;
+    font-weight:700;font-size:.95rem;padding:14px 16px;border-radius:var(--radius);box-shadow:var(--shadow)}
+  .guide-btn:active{transform:scale(.99)}
   /* Attractions */
   .attractions{margin-top:6px;display:flex;flex-direction:column;gap:8px}
   .attr{display:flex;gap:10px;align-items:center;text-decoration:none;color:inherit;
@@ -176,6 +184,10 @@
 
   <div class="sectionlabel" id="t-sec-car">Car rental</div>
   <div id="car"></div>
+
+  <div class="sectionlabel" id="t-sec-tips">Tips</div>
+  <div id="tips"></div>
+  <div id="guide"></div>
 
   <footer>
     <h4 id="t-cred-title">Photo credits</h4>
@@ -226,7 +238,29 @@ const UI = {
   routeCta:{en:"Open in Google Maps", he:"פתיחה ב-Google Maps"},
   stayPhotos:{en:"Photos", he:"תמונות"},
   stayOptions:{en:"See options", he:"אפשרויות"},
+  secTips:{en:"Tips", he:"טיפים"},
+  guideCta:{en:"Full guide: shopping, food & prices", he:"מדריך מלא: קניות, אוכל ומחירים"},
 };
+
+/* Quick practical tips shown on the main page. */
+const TIPS = [
+  {en:"Bring water + snacks on every outing (caves, cable cars, coaster, castles).",
+   he:"קחו מים וחטיפים לכל טיול (מערות, רכבלים, רכבת הרים, טירות)."},
+  {en:"Pack layers + a light rain jacket — the mountains are cooler and weather shifts fast.",
+   he:"קחו שכבות + מעיל גשם קל — בהרים קריר יותר ומזג האוויר משתנה מהר."},
+  {en:"Carry cash in RON: some parking, the coaster and caves are cash-only. ATMs are everywhere.",
+   he:"החזיקו מזומן ב-RON: חניות, רכבת ההרים וחלק מהמערות במזומן בלבד. כספומטים בכל מקום."},
+  {en:"Peleș Castle is closed Mon & Tue — visit on Sunday Aug 9.",
+   he:"טירת פלֶש סגורה ב׳ וג׳ — בקרו ביום א׳ 9.8."},
+  {en:"Go early: Bran Castle, the cable cars and Peleș get crowded midday in August.",
+   he:"הגיעו מוקדם: טירת בראן, הרכבלים ופלֶש מתמלאים בצהריים באוגוסט."},
+  {en:"Confirm booster seats for Ari & Omer and that the road vignette (rovinietă) is included with Klass Wagen.",
+   he:"אשרו בוסטרים לארי ועומר ושהוינייטה (rovinietă) כלולה ב-Klass Wagen."},
+  {en:"Download an offline Google map of the Prahova / Brașov area — signal is patchy in the mountains.",
+   he:"הורידו מפת Google לא-מקוונת של אזור פראחובה / בראשוב — הקליטה חלשה בהרים."},
+  {en:"Comfortable shoes: cobblestones in the old town and trails at the caves & plateau.",
+   he:"נעליים נוחות: אבני מרצפת בעיר העתיקה ושבילים במערות ובמישור."},
+];
 
 /* Car-only driving route inside Romania, drawn as an SVG map coloured per day.
    Cities carry real lat/lng so their relative positions are geographically true. */
@@ -261,6 +295,17 @@ const ROUTE = {
 
 /* mapsQ: a Google Maps query (place or "lat,lng"). photo: key into /img. */
 const LEGS = [
+  {
+    key:"flight_out", photo:"airplane", flight:true, status:"g",
+    when:{en:"Sun 2 Aug", he:"א׳ 2 באוג׳"},
+    place:{en:"Fly out: TLV → OTP", he:"טיסת יציאה: TLV → OTP"},
+    lodging:{en:"EL AL · to Bucharest", he:"אל על · לבוקרשט"},
+    conf:"XAEK28",
+    lodgingNote:null,
+    acts:{en:["Land at Henri Coandă (OTP) in the evening","Ramada is a short hop from the airport","Car pick-up is next morning (Aug 3, 10:30)"],
+          he:["נחיתה באנרי קואנדה (OTP) בערב","ה-Ramada קרוב מאוד לשדה","איסוף הרכב למחרת בבוקר (3.8, 10:30)"]},
+    mapsQ:"Henri Coanda International Airport Otopeni", caption:{en:"Arrival",he:"נחיתה"},
+  },
   {
     key:"bucharest", status:"g",
     when:{en:"Sun 2 Aug · 1 night", he:"א׳ 2 באוג׳ · לילה 1"},
@@ -542,7 +587,7 @@ function legCard(leg, lang){
     html += '<div class="drive">'+driveIcon()+'<span><b>'+esc(UI.drive[lang])+':</b> '+esc(leg.drive[lang])+'</span></div>';
   }
   html += '<div class="card '+st+'">';
-  html += photoBlock(leg.key, leg.mapsQ, leg.caption, lang);
+  html += photoBlock(leg.photo||leg.key, leg.mapsQ, leg.caption, lang);
   html += '<div class="body">';
   html += '<div class="head"><div><div class="when">'+esc(leg.when[lang])+'</div>'+
           '<h2>'+esc(leg.place[lang])+'</h2></div>'+badge+'</div>';
@@ -583,7 +628,7 @@ function carCard(lang){
 function renderCredits(lang){
   const order = [];
   LEGS.forEach(l=>{
-    order.push(l.key);
+    order.push(l.photo||l.key);
     (l.attr||[]).forEach(a=>{ if(a.photo) order.push(a.photo); });
   });
   order.push(CAR.key);
@@ -623,6 +668,10 @@ function setText(){
   $("#route").innerHTML = routeCard(lang);
   $("#itinerary").innerHTML = LEGS.map(l=>legCard(l,lang)).join("");
   $("#car").innerHTML = carCard(lang);
+  $("#t-sec-tips").textContent = UI.secTips[lang];
+  $("#tips").innerHTML = '<ul class="tips">'+TIPS.map(t=>'<li>'+esc(t[lang])+'</li>').join("")+'</ul>';
+  $("#guide").innerHTML = '<a class="guide-btn" href="'+(lang==="he"?"guide-he.html":"guide-en.html")+'">'+
+    '📖 '+esc(UI.guideCta[lang])+' →</a>';
   attachFallbacks();
   renderCredits(lang);
 }
