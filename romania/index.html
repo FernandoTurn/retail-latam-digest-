@@ -108,6 +108,22 @@
     header.top h1{font-size:1.3rem}
     .infocard{flex-direction:row}
   }
+  /* Route map banner */
+  .route{display:block;text-decoration:none;color:inherit;margin:16px 0 2px;
+    background:linear-gradient(135deg,#eaf5ee,#f4faf6);border:1px solid var(--green-line);
+    border-radius:var(--radius);padding:13px 15px;box-shadow:var(--shadow)}
+  .route:active{background:#e2f1e8}
+  .route-head{display:flex;align-items:center;gap:8px;color:var(--accent);font-size:.95rem}
+  .route-head .route-cta{margin-inline-start:auto;font-size:.8rem;font-weight:700;white-space:nowrap}
+  .route-line{margin-top:9px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 4px}
+  .rstop{background:#fff;border:1px solid var(--green-line);color:#155d36;font-weight:600;
+    font-size:.82rem;padding:3px 9px;border-radius:999px}
+  .rsep{color:var(--green);font-weight:700;opacity:.7}
+  /* Stay photo link */
+  .staylink{display:inline-flex;align-items:center;gap:5px;margin-top:7px;
+    font-size:.82rem;font-weight:600;text-decoration:none;color:var(--accent);
+    border:1px solid var(--line);border-radius:999px;padding:4px 11px;background:#f8fafc}
+  .staylink:active{background:#eef2f7}
   /* Attractions */
   .attractions{margin-top:6px;display:flex;flex-direction:column;gap:8px}
   .attr{display:flex;gap:10px;align-items:center;text-decoration:none;color:inherit;
@@ -141,6 +157,8 @@
       <span class="pill" id="t-night">No night driving</span>
     </div>
   </header>
+
+  <div id="route"></div>
 
   <div class="legend">
     <span><span class="dot g"></span><b id="t-leg-g">Booked</b></span>
@@ -199,6 +217,23 @@ const UI = {
   loading: {en:"loading…", he:"טוען…"},
   priceNote:{en:"Approx. prices (≈5 RON = €1) — check the official sites.",
              he:"מחירים משוערים (≈5 RON = €1) — בדקו באתרים הרשמיים."},
+  routeTitle:{en:"Route map", he:"מפת מסלול"},
+  routeCta:{en:"Open in Google Maps", he:"פתיחה ב-Google Maps"},
+  stayPhotos:{en:"Photos", he:"תמונות"},
+  stayOptions:{en:"See options", he:"אפשרויות"},
+};
+
+/* Full driving loop for the route-map banner. */
+const ROUTE = {
+  stops:[
+    {en:"Otopeni",he:"אוטופני"},{en:"Bran",he:"בראן"},{en:"Bucegi",he:"בוצֶ'גי"},
+    {en:"Sinaia",he:"סינאיה"},{en:"Bucharest",he:"בוקרשט"},{en:"Otopeni",he:"אוטופני"},
+  ],
+  url:"https://www.google.com/maps/dir/?api=1"
+      +"&origin="+encodeURIComponent("Henri Coanda International Airport Otopeni")
+      +"&destination="+encodeURIComponent("Henri Coanda International Airport Otopeni")
+      +"&waypoints="+["Bran","Pestera Padina Bucegi","Sinaia","Bucharest"].map(encodeURIComponent).join("|")
+      +"&travelmode=driving",
 };
 
 /* mapsQ: a Google Maps query (place or "lat,lng"). photo: key into /img. */
@@ -209,6 +244,7 @@ const LEGS = [
     place:{en:"Bucharest / Otopeni", he:"בוקרשט / אוטופני"},
     lodging:{en:"Ramada by Wyndham", he:"Ramada by Wyndham"},
     conf:"92104EE034749",
+    stayUrl:"Ramada by Wyndham Bucharest North",
     lodgingNote:{en:"Check-out Aug 3", he:"עזיבה 3 באוג׳"},
     acts:{en:["Arrival evening near the airport","Easy start before heading to the mountains"],
           he:["ערב הגעה ליד שדה התעופה","התחלה רגועה לפני העלייה להרים"]},
@@ -219,7 +255,7 @@ const LEGS = [
     when:{en:"3–6 Aug · 4 nights", he:"3–6 באוג׳ · 4 לילות"},
     place:{en:"Bran / Sohodol", he:"בראן / סוהודול"},
     lodging:{en:"Kapa Chalet — kitchen, jacuzzi, A/C", he:"Kapa Chalet — מטבח, ג'קוזי, מיזוג"},
-    conf:null,
+    conf:null, stayUrl:"Kapa Chalet Sohodol Bran",
     lodgingNote:{en:"Check-out Aug 7", he:"עזיבה 7 באוג׳"},
     acts:{en:["Bran Castle","Dino Parc Râșnov + Râșnov fortress","Alpine Coaster at Cheile Grădiștei (Fundata)","Cheile Dâmbovicioarei gorge","Mountain villages"],
           he:["טירת בראן","דינו פארק רשנוב + מבצר רשנוב","רכבת הרים אלפינית בקֵיילה גרדישטיי (פונדטה)","ערוץ קֵיילה דמבוביצ'ואארה","כפרי הרים"]},
@@ -252,6 +288,7 @@ const LEGS = [
     place:{en:"Bucegi / Peștera-Padina", he:"בוצֶ'גי / פשטרה-פדינה"},
     lodging:{en:"Hotel Peștera Wellness & Spa ⭐⭐⭐⭐⭐ — spa + breakfast", he:"Hotel Peștera Wellness & Spa ⭐⭐⭐⭐⭐ — ספא + ארוחת בוקר"},
     conf:"573846176",
+    stayUrl:"Hotel Pestera Wellness Spa Bucegi",
     lodgingNote:{en:"Check-out Aug 9", he:"עזיבה 9 באוג׳"},
     acts:{en:["Ialomița Cave + monastery","Bucegi plateau (Babele, the Sphinx)","Spa & wellness"],
           he:["מערת יאלומיצה + מנזר","מישור בוצֶ'גי (באבלה, הספינקס)","ספא ובריאות"]},
@@ -274,7 +311,7 @@ const LEGS = [
     when:{en:"9–10 Aug · 2 nights", he:"9–10 באוג׳ · 2 לילות"},
     place:{en:"Sinaia", he:"סינאיה"},
     lodging:{en:"Not booked yet — need kitchen + A/C", he:"עדיין לא הוזמן — צריך מטבח + מיזוג"},
-    conf:null,
+    conf:null, stayUrl:"apartments cazare Sinaia",
     lodgingNote:{en:"Check-out Aug 11", he:"עזיבה 11 באוג׳"},
     acts:{en:["Peleș Castle (go Sun Aug 9 — closed Mon/Tue)","Sinaia or Bușteni cable car to Babele / the Sphinx"],
           he:["טירת פלֶש (ללכת א׳ 9 באוג׳ — סגור ב׳/ג׳)","רכבל סינאיה או בושטֶני לבאבלה / הספינקס"]},
@@ -298,7 +335,7 @@ const LEGS = [
     when:{en:"11 Aug · 1 night", he:"11 באוג׳ · לילה 1"},
     place:{en:"Bucharest", he:"בוקרשט"},
     lodging:{en:"Not booked yet — 4★+ hotel with A/C", he:"עדיין לא הוזמן — מלון 4★+ עם מיזוג"},
-    conf:null,
+    conf:null, stayUrl:"4 star hotels central Bucharest",
     lodgingNote:{en:"Check-out Aug 12", he:"עזיבה 12 באוג׳"},
     acts:{en:["Shopping: AFI Cotroceni + Primark","Kids: Gymboland / Museum of Senses"],
           he:["קניות: AFI Cotroceni + Primark","לילדים: Gymboland / מוזיאון החושים"]},
@@ -321,6 +358,7 @@ const LEGS = [
     place:{en:"Bucharest", he:"בוקרשט"},
     lodging:{en:"Ramada by Wyndham", he:"Ramada by Wyndham"},
     conf:"92104EE034750",
+    stayUrl:"Ramada by Wyndham Bucharest North",
     lodgingNote:null,
     acts:{en:["Therme București (Galaxy area)","Relax before the flight home"],
           he:["ת'רמה בוקרשט (אזור Galaxy)","רגיעה לפני הטיסה הביתה"]},
@@ -369,6 +407,20 @@ function driveIcon(){
 function pinIcon(){
   return '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">'+
     '<path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>';
+}
+function mapIcon(){
+  return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" '+
+    'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+
+    '<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>';
+}
+function routeCard(lang){
+  const chips = ROUTE.stops.map(s=>'<span class="rstop">'+esc(s[lang])+'</span>')
+    .join('<span class="rsep">·</span>');
+  return '<a class="route" href="'+ROUTE.url+'" target="_blank" rel="noopener">'+
+    '<div class="route-head">'+mapIcon()+'<b>'+esc(UI.routeTitle[lang])+'</b>'+
+      '<span class="route-cta">'+esc(UI.routeCta[lang])+' →</span></div>'+
+    '<div class="route-line">'+chips+'</div>'+
+  '</a>';
 }
 
 function photoBlock(key, mapsQ, caption, lang){
@@ -430,6 +482,11 @@ function legCard(leg, lang){
           '<div class="lodging">'+esc(leg.lodging[lang])+'</div>';
   if(leg.conf) html += '<div class="conf">'+esc(UI.conf[lang])+' <code>'+esc(leg.conf)+'</code></div>';
   if(leg.lodgingNote) html += '<div class="conf">'+esc(leg.lodgingNote[lang])+'</div>';
+  if(leg.stayUrl){
+    const slabel = leg.status==="g" ? UI.stayPhotos[lang] : UI.stayOptions[lang];
+    const shref = leg.stayUrl.startsWith("http") ? leg.stayUrl : mapsUrl(leg.stayUrl);
+    html += '<a class="staylink" href="'+shref+'" target="_blank" rel="noopener">📷 '+esc(slabel)+'</a>';
+  }
   html += '</div>';
   // activities / attractions
   html += '<div class="block"><div class="lbl">📍 '+esc(UI.acts[lang])+'</div>';
@@ -494,6 +551,7 @@ function setText(){
   $("#t-cred-note").textContent  = UI.credNote[lang];
   $("#langbtn").textContent = lang==="he" ? "English":"עברית";
   document.title = UI.title[lang] + " — Aug 2026";
+  $("#route").innerHTML = routeCard(lang);
   $("#itinerary").innerHTML = LEGS.map(l=>legCard(l,lang)).join("");
   $("#car").innerHTML = carCard(lang);
   attachFallbacks();
