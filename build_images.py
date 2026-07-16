@@ -62,6 +62,7 @@ SLOTS = {
     "afi_cotroceni":  ["AFI Palace Cotroceni", "AFI Cotroceni"],
     "gymboland":      ["Gymboland Bucharest"],
     "museum_senses":  ["Museum of Senses Bucharest"],
+    "brasov":         ["Brasov Council Square", "Piata Sfatului Brasov", "Brasov old town"],
     "transfagarasan": ["Transfagarasan", "Transfagarasan road"],
     "vidraru":        ["Vidraru dam", "Lake Vidraru", "Barajul Vidraru"],
     "poenari":        ["Poenari Castle", "Cetatea Poenari"],

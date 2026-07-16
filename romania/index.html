@@ -236,6 +236,8 @@ const UI = {
              he:"מחירים משוערים (≈5 RON = €1) — בדקו באתרים הרשמיים."},
   routeTitle:{en:"Driving route · Romania", he:"מסלול נסיעה · רומניה"},
   routeCta:{en:"Open in Google Maps", he:"פתיחה ב-Google Maps"},
+  mapNote:{en:"Dashed = Aug 11 still to decide (A: Bucharest / B: via Vidraru).",
+           he:"מקווקו = מסלול 11.8 עוד לא הוחלט (A: בוקרשט / B: דרך ווידרארו)."},
   stayPhotos:{en:"Photos", he:"תמונות"},
   stayOptions:{en:"See options", he:"אפשרויות"},
   secTips:{en:"Tips", he:"טיפים"},
@@ -287,10 +289,10 @@ const ROUTE = {
       dur:{en:"~2 h",he:"~2 ש׳"}},
     {from:"sinaia",to:"vidraru",   color:"#7c3aed", bow:0,
       day:{en:"Aug 11",he:"11.8"},label:{en:"Sinaia → Vidraru (Transfăgărășan)",he:"סינאיה → ווידרארו (טרנספגרשאן)"},
-      dur:{en:"~3.5–4 h",he:"~3.5–4 ש׳"}},
+      dur:{en:"~3 h",he:"~3 ש׳"}},
     {from:"vidraru",to:"bucharest", color:"#db2777", bow:34,
       day:{en:"Aug 12",he:"12.8"},label:{en:"Vidraru → Bucharest",he:"ווידרארו → בוקרשט"},
-      dur:{en:"~2.5–3 h",he:"~2.5–3 ש׳"}},
+      dur:{en:"~3 h",he:"~3 ש׳"}},
   ],
   url:"https://www.google.com/maps/dir/?api=1"
       +"&origin="+encodeURIComponent("Henri Coanda International Airport Otopeni")
@@ -305,11 +307,11 @@ const LEGS = [
     key:"flight_out", photo:"airplane", flight:true, status:"g",
     when:{en:"Sun 2 Aug", he:"א׳ 2 באוג׳"},
     place:{en:"Fly out: TLV → OTP", he:"טיסת יציאה: TLV → OTP"},
-    lodging:{en:"EL AL · to Bucharest", he:"אל על · לבוקרשט"},
+    lodging:{en:"EL AL · arrives OTP 21:10", he:"אל על · נחיתה OTP 21:10"},
     conf:"XAEK28",
     lodgingNote:null,
-    acts:{en:["Land at Henri Coandă (OTP) in the evening","Ramada is a short hop from the airport","Car pick-up is next morning (Aug 3, 10:30)"],
-          he:["נחיתה באנרי קואנדה (OTP) בערב","ה-Ramada קרוב מאוד לשדה","איסוף הרכב למחרת בבוקר (3.8, 10:30)"]},
+    acts:{en:["Land at Henri Coandă (OTP) 21:10 — buy a SIM at the airport","3 min to Ramada Otopeni","Car pick-up is next morning (Aug 3, 10:30)"],
+          he:["נחיתה באנרי קואנדה (OTP) ב-21:10 — קנו SIM בשדה","3 דק' ל-Ramada אוטופני","איסוף הרכב למחרת בבוקר (3.8, 10:30)"]},
     mapsQ:"Henri Coanda International Airport Otopeni", caption:{en:"Arrival",he:"נחיתה"},
   },
   {
@@ -320,8 +322,8 @@ const LEGS = [
     conf:"92104EE034749",
     stayUrl:"Ramada by Wyndham Bucharest North",
     lodgingNote:{en:"Check-out Aug 3", he:"עזיבה 3 באוג׳"},
-    acts:{en:["Arrival evening near the airport","Easy start before heading to the mountains"],
-          he:["ערב הגעה ליד שדה התעופה","התחלה רגועה לפני העלייה להרים"]},
+    acts:{en:["Arrive 21:10 · SIM at the airport · 3 min to the hotel","Car is picked up tomorrow morning (Aug 3, 10:30)"],
+          he:["נחיתה 21:10 · SIM בשדה · 3 דק' למלון","איסוף הרכב מחר בבוקר (3.8, 10:30)"]},
     mapsQ:"Ramada by Wyndham Bucharest North", caption:{en:"Bucharest",he:"בוקרשט"},
   },
   {
@@ -337,7 +339,7 @@ const LEGS = [
       {name:{en:"Bran Castle",he:"טירת בראן"}, photo:"bran_castle",
         url:"https://www.bran-castle.com/",
         cost:{en:"Adults ≈70 · kids ≈15 RON",he:"מבוגר ≈70 · ילד ≈15 RON"},
-        time:{en:"1.5–2 h",he:"1.5–2 ש׳"}},
+        time:{en:"1.5–2 h · Tue–Sun 9–19, Mon 12–19",he:"1.5–2 ש׳ · ג׳–א׳ 9–19, ב׳ 12–19"}},
       {name:{en:"Dino Parc Râșnov",he:"דינו פארק רשנוב"}, photo:"dino_parc",
         url:"https://dinoparc.ro/",
         cost:{en:"Adults ≈50 · kids ≈40 RON",he:"מבוגר ≈50 · ילד ≈40 RON"},
@@ -347,13 +349,20 @@ const LEGS = [
         cost:{en:"≈12 RON",he:"≈12 RON"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
       {name:{en:"Alpine Coaster — Cheile Grădiștei (Fundata)",he:"רכבת הרים אלפינית — קֵיילה גרדישטיי (פונדטה)"},
         photo:"alpine_coaster", url:"https://cheilegradistei.ro/",
-        cost:{en:"≈20 RON/ride",he:"≈20 RON/סבב"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
+        cost:{en:"≈20 RON/ride · rain-proof",he:"≈20 RON/סבב · עמיד לגשם"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
       {name:{en:"Cheile Dâmbovicioarei gorge + cave",he:"ערוץ ומערת דמבוביצ'ואארה"},
         photo:"dambovicioara", maps:"Cheile Dambovicioarei",
         cost:{en:"Cave ≈12 RON · gorge free",he:"מערה ≈12 RON · ערוץ חינם"},
         time:{en:"1–2 h",he:"1–2 ש׳"}},
+      {name:{en:"Brașov day — Coresi mall + TakaPaka (kids)",he:"יום בראשוב — קניון Coresi + TakaPaka (ילדים)"},
+        photo:"brasov", maps:"Coresi Shopping Resort Brasov",
+        cost:{en:"Free entry · open 10–22",he:"כניסה חינם · פתוח 10–22"},
+        time:{en:"40 min drive",he:"40 דק' נסיעה"}},
+      {name:{en:"Mountain villages: Moieciu · Peștera · Măgura",he:"כפרי הרים: מויצ'ו · פשטרה · מגורה"},
+        maps:"Magura Brasov Romania",
+        cost:{en:"Free",he:"חינם"}, time:{en:"Half day",he:"חצי יום"}},
     ],
-    veg:{en:"Veggie for Chen: Vila Bran", he:"צמחוני לצ'ן: Vila Bran"},
+    veg:{en:"Veggie for Chen: Vila Bran · house time (jacuzzi, BBQ)", he:"צמחוני לצ'ן: Vila Bran · זמן בבית (ג'קוזי, על האש)"},
     mapsQ:"Bran Castle", caption:{en:"Bran Castle",he:"טירת בראן"},
   },
   {
@@ -375,7 +384,7 @@ const LEGS = [
         photo:"bucegi", maps:"Babele Bucegi",
         cost:{en:"Bușteni cable car ≈70 RON",he:"רכבל בושטֶני ≈70 RON"},
         time:{en:"Half day",he:"חצי יום"}},
-      {name:{en:"Spa & wellness (hotel)",he:"ספא ובריאות (במלון)"},
+      {name:{en:"Spa & wellness — the rest stretch (Brașov is ~2 h, skip from here)",he:"ספא ובריאות — תחנת המנוחה (בראשוב ~2 ש׳, לא כדאי מכאן)"},
         cost:{en:"Included",he:"כלול"}, time:{en:"Relax",he:"רגיעה"}},
     ],
     mapsQ:"Hotel Pestera Padina Bucegi", caption:{en:"Bucegi Mtns / Sphinx",he:"הרי בוצֶ'גי / הספינקס"},
@@ -384,8 +393,8 @@ const LEGS = [
     key:"peles", status:"a", drive:{en:"Peștera → Sinaia · ~2 h",he:"פשטרה → סינאיה · ~2 ש׳"},
     when:{en:"9–10 Aug · 2 nights", he:"9–10 באוג׳ · 2 לילות"},
     place:{en:"Sinaia", he:"סינאיה"},
-    lodging:{en:"Not booked yet — need kitchen + A/C", he:"עדיין לא הוזמן — צריך מטבח + מיזוג"},
-    conf:null, stayUrl:"apartments cazare Sinaia",
+    lodging:{en:"To book — kitchen + A/C (try Apartament Erika / SINAI ApartHotel)", he:"להזמין — מטבח + מיזוג (Apartament Erika / SINAI ApartHotel)"},
+    conf:null, stayUrl:"SINAI ApartHotel Sinaia",
     lodgingNote:{en:"Check-out Aug 11", he:"עזיבה 11 באוג׳"},
     acts:{en:["Peleș Castle (go Sun Aug 9 — closed Mon/Tue)","Sinaia or Bușteni cable car to Babele / the Sphinx"],
           he:["טירת פלֶש (ללכת א׳ 9 באוג׳ — סגור ב׳/ג׳)","רכבל סינאיה או בושטֶני לבאבלה / הספינקס"]},
@@ -393,7 +402,7 @@ const LEGS = [
       {name:{en:"Peleș Castle",he:"טירת פלֶש"}, photo:"peles",
         url:"https://peles.ro/",
         cost:{en:"Ground floor ≈60 · kids ≈15 RON",he:"קומת קרקע ≈60 · ילד ≈15 RON"},
-        time:{en:"≈1.5 h · closed Mon/Tue",he:"≈1.5 ש׳ · סגור ב׳/ג׳"}},
+        time:{en:"≈1.5 h · Thu–Sun 9:15, Wed 10:00 · last entry 16:00 · closed Mon/Tue · book online",he:"≈1.5 ש׳ · ה׳–א׳ 9:15, ד׳ 10:00 · כניסה אחרונה 16:00 · סגור ב׳/ג׳ · להזמין אונליין"}},
       {name:{en:"Sinaia cable car (Cota 2000)",he:"רכבל סינאיה (קוטה 2000)"},
         photo:"sinaia_cablecar", maps:"Telecabina Sinaia",
         cost:{en:"≈50 RON return",he:"≈50 RON הלוך-חזור"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
@@ -406,8 +415,8 @@ const LEGS = [
   },
   {
     key:"vidraru", photo:"transfagarasan", status:"g",
-    drive:{en:"Sinaia → Lake Vidraru, over the Transfăgărășan · ~3.5–4 h (scenic mountain road)",
-           he:"סינאיה → אגם ווידרארו, דרך הטרנספגרשאן · ~3.5–4 ש׳ (כביש הרים נופי)"},
+    drive:{en:"Sinaia → Lake Vidraru, over the Transfăgărășan · ~3 h (scenic mountain road)",
+           he:"סינאיה → אגם ווידרארו, דרך הטרנספגרשאן · ~3 ש׳ (כביש הרים נופי)"},
     when:{en:"11 Aug · 1 night", he:"11 באוג׳ · לילה 1"},
     place:{en:"Lake Vidraru / Transfăgărășan", he:"אגם ווידרארו / טרנספגרשאן"},
     lodging:{en:"Posada Vidraru", he:"Posada Vidraru"},
@@ -430,20 +439,24 @@ const LEGS = [
   },
   {
     key:"therme", status:"g",
-    drive:{en:"Vidraru → Bucharest · ~2.5–3 h",he:"ווידרארו → בוקרשט · ~2.5–3 ש׳"},
+    drive:{en:"Vidraru → Bucharest · ~3 h · leave early",he:"ווידרארו → בוקרשט · ~3 ש׳ · לצאת מוקדם"},
     when:{en:"12 Aug · 1 night", he:"12 באוג׳ · לילה 1"},
-    place:{en:"Bucharest", he:"בוקרשט"},
+    place:{en:"Bucharest — Primark + water park", he:"בוקרשט — Primark + פארק מים"},
     lodging:{en:"Ramada by Wyndham", he:"Ramada by Wyndham"},
     conf:"92104EE034750",
     stayUrl:"Ramada by Wyndham Bucharest North",
-    lodgingNote:null,
-    acts:{en:["Therme București (Galaxy area)","Relax before the flight home"],
-          he:["ת'רמה בוקרשט (אזור Galaxy)","רגיעה לפני הטיסה הביתה"]},
+    lodgingNote:{en:"Car kept (extended to Aug 13)", he:"הרכב נשאר (הוארך ל-13.8)"},
+    acts:{en:["Chen: Primark shopping","You + kids: Therme water park","Sleep at Ramada Otopeni, near the airport"],
+          he:["צ'ן: קניות ב-Primark","אתה + הילדים: פארק המים ת'רמה","לינה ב-Ramada אוטופני, ליד השדה"]},
     attr:[
-      {name:{en:"Therme București (Galaxy)",he:"ת'רמה בוקרשט (Galaxy)"},
+      {name:{en:"Primark @ AFI Cotroceni (Chen)",he:"Primark ב-AFI Cotroceni (צ'ן)"},
+        photo:"afi_cotroceni", url:"https://www.aficotroceni.ro/",
+        cost:{en:"Free entry · the only Primark on the route",he:"כניסה חינם · ה-Primark היחיד במסלול"},
+        time:{en:"2–3 h",he:"2–3 ש׳"}},
+      {name:{en:"Therme București (Galaxy) — you + kids",he:"ת'רמה בוקרשט (Galaxy) — אתה + הילדים"},
         photo:"therme", url:"https://therme.ro/",
-        cost:{en:"From ≈69 RON",he:"החל מ-≈69 RON"},
-        time:{en:"Half / full day",he:"חצי / יום שלם"}},
+        cost:{en:"From ≈69 RON · kids ≤14 free Galaxy→Palm upgrade (until Sep 6)",he:"החל מ-≈69 RON · ילדים עד 14 שדרוג חינם Galaxy→Palm (עד 6.9)"},
+        time:{en:"4–5 h · Wed 9:00–23:00 (weekday = quieter)",he:"4–5 ש׳ · ד׳ 9:00–23:00 (אמצע שבוע = פחות עומס)"}},
     ],
     mapsQ:"Therme Bucuresti", caption:{en:"Water park",he:"פארק מים"},
   },
@@ -454,8 +467,8 @@ const LEGS = [
     lodging:{en:"EL AL · departs 12:30", he:"אל על · המראה 12:30"},
     conf:"XAEK28",
     lodgingNote:null,
-    acts:{en:["Drop the car at Otopeni (return Aug 12, 10:30)","Henri Coandă Intl (OTP)"],
-          he:["החזרת הרכב באוטופני (החזרה 12 באוג׳, 10:30)","נמל התעופה אנרי קואנדה (OTP)"]},
+    acts:{en:["Breakfast, then return the car at Otopeni (~9:00–9:30, extended)","Henri Coandă (OTP) — flight 12:30"],
+          he:["ארוחת בוקר, ואז החזרת הרכב באוטופני (~9:00–9:30, הוארך)","אנרי קואנדה (OTP) — טיסה 12:30"]},
     mapsQ:"Henri Coanda International Airport Otopeni", caption:{en:"Departure",he:"המראה"},
   },
 ];
@@ -464,8 +477,8 @@ const CAR = {
   key:"car",
   title:{en:"VW T-Roc or similar", he:"פולקסווגן T-Roc או דומה"},
   det:{
-    en:"Automatic · 5 seats · Klass Wagen · Conf. B24612852 · Pick-up Aug 3, 10:30 · Return Aug 12, 10:30 · Otopeni",
-    he:"אוטומט · 5 מקומות · Klass Wagen · אישור B24612852 · איסוף 3 באוג׳ 10:30 · החזרה 12 באוג׳ 10:30 · אוטופני"
+    en:"Automatic · 5 seats · Klass Wagen · Conf. B24612852 · Pick-up Aug 3, 10:30 · Otopeni · ⚠️ extend return to Aug 13 (needed for Vidraru)",
+    he:"אוטומט · 5 מקומות · Klass Wagen · אישור B24612852 · איסוף 3 באוג׳ 10:30 · אוטופני · ⚠️ להאריך החזרה ל-13 באוג׳ (נדרש בגלל ווידרארו)"
   },
   mapsQ:"Klass Wagen Otopeni Bucharest Airport",
 };
@@ -506,18 +519,20 @@ function routeCard(lang){
     const dx=b[0]-a[0], dy=b[1]-a[1], len=Math.hypot(dx,dy)||1;
     const ux=dx/len, uy=dy/len, nx=-uy, ny=ux;            // unit dir + left normal
     const mx=(a[0]+b[0])/2, my=(a[1]+b[1])/2;
+    const dash = sg.dashed ? ' stroke-dasharray="7 5"' : '';
     if(bow){
       const cx=mx+nx*bow, cy=my+ny*bow;
       lines+='<path d="M'+a[0]+','+a[1]+' Q'+cx.toFixed(1)+','+cy.toFixed(1)+' '+b[0]+','+b[1]+
-        '" fill="none" stroke="'+sg.color+'" stroke-width="3.5" stroke-linecap="round"/>';
-      // direction arrow at the curve midpoint (tangent ≈ chord direction)
-      const px=mx+0.5*bow*nx, py=my+0.5*bow*ny;
-      const tip=[px+ux*5.5,py+uy*5.5], l=[px-ux*3+nx*4.2,py-uy*3+ny*4.2], r=[px-ux*3-nx*4.2,py-uy*3-ny*4.2];
-      arrows+='<path d="M'+tip[0].toFixed(1)+','+tip[1].toFixed(1)+' L'+l[0].toFixed(1)+','+l[1].toFixed(1)+
-        ' L'+r[0].toFixed(1)+','+r[1].toFixed(1)+' Z" fill="'+sg.color+'"/>';
+        '" fill="none" stroke="'+sg.color+'" stroke-width="3.5" stroke-linecap="round"'+dash+'/>';
+      if(!sg.dashed){  // direction arrow only on the confirmed (solid) legs
+        const px=mx+0.5*bow*nx, py=my+0.5*bow*ny;
+        const tip=[px+ux*5.5,py+uy*5.5], l=[px-ux*3+nx*4.2,py-uy*3+ny*4.2], r=[px-ux*3-nx*4.2,py-uy*3-ny*4.2];
+        arrows+='<path d="M'+tip[0].toFixed(1)+','+tip[1].toFixed(1)+' L'+l[0].toFixed(1)+','+l[1].toFixed(1)+
+          ' L'+r[0].toFixed(1)+','+r[1].toFixed(1)+' Z" fill="'+sg.color+'"/>';
+      }
     } else {
       lines+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+
-        '" stroke="'+sg.color+'" stroke-width="3.5" stroke-linecap="round"/>';
+        '" stroke="'+sg.color+'" stroke-width="3.5" stroke-linecap="round"'+dash+'/>';
     }
   });
   const lbl={
@@ -537,7 +552,7 @@ function routeCard(lang){
     '<path d="'+ROMANIA_PATH+'" fill="#dcefe3" stroke="#7cc79b" stroke-width="1.4" stroke-linejoin="round"/>'+
     '<text x="'+(W-12)+'" y="22" text-anchor="end" font-size="12" fill="#5f9e7c" font-weight="700">N ↑</text>'+
     lines+arrows+dots+'</svg>';
-  const legend='<div class="route-legend">'+ROUTE.segs.map(sg=>
+  const legend='<div class="route-legend">'+ROUTE.segs.filter(sg=>!sg.legendHide).map(sg=>
     '<div class="rlg"><span class="sw" style="background:'+sg.color+'"></span>'+
     '<span class="d">'+esc(sg.day[lang])+'</span>&nbsp;'+esc(sg.label[lang])+
     '<span class="dur">'+esc(sg.dur[lang])+'</span></div>').join('')+'</div>';
