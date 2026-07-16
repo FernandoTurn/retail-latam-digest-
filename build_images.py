@@ -55,7 +55,7 @@ SLOTS = {
     "dino_parc":      ["Dino Parc Rasnov", "Rasnov dinosaur park", "Dinosaur statue Romania", "life-size dinosaur park"],
     "rasnov_fortress":["Râșnov Citadel", "Cetatea Rasnov", "Rasnov fortress"],
     "alpine_coaster": ["Sommerrodelbahn", "alpine coaster sled", "mountain roller coaster"],
-    "dambovicioara":  ["Cheile Dambovicioarei road", "Pestera Dambovicioara", "Dambovicioara gorge"],
+    "dambovicioara":  ["Pestera Dambovicioara", "Cheile Dambovicioarei", "Dambovicioara gorge"],
     "ialomita_cave":  ["Ialomita Monastery", "Pestera Ialomitei", "Ialomita Cave"],
     "sinaia_cablecar":["Telecabina Sinaia", "Sinaia gondola cable car", "Sinaia Cota 1400"],
     "busteni_cablecar":["Telecabina Busteni", "Busteni cable car", "cable car Bucegi mountains"],
