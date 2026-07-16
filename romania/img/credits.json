@@ -72,11 +72,11 @@
     "query": "Râșnov Citadel"
   },
   "alpine_coaster": {
-    "title": "Cheile Gradistei Fundata - panoramio.jpg",
+    "title": "Cheile Gradistei Fundata - panoramio (2).jpg",
     "artist": "Andrei Dan Suciu",
     "license": "CC BY 3.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Cheile_Gradistei_Fundata_-_panoramio.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Cheile_Gradistei_Fundata_-_panoramio_(2).jpg",
     "query": "Cheile Gradistei Fundata"
   },
   "dambovicioara": {
@@ -126,5 +126,29 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
     "source": "https://commons.wikimedia.org/wiki/File:The_Museum_of_Sense_from_AFI_Cotroceni_(Bucharest,_Bucharest).jpg",
     "query": "Museum of Senses Bucharest"
+  },
+  "transfagarasan": {
+    "title": "Transfagarasan P190717a.jpg",
+    "artist": "Michał Derela",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Transfagarasan_P190717a.jpg",
+    "query": "Transfagarasan"
+  },
+  "vidraru": {
+    "title": "Vidraru Dam.jpg",
+    "artist": "Andrei Stroe",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:Vidraru_Dam.jpg",
+    "query": "Vidraru dam"
+  },
+  "poenari": {
+    "title": "Cetatea Poenari 1.jpg",
+    "artist": "Diana Popescu",
+    "license": "CC BY-SA 3.0 ro",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/ro/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Cetatea_Poenari_1.jpg",
+    "query": "Poenari Castle"
   }
 }
