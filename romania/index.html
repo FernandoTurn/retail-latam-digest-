@@ -252,6 +252,8 @@ const TIPS = [
    he:"החזיקו מזומן ב-RON: חניות, רכבת ההרים וחלק מהמערות במזומן בלבד. כספומטים בכל מקום."},
   {en:"Peleș Castle is closed Mon & Tue — visit on Sunday Aug 9.",
    he:"טירת פלֶש סגורה ב׳ וג׳ — בקרו ביום א׳ 9.8."},
+  {en:"Transfăgărășan (Aug 11): seasonal & daytime-only, slow and winding — start early, fuel up first, and don't count on driving it after dark.",
+   he:"טרנספגרשאן (11.8): עונתי ופתוח ביום בלבד, איטי ומפותל — צאו מוקדם, תדלקו לפני, ואל תסתמכו על נהיגה בו אחרי החשכה."},
   {en:"Go early: Bran Castle, the cable cars and Peleș get crowded midday in August.",
    he:"הגיעו מוקדם: טירת בראן, הרכבלים ופלֶש מתמלאים בצהריים באוגוסט."},
   {en:"Confirm booster seats for Ari & Omer and that the road vignette (rovinietă) is included with Klass Wagen.",
@@ -269,6 +271,7 @@ const ROUTE = {
     bran:{lat:45.515,lng:25.367, en:"Bran",he:"בראן"},
     bucegi:{lat:45.400,lng:25.460, en:"Bucegi",he:"בוצֶ'גי"},
     sinaia:{lat:45.350,lng:25.550, en:"Sinaia",he:"סינאיה"},
+    vidraru:{lat:45.354,lng:24.633, en:"Vidraru",he:"ווידרארו"},
     bucharest:{lat:44.500,lng:26.090, en:"București / Otopeni",he:"בוקרשט / אוטופני"},
   },
   // one segment per driving day, each its own colour
@@ -282,14 +285,17 @@ const ROUTE = {
     {from:"bucegi",to:"sinaia",    color:"#f59e0b", bow:0,
       day:{en:"Aug 9",he:"9.8"},  label:{en:"Bucegi → Sinaia",he:"בוצֶ'גי → סינאיה"},
       dur:{en:"~2 h",he:"~2 ש׳"}},
-    {from:"sinaia",to:"bucharest", color:"#db2777", bow:30,
-      day:{en:"Aug 11",he:"11.8"},label:{en:"Sinaia → Bucharest",he:"סינאיה → בוקרשט"},
-      dur:{en:"~2 h",he:"~2 ש׳"}},
+    {from:"sinaia",to:"vidraru",   color:"#7c3aed", bow:0,
+      day:{en:"Aug 11",he:"11.8"},label:{en:"Sinaia → Vidraru (Transfăgărășan)",he:"סינאיה → ווידרארו (טרנספגרשאן)"},
+      dur:{en:"~3.5–4 h",he:"~3.5–4 ש׳"}},
+    {from:"vidraru",to:"bucharest", color:"#db2777", bow:34,
+      day:{en:"Aug 12",he:"12.8"},label:{en:"Vidraru → Bucharest",he:"ווידרארו → בוקרשט"},
+      dur:{en:"~2.5–3 h",he:"~2.5–3 ש׳"}},
   ],
   url:"https://www.google.com/maps/dir/?api=1"
       +"&origin="+encodeURIComponent("Henri Coanda International Airport Otopeni")
       +"&destination="+encodeURIComponent("Henri Coanda International Airport Otopeni")
-      +"&waypoints="+["Bran","Pestera Padina Bucegi","Sinaia","Bucharest"].map(encodeURIComponent).join("|")
+      +"&waypoints="+["Bran","Pestera Padina Bucegi","Sinaia","Barajul Vidraru","Bucharest"].map(encodeURIComponent).join("|")
       +"&travelmode=driving",
 };
 
@@ -399,29 +405,32 @@ const LEGS = [
     mapsQ:"Peles Castle Sinaia", caption:{en:"Peleș Castle",he:"טירת פלֶש"},
   },
   {
-    key:"bucharest_old", status:"a", drive:{en:"Sinaia → Bucharest · ~2 h",he:"סינאיה → בוקרשט · ~2 ש׳"},
+    key:"vidraru", photo:"transfagarasan", status:"g",
+    drive:{en:"Sinaia → Lake Vidraru, over the Transfăgărășan · ~3.5–4 h (scenic mountain road)",
+           he:"סינאיה → אגם ווידרארו, דרך הטרנספגרשאן · ~3.5–4 ש׳ (כביש הרים נופי)"},
     when:{en:"11 Aug · 1 night", he:"11 באוג׳ · לילה 1"},
-    place:{en:"Bucharest", he:"בוקרשט"},
-    lodging:{en:"Not booked yet — 4★+ hotel with A/C", he:"עדיין לא הוזמן — מלון 4★+ עם מיזוג"},
-    conf:null, stayUrl:"4 star hotels central Bucharest",
-    lodgingNote:{en:"Check-out Aug 12", he:"עזיבה 12 באוג׳"},
-    acts:{en:["Shopping: AFI Cotroceni + Primark","Kids: Gymboland / Museum of Senses"],
-          he:["קניות: AFI Cotroceni + Primark","לילדים: Gymboland / מוזיאון החושים"]},
+    place:{en:"Lake Vidraru / Transfăgărășan", he:"אגם ווידרארו / טרנספגרשאן"},
+    lodging:{en:"Posada Vidraru", he:"Posada Vidraru"},
+    conf:null, stayUrl:"Posada Vidraru",
+    lodgingNote:{en:"Booked · pay at reception · check-out Aug 12", he:"הוזמן · תשלום בקבלה · עזיבה 12 באוג׳"},
+    acts:{en:["Drive the Transfăgărășan (opens ~July–Oct, daytime only)","Lake Vidraru & dam","Poenari Citadel — Vlad the Impaler's real castle"],
+          he:["נסיעה בטרנספגרשאן (פתוח ~יולי–אוקטובר, ביום בלבד)","אגם וסכר ווידרארו","מבצר פואנארי — הטירה האמיתית של ולאד המשפד"]},
     attr:[
-      {name:{en:"AFI Cotroceni + Primark",he:"AFI Cotroceni + Primark"},
-        photo:"afi_cotroceni", url:"https://www.aficotroceni.ro/",
-        cost:{en:"Free entry",he:"כניסה חינם"}, time:{en:"2–3 h",he:"2–3 ש׳"}},
-      {name:{en:"Gymboland (kids)",he:"Gymboland (לילדים)"},
-        photo:"gymboland", url:"https://gymboland.ro/",
-        cost:{en:"≈40 RON/kid",he:"≈40 RON/ילד"}, time:{en:"1–2 h",he:"1–2 ש׳"}},
-      {name:{en:"Museum of Senses",he:"מוזיאון החושים"},
-        photo:"museum_senses", url:"https://museumofsenses.ro/",
-        cost:{en:"≈50 · kids ≈40 RON",he:"≈50 · ילד ≈40 RON"}, time:{en:"1–1.5 h",he:"1–1.5 ש׳"}},
+      {name:{en:"Transfăgărășan scenic road (DN7C)",he:"כביש הטרנספגרשאן הנופי (DN7C)"},
+        photo:"transfagarasan", maps:"Transfagarasan",
+        cost:{en:"Free · daytime only",he:"חינם · ביום בלבד"}, time:{en:"Half day",he:"חצי יום"}},
+      {name:{en:"Lake Vidraru & dam",he:"אגם וסכר ווידרארו"},
+        photo:"vidraru", maps:"Barajul Vidraru",
+        cost:{en:"Free",he:"חינם"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
+      {name:{en:"Poenari Citadel (Dracula's castle)",he:"מבצר פואנארי (טירת דרקולה)"},
+        photo:"poenari", maps:"Cetatea Poenari",
+        cost:{en:"≈15 RON · 1,480 steps",he:"≈15 RON · 1,480 מדרגות"}, time:{en:"≈1.5 h",he:"≈1.5 ש׳"}},
     ],
-    mapsQ:"AFI Cotroceni Bucharest", caption:{en:"Bucharest old town",he:"העיר העתיקה של בוקרשט"},
+    mapsQ:"Posada Vidraru", caption:{en:"Transfăgărășan / Vidraru",he:"טרנספגרשאן / ווידרארו"},
   },
   {
     key:"therme", status:"g",
+    drive:{en:"Vidraru → Bucharest · ~2.5–3 h",he:"ווידרארו → בוקרשט · ~2.5–3 ש׳"},
     when:{en:"12 Aug · 1 night", he:"12 באוג׳ · לילה 1"},
     place:{en:"Bucharest", he:"בוקרשט"},
     lodging:{en:"Ramada by Wyndham", he:"Ramada by Wyndham"},
@@ -486,7 +495,8 @@ function mapIcon(){
 const ROMANIA_PATH="M101.9,52.1 L117.1,41.2 L139.0,46.8 L161.6,47.0 L178.0,59.4 L190.0,51.6 L216.1,46.7 L225.0,34.9 L239.9,34.9 L250.6,39.8 L261.5,54.9 L272.7,76.3 L293.1,106.5 L294.2,128.8 L290.5,150.5 L296.8,173.7 L312.6,183.1 L329.2,174.9 L345.2,183.6 L346.0,196.7 L328.9,207.6 L318.2,202.9 L308.3,264.2 L287.5,258.8 L261.9,240.4 L220.3,252.2 L202.8,265.1 L151.0,262.5 L123.8,254.5 L110.2,258.3 L100.0,237.4 L93.5,228.5 L101.7,219.9 L93.0,213.6 L81.9,225.0 L61.4,210.2 L58.6,189.3 L37.1,177.4 L33.1,161.2 L14.0,141.2 L42.3,131.6 L63.6,97.2 L80.3,62.7 L101.9,52.1 Z";
 // mountain trio spread ~2.6× around their centroid so the short daily legs are
 // legible (they sit within ~15 km IRL); Bucharest kept at its true position.
-const RXY={bran:[190.6,164.6], bucegi:[198.9,180.0], sinaia:[207.2,186.5], bucharest:[221.2,223.9]};
+const RXY={bran:[182.9,153.1], bucegi:[198.9,182.6], sinaia:[214.9,195.1],
+  vidraru:[169.8,180.5], bucharest:[221.2,223.9]};
 
 function routeCard(lang){
   const W=360, H=300;
@@ -511,15 +521,16 @@ function routeCard(lang){
     }
   });
   const lbl={
-    bran:{dx:0,dy:-9,anchor:"middle"}, bucegi:{dx:-9,dy:5,anchor:"end"},
-    sinaia:{dx:9,dy:5,anchor:"start"}, bucharest:{dx:0,dy:17,anchor:"middle"},
+    bran:{dx:0,dy:-9,anchor:"middle"}, bucegi:{dx:-7,dy:14,anchor:"end"},
+    sinaia:{dx:9,dy:-6,anchor:"start"}, vidraru:{dx:-9,dy:-8,anchor:"end"},
+    bucharest:{dx:0,dy:17,anchor:"middle"},
   };
   let dots="";
   for(const [k,n] of Object.entries(ROUTE.points)){
     const p=RXY[k], L=lbl[k];
     dots+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4.5" fill="#0f5132" stroke="#fff" stroke-width="1.8"/>'+
       '<text x="'+(p[0]+L.dx)+'" y="'+(p[1]+L.dy)+'" text-anchor="'+L.anchor+
-      '" font-size="12" font-weight="700" fill="#12331f" paint-order="stroke" stroke="#dcefe3" stroke-width="3.5">'+
+      '" font-size="11" font-weight="700" fill="#12331f" paint-order="stroke" stroke="#dcefe3" stroke-width="3.5">'+
       esc(n[lang])+'</text>';
   }
   const svg='<svg class="map" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(UI.routeTitle[lang])+'">'+

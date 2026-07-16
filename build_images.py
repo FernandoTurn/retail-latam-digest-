@@ -62,6 +62,9 @@ SLOTS = {
     "afi_cotroceni":  ["AFI Palace Cotroceni", "AFI Cotroceni"],
     "gymboland":      ["Gymboland Bucharest"],
     "museum_senses":  ["Museum of Senses Bucharest"],
+    "transfagarasan": ["Transfagarasan", "Transfagarasan road"],
+    "vidraru":        ["Vidraru dam", "Lake Vidraru", "Barajul Vidraru"],
+    "poenari":        ["Poenari Castle", "Cetatea Poenari"],
 }
 
 FREE_HINTS = ("cc", "public domain", "pd", "no restrictions", "free")
