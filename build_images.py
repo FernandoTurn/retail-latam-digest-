@@ -54,17 +54,17 @@ SLOTS = {
     # --- atracciones individuales ---
     "dino_parc":      ["Dino Parc Rasnov", "Rasnov dinosaur park", "Dinosaur statue Romania", "life-size dinosaur park"],
     "rasnov_fortress":["Râșnov Citadel", "Cetatea Rasnov", "Rasnov fortress"],
-    "alpine_coaster": ["Cheile Gradistei Fundata", "Alpine coaster Romania"],
-    "dambovicioara":  ["Cheile Dambovicioarei", "Dambovicioara gorge", "Pestera Dambovicioara"],
+    "alpine_coaster": ["Sommerrodelbahn", "alpine coaster sled", "mountain roller coaster"],
+    "dambovicioara":  ["Cheile Dambovicioarei road", "Pestera Dambovicioara", "Dambovicioara gorge"],
     "ialomita_cave":  ["Ialomita Monastery", "Pestera Ialomitei", "Ialomita Cave"],
     "sinaia_cablecar":["Telecabina Sinaia", "Sinaia gondola cable car", "Sinaia Cota 1400"],
-    "busteni_cablecar":["Babele Bucegi", "Telecabina Busteni"],
+    "busteni_cablecar":["Telecabina Busteni", "Busteni cable car", "cable car Bucegi mountains"],
     "afi_cotroceni":  ["AFI Palace Cotroceni", "AFI Cotroceni"],
     "gymboland":      ["Gymboland Bucharest"],
     "museum_senses":  ["Museum of Senses Bucharest"],
     "brasov":         ["Brasov Council Square", "Piata Sfatului Brasov", "Brasov old town"],
     "transfagarasan": ["Transfagarasan", "Transfagarasan road"],
-    "vidraru":        ["Vidraru dam", "Lake Vidraru", "Barajul Vidraru"],
+    "vidraru":        ["Lacul Vidraru", "Lake Vidraru", "Vidraru reservoir"],
     "poenari":        ["Poenari Castle", "Cetatea Poenari"],
 }
 

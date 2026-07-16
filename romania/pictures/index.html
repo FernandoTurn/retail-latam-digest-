@@ -49,6 +49,11 @@
   .photo.emoji{display:flex;align-items:center;justify-content:center;
     background:linear-gradient(135deg,#fde68a,#fca5a5)}
   .photo.emoji span{font-size:3.6rem;letter-spacing:6px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.15))}
+  .photo{text-decoration:none}
+  .photo .taplink{position:absolute;top:9px;inset-inline-end:9px;width:27px;height:27px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:800;
+    background:rgba(15,23,32,.72);color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+  .photo.emoji .taplink{background:rgba(255,255,255,.6);color:#8a3b00}
   .desc{padding:13px 15px 16px;font-size:1rem}
   .desc .wow{font-weight:700;color:var(--accent)}
   footer{margin-top:26px;border-top:1px solid var(--line);padding-top:14px;font-size:.76rem;color:var(--muted)}
@@ -102,7 +107,7 @@ const HL = [
           he:["🏰 טירה אמיתית","🧛 אגדת דרקולה","🗺️ מגדלים ומדרגות סתר"]},
     desc:{en:"A real medieval castle on a rock — the legendary home of <span class='wow'>Dracula</span>! Climb the towers and find the hidden staircase.",
           he:"טירה מימי הביניים על סלע — הבית האגדי של <span class='wow'>דרקולה</span>! מטפסים במגדלים ומוצאים את מדרגות הסתר."} },
-  { day:"3–6", emoji:"🦕🦖",
+  { day:"3–6", emoji:"🦕🦖", link:"https://dinoparc.ro/",
     name:{en:"Dino Parc Râșnov", he:"דינו פארק רשנוב"},
     tags:{en:["🦕 Life-size dinosaurs","🌲 Forest trail","🎮 Play zones"],
           he:["🦕 דינוזאורים בגודל אמיתי","🌲 שביל ביער","🎮 אזורי משחק"]},
@@ -126,7 +131,7 @@ const HL = [
           he:["🕳️ נכנסים למערה","💧 ערוץ צר","🥾 הרפתקה קלה"]},
     desc:{en:"Step <span class='wow'>inside a cave</span>, then walk through a super-narrow rocky canyon.",
           he:"נכנסים <span class='wow'>לתוך מערה</span>, ואז הולכים בקניון סלעי צר-צר."} },
-  { day:"3–6", emoji:"🤸🎪",
+  { day:"3–6", emoji:"🤸🎪", link:"https://coresibrasov.ro/magazine/takapaka/",
     name:{en:"TakaPaka / JoyPark — Playground", he:"TakaPaka / JoyPark — פארק משחקים"},
     tags:{en:["🧸 Huge indoor playground","🎢 Slides, climbing, trampolines","🎉 In Brașov"],
           he:["🧸 פארק משחקים ענק","🎢 מגלשות, טיפוס, טרמפולינות","🎉 בבראשוב"]},
@@ -150,7 +155,7 @@ const HL = [
           he:["👑 טירת אגדות","✨ חדרי זהב","🌲 יער עבות"]},
     desc:{en:"The most beautiful castle in Romania — like a <span class='wow'>fairytale</span>, full of golden rooms and secret doors.",
           he:"הטירה הכי יפה ברומניה — כמו <span class='wow'>אגדה</span>, מלאה חדרי זהב ודלתות סתר."} },
-  { day:"10", photo:"busteni_cablecar",
+  { day:"10", photo:"busteni_cablecar", maps:"Telecabina Busteni",
     name:{en:"Cable Car to Babele", he:"רכבל לבאבלה"},
     tags:{en:["🚡 Cable car ride","☁️ Above the clouds","🏔️ Mountain peaks"],
           he:["🚡 נסיעה ברכבל","☁️ מעל העננים","🏔️ פסגות הרים"]},
@@ -174,13 +179,13 @@ const HL = [
           he:["🌊 אגם כחול ענק","🧱 סכר עצום","🚗 עצירת נוף"]},
     desc:{en:"A <span class='wow'>huge blue mountain lake</span> held back by a giant dam wall.",
           he:"<span class='wow'>אגם הרים כחול ענק</span> שנעצר על ידי קיר סכר עצום."} },
-  { day:"12", photo:"afi_cotroceni",
+  { day:"12", photo:"afi_cotroceni", link:"https://www.aficotroceni.ro/",
     name:{en:"Chen's shopping — Primark & malls", he:"הקניות של צ'ן — Primark וקניונים"},
     tags:{en:["🛍️ Primark (the only one!)","🏬 AFI & Coresi malls","🎁 New stuff"],
           he:["🛍️ Primark (היחיד!)","🏬 קניוני AFI ו-Coresi","🎁 דברים חדשים"]},
     desc:{en:"Chen's shopping stop: <span class='wow'>Primark</span> at the big AFI mall in Bucharest (and Coresi back in Brașov) — while we splash at the water park.",
           he:"עצירת הקניות של צ'ן: <span class='wow'>Primark</span> בקניון AFI הגדול בבוקרשט (וגם Coresi בבראשוב) — בזמן שאנחנו משפריצים בפארק המים."} },
-  { day:"12", photo:"therme",
+  { day:"12", photo:"therme", link:"https://therme.ro/",
     name:{en:"Therme — Water Park!", he:"ת'רמה — פארק מים!"},
     tags:{en:["🌊 Giant water park","🛝 Slides","🌴 Palm-tree pools"],
           he:["🌊 פארק מים ענק","🛝 מגלשות","🌴 בריכות עם דקלים"]},
@@ -191,6 +196,7 @@ const HL = [
 let CREDITS = {};
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const mapsUrl = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
 
 function attachFallbacks(){
   document.querySelectorAll("img[data-fb]").forEach(img=>{
@@ -206,15 +212,18 @@ function attachFallbacks(){
 function card(h, lang){
   // description may contain a <span class="wow"> we intentionally keep
   const safeDesc = esc(h.desc[lang]).replace(/&lt;span class=['"]wow['"]&gt;/g,'<span class="wow">').replace(/&lt;\/span&gt;/g,'</span>');
+  const href = h.link ? h.link : mapsUrl(h.maps || h.name.en);
+  const media = h.photo
+    ? '<img src="../img/'+h.photo+'.jpg" alt="'+esc(h.name[lang])+'" loading="lazy" data-fb="'+esc(h.name[lang])+'">'
+    : '<span>'+esc(h.emoji||"⭐")+'</span>';
   return '<div class="cal">'+
     '<div class="top">'+
       '<div class="datebox"><div class="m">'+esc(UI.month[lang])+'</div><div class="d">'+esc(h.day)+'</div></div>'+
       '<h2>'+esc(h.name[lang])+'</h2>'+
     '</div>'+
     '<div class="tags">'+h.tags[lang].map(t=>'<span>'+esc(t)+'</span>').join('')+'</div>'+
-    (h.photo
-      ? '<div class="photo"><img src="../img/'+h.photo+'.jpg" alt="'+esc(h.name[lang])+'" loading="lazy" data-fb="'+esc(h.name[lang])+'"></div>'
-      : '<div class="photo emoji"><span>'+esc(h.emoji||"⭐")+'</span></div>')+
+    '<a class="photo'+(h.photo?'':' emoji')+'" href="'+href+'" target="_blank" rel="noopener">'+
+      media+'<span class="taplink">↗</span></a>'+
     '<div class="desc">'+safeDesc+'</div>'+
   '</div>';
 }
