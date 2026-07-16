@@ -125,7 +125,7 @@ const HL = [
           he:["🎢 רכבת הרים","⚡ אתם שולטים במהירות","☔ עמיד לגשם"]},
     desc:{en:"A sled on rails that <span class='wow'>zooms down the mountain</span> — you steer and choose how fast to go!",
           he:"מזחלת על מסילה ש<span class='wow'>מזנקת במורד ההר</span> — אתם מנהיגים ובוחרים כמה מהר!"} },
-  { day:"3–6", photo:"cave", maps:"Cheile Dambovicioarei",
+  { day:"3–6", src:"../img/image-1784191181759.webp", maps:"Cheile Dambovicioarei",
     name:{en:"Dâmbovicioara Cave & Gorge", he:"מערת וערוץ דמבוביצ'ואארה"},
     tags:{en:["🕳️ Walk into a cave","💧 Narrow gorge","🥾 Easy adventure"],
           he:["🕳️ נכנסים למערה","💧 ערוץ צר","🥾 הרפתקה קלה"]},
@@ -213,8 +213,9 @@ function card(h, lang){
   // description may contain a <span class="wow"> we intentionally keep
   const safeDesc = esc(h.desc[lang]).replace(/&lt;span class=['"]wow['"]&gt;/g,'<span class="wow">').replace(/&lt;\/span&gt;/g,'</span>');
   const href = h.link ? h.link : mapsUrl(h.maps || h.name.en);
-  const media = h.photo
-    ? '<img src="../img/'+h.photo+'.jpg" alt="'+esc(h.name[lang])+'" loading="lazy" data-fb="'+esc(h.name[lang])+'">'
+  const imgSrc = h.src ? h.src : (h.photo ? '../img/'+h.photo+'.jpg' : '');
+  const media = imgSrc
+    ? '<img src="'+imgSrc+'" alt="'+esc(h.name[lang])+'" loading="lazy" data-fb="'+esc(h.name[lang])+'">'
     : '<span>'+esc(h.emoji||"⭐")+'</span>';
   return '<div class="cal">'+
     '<div class="top">'+
@@ -222,7 +223,7 @@ function card(h, lang){
       '<h2>'+esc(h.name[lang])+'</h2>'+
     '</div>'+
     '<div class="tags">'+h.tags[lang].map(t=>'<span>'+esc(t)+'</span>').join('')+'</div>'+
-    '<a class="photo'+(h.photo?'':' emoji')+'" href="'+href+'" target="_blank" rel="noopener">'+
+    '<a class="photo'+(imgSrc?'':' emoji')+'" href="'+href+'" target="_blank" rel="noopener">'+
       media+'<span class="taplink">↗</span></a>'+
     '<div class="desc">'+safeDesc+'</div>'+
   '</div>';
