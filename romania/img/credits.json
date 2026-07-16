@@ -63,6 +63,14 @@
     "source": "https://commons.wikimedia.org/wiki/File:Volkswagen_T-Roc_(2021)_1X7A0330.jpg",
     "query": "Volkswagen T-Roc"
   },
+  "dino_parc": {
+    "title": "Tyrannosaurus Model Dinosaur Valley State Park Texas 2023.jpg",
+    "artist": "Larry D. Moore",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tyrannosaurus_Model_Dinosaur_Valley_State_Park_Texas_2023.jpg",
+    "query": "life-size dinosaur park"
+  },
   "rasnov_fortress": {
     "title": "Râşnov Citadel (Rosenauer Burg) 01.jpg",
     "artist": "Pudelek",
@@ -72,11 +80,11 @@
     "query": "Râșnov Citadel"
   },
   "alpine_coaster": {
-    "title": "Cheile Gradistei Fundata - panoramio.jpg",
+    "title": "Cheile Gradistei Fundata - panoramio (2).jpg",
     "artist": "Andrei Dan Suciu",
     "license": "CC BY 3.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Cheile_Gradistei_Fundata_-_panoramio.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Cheile_Gradistei_Fundata_-_panoramio_(2).jpg",
     "query": "Cheile Gradistei Fundata"
   },
   "dambovicioara": {
