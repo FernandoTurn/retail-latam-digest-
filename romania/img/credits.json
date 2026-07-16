@@ -72,11 +72,11 @@
     "query": "Râșnov Citadel"
   },
   "alpine_coaster": {
-    "title": "Cheile Gradistei Fundata - panoramio (2).jpg",
+    "title": "Cheile Gradistei Fundata - panoramio.jpg",
     "artist": "Andrei Dan Suciu",
     "license": "CC BY 3.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Cheile_Gradistei_Fundata_-_panoramio_(2).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Cheile_Gradistei_Fundata_-_panoramio.jpg",
     "query": "Cheile Gradistei Fundata"
   },
   "dambovicioara": {
@@ -126,6 +126,14 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
     "source": "https://commons.wikimedia.org/wiki/File:The_Museum_of_Sense_from_AFI_Cotroceni_(Bucharest,_Bucharest).jpg",
     "query": "Museum of Senses Bucharest"
+  },
+  "brasov": {
+    "title": "Brașov - Palatul Friedrich Czell din Piața Sfatului (2023) - IMG 04.jpg",
+    "artist": "Chainwit.",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Bra%C8%99ov_-_Palatul_Friedrich_Czell_din_Pia%C8%9Ba_Sfatului_(2023)_-_IMG_04.jpg",
+    "query": "Brasov Council Square"
   },
   "transfagarasan": {
     "title": "Transfagarasan P190717a.jpg",
