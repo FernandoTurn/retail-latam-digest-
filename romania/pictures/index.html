@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5132">
+<title>Romania — Picture Calendar for the kids</title>
+<style>
+  :root{
+    --ink:#1f2733;--muted:#5d6b7a;--line:#e3e8ee;--bg:#eef2f7;--card:#fff;
+    --accent:#0f5132;--red:#e23b3b;--radius:18px;
+    --shadow:0 2px 4px rgba(16,24,40,.08),0 10px 30px rgba(16,24,40,.10);
+  }
+  *{box-sizing:border-box}html,body{margin:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+    "Noto Sans Hebrew","Arial Hebrew",sans-serif;color:var(--ink);background:var(--bg);
+    line-height:1.5;-webkit-text-size-adjust:100%}
+  .wrap{max-width:720px;margin:0 auto;padding:16px 15px 60px}
+  header.top{background:linear-gradient(135deg,#0f5132,#15803d);color:#fff;border-radius:var(--radius);
+    padding:20px 18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  header.top h1{margin:0 0 4px;font-size:1.5rem}
+  header.top .sub{opacity:.93;font-size:.95rem}
+  .langbtn{position:absolute;top:14px;inset-inline-end:14px;background:#fff;color:#0f5132;border:0;
+    border-radius:999px;padding:7px 14px;font-weight:700;font-size:.85rem;cursor:pointer;
+    box-shadow:0 2px 6px rgba(0,0,0,.2)}
+  .langbtn:active{transform:scale(.97)}
+  .topnav{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 2px}
+  .navlink{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;
+    font-size:.85rem;font-weight:600;text-decoration:none;color:var(--accent);box-shadow:var(--shadow)}
+  /* Calendar page card */
+  .cal{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden;margin:18px 0}
+  .cal .top{display:flex;align-items:center;gap:12px;padding:12px 14px 10px}
+  .datebox{flex:0 0 auto;width:62px;border-radius:12px;overflow:hidden;text-align:center;
+    box-shadow:0 1px 2px rgba(0,0,0,.12);border:1px solid #f0c9c9}
+  .datebox .m{background:var(--red);color:#fff;font-size:.68rem;font-weight:800;letter-spacing:1px;
+    padding:3px 0;text-transform:uppercase}
+  .datebox .d{background:#fff;color:#1f2733;font-size:1.5rem;font-weight:800;line-height:1.15;padding:4px 0}
+  .cal h2{margin:0;font-size:1.2rem;line-height:1.2}
+  .cal .num{font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 12px}
+  .tags span{background:#eaf3ee;color:#155d36;border:1px solid #c7e6d3;border-radius:999px;
+    font-size:.8rem;font-weight:600;padding:4px 10px}
+  .photo{display:block;position:relative;background:#dce3ea;aspect-ratio:4/3}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .photo .ph-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:16px;color:#43586a;font-weight:700;font-size:1.05rem;
+    background:linear-gradient(135deg,#eef2f6,#dbe4ec)}
+  .photo.emoji{display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,#fde68a,#fca5a5)}
+  .photo.emoji span{font-size:3.6rem;letter-spacing:6px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.15))}
+  .desc{padding:13px 15px 16px;font-size:1rem}
+  .desc .wow{font-weight:700;color:var(--accent)}
+  footer{margin-top:26px;border-top:1px solid var(--line);padding-top:14px;font-size:.76rem;color:var(--muted)}
+  footer h4{margin:0 0 8px;font-size:.82rem;color:var(--ink)}
+  footer ul{margin:0;padding-inline-start:16px}
+  footer li{margin:3px 0}
+  footer a{color:var(--muted)}
+  .count{margin:14px 2px 0;font-weight:700;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <button class="langbtn" id="langbtn" type="button" aria-label="Switch language">עברית</button>
+    <h1 id="t-title">Romania — Picture Calendar</h1>
+    <div class="sub" id="t-sub">The coolest stops for Ari &amp; Omer 🦕🏰🎢</div>
+  </header>
+
+  <div class="topnav">
+    <a class="navlink" id="t-back" href="../index.html">← Back to the plan</a>
+  </div>
+
+  <div class="count" id="t-count"></div>
+  <div id="cal"></div>
+
+  <footer>
+    <h4 id="t-cred-title">Photo credits</h4>
+    <div id="credits"></div>
+    <p id="t-cred-note" style="margin-top:8px">All photos from Wikimedia Commons under free licenses.</p>
+  </footer>
+</div>
+
+<script>
+const UI = {
+  title:{en:"Romania — Picture Calendar", he:"רומניה — לוח תמונות"},
+  sub:{en:"The coolest stops for Ari & Omer 🦕🏰🎢", he:"התחנות הכי מגניבות לארי ועומר 🦕🏰🎢"},
+  back:{en:"← Back to the plan", he:"← חזרה לתוכנית"},
+  count:{en:"stops", he:"תחנות"},
+  month:{en:"AUG", he:"אוג׳"},
+  credTitle:{en:"Photo credits", he:"קרדיט לתמונות"},
+  credNote:{en:"All photos from Wikimedia Commons under free licenses.", he:"כל התמונות מ-Wikimedia Commons תחת רישיונות חופשיים."},
+  by:{en:"by", he:"מאת"},
+  loading:{en:"loading…", he:"טוען…"},
+};
+
+/* Kid-impressing highlights, in date order. photo = key in ../img/<key>.jpg */
+const HL = [
+  { day:"3–6", photo:"bran_castle",
+    name:{en:"Bran Castle — Dracula's Castle", he:"טירת בראן — טירת דרקולה"},
+    tags:{en:["🏰 Real castle","🧛 Dracula legend","🗺️ Towers & secret stairs"],
+          he:["🏰 טירה אמיתית","🧛 אגדת דרקולה","🗺️ מגדלים ומדרגות סתר"]},
+    desc:{en:"A real medieval castle on a rock — the legendary home of <span class='wow'>Dracula</span>! Climb the towers and find the hidden staircase.",
+          he:"טירה מימי הביניים על סלע — הבית האגדי של <span class='wow'>דרקולה</span>! מטפסים במגדלים ומוצאים את מדרגות הסתר."} },
+  { day:"3–6", photo:"dino_parc",
+    name:{en:"Dino Parc Râșnov", he:"דינו פארק רשנוב"},
+    tags:{en:["🦕 Life-size dinosaurs","🌲 Forest trail","🎮 Play zones"],
+          he:["🦕 דינוזאורים בגודל אמיתי","🌲 שביל ביער","🎮 אזורי משחק"]},
+    desc:{en:"Walk among <span class='wow'>life-size dinosaurs</span> in the forest — even a giant one you can walk all the way around. ROAR!",
+          he:"מטיילים בין <span class='wow'>דינוזאורים בגודל אמיתי</span> ביער — יש אפילו ענק שאפשר להקיף כולו. שאאאאג!"} },
+  { day:"3–6", photo:"rasnov_fortress",
+    name:{en:"Râșnov Fortress", he:"מבצר רשנוב"},
+    tags:{en:["🏯 Hilltop fortress","🔭 Huge views","🐉 Old legends"],
+          he:["🏯 מבצר על גבעה","🔭 נוף ענק","🐉 אגדות עתיקות"]},
+    desc:{en:"A 700-year-old fortress on top of a hill, with <span class='wow'>giant views</span> over the whole valley.",
+          he:"מבצר בן 700 שנה על ראש גבעה, עם <span class='wow'>נוף ענק</span> על כל העמק."} },
+  { day:"3–6", photo:"alpine_coaster",
+    name:{en:"Alpine Coaster (Fundata)", he:"רכבת הרים אלפינית (פונדטה)"},
+    tags:{en:["🎢 Mountain coaster","⚡ You control the speed","☔ Rain-proof"],
+          he:["🎢 רכבת הרים","⚡ אתם שולטים במהירות","☔ עמיד לגשם"]},
+    desc:{en:"A sled on rails that <span class='wow'>zooms down the mountain</span> — you steer and choose how fast to go!",
+          he:"מזחלת על מסילה ש<span class='wow'>מזנקת במורד ההר</span> — אתם מנהיגים ובוחרים כמה מהר!"} },
+  { day:"3–6", photo:"dambovicioara",
+    name:{en:"Dâmbovicioara Cave & Gorge", he:"מערת וערוץ דמבוביצ'ואארה"},
+    tags:{en:["🕳️ Walk into a cave","💧 Narrow gorge","🥾 Easy adventure"],
+          he:["🕳️ נכנסים למערה","💧 ערוץ צר","🥾 הרפתקה קלה"]},
+    desc:{en:"Step <span class='wow'>inside a cave</span>, then walk through a super-narrow rocky canyon.",
+          he:"נכנסים <span class='wow'>לתוך מערה</span>, ואז הולכים בקניון סלעי צר-צר."} },
+  { day:"3–6", emoji:"🤸🎪",
+    name:{en:"TakaPaka / JoyPark — Playground", he:"TakaPaka / JoyPark — פארק משחקים"},
+    tags:{en:["🧸 Huge indoor playground","🎢 Slides, climbing, trampolines","🎉 In Brașov"],
+          he:["🧸 פארק משחקים ענק","🎢 מגלשות, טיפוס, טרמפולינות","🎉 בבראשוב"]},
+    desc:{en:"A giant indoor playground in Brașov — <span class='wow'>TakaPaka</span> (inside the mall) or <span class='wow'>JoyPark</span> (bigger, with trampolines &amp; VR). Jump, climb, slide!",
+          he:"פארק משחקים ענק בבראשוב — <span class='wow'>TakaPaka</span> (בתוך הקניון) או <span class='wow'>JoyPark</span> (גדול יותר, עם טרמפולינות ו-VR). לקפוץ, לטפס, להחליק!"} },
+  { day:"7–8", photo:"bucegi",
+    name:{en:"The Bucegi Sphinx", he:"הספינקס של בוצֶ'גי"},
+    tags:{en:["🗿 Giant face rock","⛰️ High plateau","🌬️ Top of the world"],
+          he:["🗿 סלע ענק בצורת פנים","⛰️ מישור גבוה","🌬️ ראש העולם"]},
+    desc:{en:"A huge rock shaped like a <span class='wow'>face</span>, high on the mountain — a natural sphinx made by the wind!",
+          he:"סלע ענק בצורת <span class='wow'>פנים</span>, גבוה על ההר — ספינקס טבעי שהרוח פיסלה!"} },
+  { day:"7–8", photo:"ialomita_cave",
+    name:{en:"Ialomița Cave", he:"מערת יאלומיצה"},
+    tags:{en:["🕳️ Big dark cave","⛪ Cave monastery","🔦 Cool inside"],
+          he:["🕳️ מערה גדולה וחשוכה","⛪ מנזר במערה","🔦 קריר בפנים"]},
+    desc:{en:"A <span class='wow'>giant cave</span> with a tiny monastery built right at its mouth. Bring a flashlight!",
+          he:"<span class='wow'>מערה ענקית</span> עם מנזר קטנטן שבנוי בדיוק בפתח שלה. קחו פנס!"} },
+  { day:"9", photo:"peles",
+    name:{en:"Peleș Castle", he:"טירת פלֶש"},
+    tags:{en:["👑 Fairytale castle","✨ Golden rooms","🌲 Deep forest"],
+          he:["👑 טירת אגדות","✨ חדרי זהב","🌲 יער עבות"]},
+    desc:{en:"The most beautiful castle in Romania — like a <span class='wow'>fairytale</span>, full of golden rooms and secret doors.",
+          he:"הטירה הכי יפה ברומניה — כמו <span class='wow'>אגדה</span>, מלאה חדרי זהב ודלתות סתר."} },
+  { day:"10", photo:"busteni_cablecar",
+    name:{en:"Cable Car to Babele", he:"רכבל לבאבלה"},
+    tags:{en:["🚡 Cable car ride","☁️ Above the clouds","🏔️ Mountain peaks"],
+          he:["🚡 נסיעה ברכבל","☁️ מעל העננים","🏔️ פסגות הרים"]},
+    desc:{en:"Ride a cable car <span class='wow'>way up high</span>, sometimes above the clouds, to the top of the mountain.",
+          he:"נוסעים ברכבל <span class='wow'>גבוה-גבוה</span>, לפעמים מעל העננים, עד ראש ההר."} },
+  { day:"11", photo:"transfagarasan",
+    name:{en:"The Transfăgărășan Road", he:"כביש הטרנספגרשאן"},
+    tags:{en:["🛣️ Epic mountain road","🌀 Hairpin turns","📸 Wow views"],
+          he:["🛣️ כביש הרים אגדי","🌀 סיבובי סרק","📸 נוף מטורף"]},
+    desc:{en:"One of the <span class='wow'>most amazing roads in the world</span> — it twists up the mountains like a snake.",
+          he:"אחד <span class='wow'>הכבישים הכי מדהימים בעולם</span> — מתפתל במעלה ההרים כמו נחש."} },
+  { day:"11", photo:"poenari",
+    name:{en:"Poenari — the REAL Dracula Castle", he:"פואנארי — טירת דרקולה האמיתית"},
+    tags:{en:["🏰 Vlad Dracula's castle","🪜 1,480 steps","🌲 On a cliff"],
+          he:["🏰 טירת ולאד דרקולה","🪜 1,480 מדרגות","🌲 על צוק"]},
+    desc:{en:"The <span class='wow'>real</span> castle of Vlad “Dracula” — climb 1,480 steps to a fortress on a cliff-top!",
+          he:"הטירה <span class='wow'>האמיתית</span> של ולאד ״דרקולה״ — מטפסים 1,480 מדרגות למבצר על ראש צוק!"} },
+  { day:"11", photo:"vidraru",
+    name:{en:"Lake Vidraru", he:"אגם ווידרארו"},
+    tags:{en:["🌊 Big blue lake","🧱 Giant dam","🚗 Scenic stop"],
+          he:["🌊 אגם כחול ענק","🧱 סכר עצום","🚗 עצירת נוף"]},
+    desc:{en:"A <span class='wow'>huge blue mountain lake</span> held back by a giant dam wall.",
+          he:"<span class='wow'>אגם הרים כחול ענק</span> שנעצר על ידי קיר סכר עצום."} },
+  { day:"12", photo:"afi_cotroceni",
+    name:{en:"Chen's shopping — Primark & malls", he:"הקניות של צ'ן — Primark וקניונים"},
+    tags:{en:["🛍️ Primark (the only one!)","🏬 AFI & Coresi malls","🎁 New stuff"],
+          he:["🛍️ Primark (היחיד!)","🏬 קניוני AFI ו-Coresi","🎁 דברים חדשים"]},
+    desc:{en:"Chen's shopping stop: <span class='wow'>Primark</span> at the big AFI mall in Bucharest (and Coresi back in Brașov) — while we splash at the water park.",
+          he:"עצירת הקניות של צ'ן: <span class='wow'>Primark</span> בקניון AFI הגדול בבוקרשט (וגם Coresi בבראשוב) — בזמן שאנחנו משפריצים בפארק המים."} },
+  { day:"12", photo:"therme",
+    name:{en:"Therme — Water Park!", he:"ת'רמה — פארק מים!"},
+    tags:{en:["🌊 Giant water park","🛝 Slides","🌴 Palm-tree pools"],
+          he:["🌊 פארק מים ענק","🛝 מגלשות","🌴 בריכות עם דקלים"]},
+    desc:{en:"A massive <span class='wow'>water park</span> with slides and warm palm-tree pools — the best splash day before we fly home!",
+          he:"<span class='wow'>פארק מים</span> ענקי עם מגלשות ובריכות חמות עם דקלים — יום השפרוצים הכי טוב לפני הטיסה הביתה!"} },
+];
+
+let CREDITS = {};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function attachFallbacks(){
+  document.querySelectorAll("img[data-fb]").forEach(img=>{
+    const show=()=>{ if(img.dataset.done) return; img.dataset.done="1";
+      img.style.display="none";
+      const d=document.createElement("div"); d.className="ph-fallback"; d.textContent=img.dataset.fb;
+      img.insertAdjacentElement("afterend", d); };
+    img.addEventListener("error", show);
+    if(img.complete && img.naturalWidth===0) show();
+  });
+}
+
+function card(h, lang){
+  // description may contain a <span class="wow"> we intentionally keep
+  const safeDesc = esc(h.desc[lang]).replace(/&lt;span class=['"]wow['"]&gt;/g,'<span class="wow">').replace(/&lt;\/span&gt;/g,'</span>');
+  return '<div class="cal">'+
+    '<div class="top">'+
+      '<div class="datebox"><div class="m">'+esc(UI.month[lang])+'</div><div class="d">'+esc(h.day)+'</div></div>'+
+      '<h2>'+esc(h.name[lang])+'</h2>'+
+    '</div>'+
+    '<div class="tags">'+h.tags[lang].map(t=>'<span>'+esc(t)+'</span>').join('')+'</div>'+
+    (h.photo
+      ? '<div class="photo"><img src="../img/'+h.photo+'.jpg" alt="'+esc(h.name[lang])+'" loading="lazy" data-fb="'+esc(h.name[lang])+'"></div>'
+      : '<div class="photo emoji"><span>'+esc(h.emoji||"⭐")+'</span></div>')+
+    '<div class="desc">'+safeDesc+'</div>'+
+  '</div>';
+}
+
+function renderCredits(lang){
+  const seen=new Set(), rows=[];
+  for(const h of HL){
+    if(seen.has(h.photo)) continue; seen.add(h.photo);
+    const c=CREDITS[h.photo]; if(!c) continue;
+    const lic=c.licenseUrl?'<a href="'+esc(c.licenseUrl)+'" target="_blank" rel="noopener">'+esc(c.license||"free")+'</a>':esc(c.license||"free");
+    const src=c.source?' · <a href="'+esc(c.source)+'" target="_blank" rel="noopener">Commons</a>':'';
+    rows.push('<li><b>'+esc(c.title||h.photo)+'</b> — '+esc(UI.by[lang])+' '+esc(c.artist||"—")+' · '+lic+src+'</li>');
+  }
+  $("#credits").innerHTML = rows.length?'<ul>'+rows.join('')+'</ul>':'<p>'+esc(UI.loading[lang])+'</p>';
+}
+
+function render(){
+  const lang = document.documentElement.lang==="he" ? "he":"en";
+  document.documentElement.dir = lang==="he" ? "rtl":"ltr";
+  $("#t-title").textContent=UI.title[lang];
+  $("#t-sub").textContent=UI.sub[lang];
+  $("#t-back").textContent=UI.back[lang];
+  $("#t-count").textContent=HL.length+" "+UI.count[lang];
+  $("#t-cred-title").textContent=UI.credTitle[lang];
+  $("#t-cred-note").textContent=UI.credNote[lang];
+  $("#langbtn").textContent = lang==="he" ? "English":"עברית";
+  document.title = UI.title[lang];
+  $("#cal").innerHTML = HL.map(h=>card(h,lang)).join('');
+  attachFallbacks();
+  renderCredits(lang);
+}
+
+document.getElementById("langbtn").addEventListener("click",()=>{
+  const next = document.documentElement.lang==="he" ? "en":"he";
+  document.documentElement.lang=next;
+  try{ localStorage.setItem("trip-lang", next); }catch(e){}
+  render();
+});
+
+(function init(){
+  let lang="en"; try{ lang=localStorage.getItem("trip-lang")||"en"; }catch(e){}
+  document.documentElement.lang=lang;
+  render();
+  fetch("../img/credits.json",{cache:"no-store"}).then(r=>r.ok?r.json():{})
+    .then(j=>{ CREDITS=j||{}; renderCredits(document.documentElement.lang==="he"?"he":"en"); }).catch(()=>{});
+})();
+</script>
+</body>
+</html>

@@ -137,6 +137,7 @@
     margin-top:16px;background:linear-gradient(135deg,#0f5132,#15803d);color:#fff;text-decoration:none;
     font-weight:700;font-size:.95rem;padding:14px 16px;border-radius:var(--radius);box-shadow:var(--shadow)}
   .guide-btn:active{transform:scale(.99)}
+  .guide-btn.kids{margin-top:10px;background:linear-gradient(135deg,#e23b3b,#f59e0b)}
   /* Attractions */
   .attractions{margin-top:6px;display:flex;flex-direction:column;gap:8px}
   .attr{display:flex;gap:10px;align-items:center;text-decoration:none;color:inherit;
@@ -242,6 +243,7 @@ const UI = {
   stayOptions:{en:"See options", he:"אפשרויות"},
   secTips:{en:"Tips", he:"טיפים"},
   guideCta:{en:"Full guide: shopping, food & prices", he:"מדריך מלא: קניות, אוכל ומחירים"},
+  picturesCta:{en:"Picture calendar for the kids", he:"לוח תמונות לילדים"},
 };
 
 /* Quick practical tips shown on the main page. */
@@ -697,7 +699,8 @@ function setText(){
   $("#t-sec-tips").textContent = UI.secTips[lang];
   $("#tips").innerHTML = '<ul class="tips">'+TIPS.map(t=>'<li>'+esc(t[lang])+'</li>').join("")+'</ul>';
   $("#guide").innerHTML = '<a class="guide-btn" href="'+(lang==="he"?"guide-he.html":"guide-en.html")+'">'+
-    '📖 '+esc(UI.guideCta[lang])+' →</a>';
+    '📖 '+esc(UI.guideCta[lang])+' →</a>'+
+    '<a class="guide-btn kids" href="pictures/">📸 '+esc(UI.picturesCta[lang])+' →</a>';
   attachFallbacks();
   renderCredits(lang);
 }

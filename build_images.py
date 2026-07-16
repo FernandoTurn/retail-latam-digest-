@@ -52,7 +52,7 @@ SLOTS = {
     "airplane":       ["El Al Boeing 737", "El Al aircraft", "Boeing 737 takeoff"],
     "car":            ["Volkswagen T-Roc", "VW T-Roc"],
     # --- atracciones individuales ---
-    "dino_parc":      ["Dino Parc Rasnov", "Dinosaur park Rasnov Romania"],
+    "dino_parc":      ["Dino Parc Rasnov", "Rasnov dinosaur park", "Dinosaur statue Romania", "life-size dinosaur park"],
     "rasnov_fortress":["Râșnov Citadel", "Cetatea Rasnov", "Rasnov fortress"],
     "alpine_coaster": ["Cheile Gradistei Fundata", "Alpine coaster Romania"],
     "dambovicioara":  ["Cheile Dambovicioarei", "Dambovicioara gorge", "Pestera Dambovicioara"],
