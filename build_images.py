@@ -50,7 +50,7 @@ SLOTS = {
     "bucharest_old":  ["Lipscani Bucharest", "Stavropoleos Church Bucharest", "Bucharest old town"],
     "therme":         ["Therme Bucuresti", "Therme Bucharest", "Aqua park indoor palms"],
     "airplane":       ["El Al Boeing 737", "El Al aircraft", "Boeing 737 takeoff"],
-    "car":            ["Volkswagen T-Roc", "VW T-Roc"],
+    "car":            ["Volkswagen Tiguan", "VW Tiguan"],
     # --- atracciones individuales ---
     "dino_parc":      ["Dino Parc Rasnov", "Rasnov dinosaur park", "Dinosaur statue Romania", "life-size dinosaur park"],
     "rasnov_fortress":["Râșnov Citadel", "Cetatea Rasnov", "Rasnov fortress"],
