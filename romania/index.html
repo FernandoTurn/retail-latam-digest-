@@ -81,6 +81,13 @@
   .conf code{background:#f0f3f7;border-radius:5px;padding:1px 6px;font-size:.92em}
   ul.acts{margin:4px 0 0;padding-inline-start:18px}
   ul.acts li{margin:2px 0}
+  ul.plan{margin:4px 0 2px;padding:0;list-style:none}
+  ul.plan li{margin:0;padding:8px 0;border-bottom:1px solid var(--line);
+    display:flex;gap:10px;font-size:.9rem}
+  ul.plan li:last-child{border-bottom:none}
+  ul.plan .day{flex:0 0 auto;font-weight:700;color:var(--accent);min-width:74px}
+  ul.plan .plot{color:var(--ink)}
+  ul.plan .plot .t{color:var(--muted);font-weight:600}
   .note{margin-top:10px;font-size:.83rem;background:var(--green-bg);border:1px solid var(--green-line);
     color:#155d36;border-radius:10px;padding:8px 10px}
   .note.veg::before{content:"🥗 "}
@@ -218,6 +225,7 @@ const UI = {
   secCar:  {en:"Car rental", he:"השכרת רכב"},
   lodging: {en:"Stay", he:"לינה"},
   acts:    {en:"Activities", he:"פעילויות"},
+  schedule:{en:"Day by day", he:"יום אחר יום"},
   conf:    {en:"Conf.", he:"אישור"},
   checkout:{en:"Check-out", he:"עזיבה"},
   nights:  {en:"nights", he:"לילות"},
@@ -335,6 +343,12 @@ const LEGS = [
     lodging:{en:"Kapa Chalet — kitchen, jacuzzi, A/C", he:"Kapa Chalet — מטבח, ג'קוזי, מיזוג"},
     conf:null, stayUrl:"Kapa Chalet Sohodol Bran",
     lodgingNote:{en:"Check-out Aug 7", he:"עזיבה 7 באוג׳"},
+    plan:[
+      {d:{en:"Mon Aug 3",he:"ב׳ 3.8"}, t:{en:"Arrive: Băneasa (Orange SIMs + water) → Ploiești stop → Bran · check-in ~15:00 · relax at the chalet",he:"הגעה: בנאסה (סימי Orange + מים) → עצירת פלוישט → בראן · צ'ק-אין ~15:00 · מנוחה בשאלֶה"}},
+      {d:{en:"Tue Aug 4",he:"ג׳ 4.8"}, t:{en:"Bran Castle early (~9:30) → Râșnov Fortress → Dino Parc Râșnov",he:"טירת בראן מוקדם (~9:30) → מבצר רשנוב → דינו פארק רשנוב"}},
+      {d:{en:"Wed Aug 5",he:"ד׳ 5.8"}, t:{en:"Alpine Coaster + UTV/karts at Fundata → Cheile Dâmbovicioarei gorge & cave",he:"רכבת הרים + UTV/קארטים בפונדטה → ערוץ ומערת דמבוביצ'ואארה"}},
+      {d:{en:"Thu Aug 6",he:"ה׳ 6.8"}, t:{en:"Brașov day: Coresi + TakaPaka (or Joy Park) — or mountain villages & a slow day",he:"יום בראשוב: Coresi + TakaPaka (או Joy Park) — או כפרי הרים ויום רגוע"}},
+    ],
     acts:{en:["Bran Castle","Dino Parc Râșnov + Râșnov fortress","Alpine Coaster at Cheile Grădiștei (Fundata)","Cheile Dâmbovicioarei gorge","Mountain villages"],
           he:["טירת בראן","דינו פארק רשנוב + מבצר רשנוב","רכבת הרים אלפינית בקֵיילה גרדישטיי (פונדטה)","ערוץ קֵיילה דמבוביצ'ואארה","כפרי הרים"]},
     attr:[
@@ -383,6 +397,10 @@ const LEGS = [
     conf:"573846176",
     stayUrl:"Hotel Pestera Wellness Spa Bucegi",
     lodgingNote:{en:"Check-out Aug 9", he:"עזיבה 9 באוג׳"},
+    plan:[
+      {d:{en:"Fri Aug 7",he:"ו׳ 7.8"}, t:{en:"Check-out Bran → drive up to Peștera · check-in ~16:00 · spa & rest",he:"עזיבת בראן → נסיעה לפשטרה · צ'ק-אין ~16:00 · ספא ומנוחה"}},
+      {d:{en:"Sat Aug 8",he:"ש׳ 8.8"}, t:{en:"Ialomița Cave + monastery, then Bucegi plateau (Bușteni cable car to Babele & the Sphinx)",he:"מערת יאלומיצה + מנזר, ואז מישור בוצֶ'גי (רכבל בושטֶני לבאבלה ולספינקס)"}},
+    ],
     acts:{en:["Ialomița Cave + monastery","Bucegi plateau (Babele, the Sphinx)","Spa & wellness"],
           he:["מערת יאלומיצה + מנזר","מישור בוצֶ'גי (באבלה, הספינקס)","ספא ובריאות"]},
     attr:[
@@ -406,6 +424,10 @@ const LEGS = [
     lodging:{en:"Alexandrion Experience — to book", he:"Alexandrion Experience — להזמין"},
     conf:null, stayUrl:"Alexandrion Experience",
     lodgingNote:{en:"2 nights · check-out Aug 11", he:"2 לילות · עזיבה 11 באוג׳"},
+    plan:[
+      {d:{en:"Sun Aug 9",he:"א׳ 9.8"}, t:{en:"Peleș Castle (book online, last entry 16:00) → Sinaia town · dinner at Kuib",he:"טירת פלֶש (להזמין אונליין, כניסה אחרונה 16:00) → העיירה סינאיה · ארוחה ב-Kuib"}},
+      {d:{en:"Mon Aug 10",he:"ב׳ 10.8"}, t:{en:"Day-trip to Slănic Prahova salt mine (Mina Unirea, ~1 h each way) · bring a jacket",he:"טיול יום למכרה המלח סלניק פראחובה (מכרה Unirea, ~1 ש׳ לכיוון) · קחו מעיל"}},
+    ],
     acts:{en:["Aug 9: Peleș Castle (closed Mon/Tue — reserve online)","Aug 10: Slănic Prahova salt mine (Mina Unirea)"],
           he:["9.8: טירת פלֶש (סגור ב׳/ג׳ — להזמין אונליין)","10.8: מכרה המלח סלניק פראחובה (מכרה Unirea)"]},
     attr:[
@@ -639,6 +661,13 @@ function legCard(leg, lang){
     html += '<a class="staylink" href="'+shref+'" target="_blank" rel="noopener">📷 '+esc(slabel)+'</a>';
   }
   html += '</div>';
+  // day-by-day schedule (multi-day base stays)
+  if(leg.plan){
+    html += '<div class="block"><div class="lbl">📅 '+esc(UI.schedule[lang])+'</div>'+
+      '<ul class="plan">'+leg.plan.map(d=>
+        '<li><span class="day">'+esc(d.d[lang])+'</span>'+
+        '<span class="plot">'+esc(d.t[lang])+'</span></li>').join("")+'</ul></div>';
+  }
   // activities / attractions
   html += '<div class="block"><div class="lbl">📍 '+esc(UI.acts[lang])+'</div>';
   if(leg.attr){
