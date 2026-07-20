@@ -232,6 +232,7 @@ const UI = {
   schedule:{en:"Day by day", he:"יום אחר יום"},
   morning:  {en:"Morning", he:"בוקר"},
   afternoon:{en:"Afternoon", he:"אחר הצהריים"},
+  evening:  {en:"Evening", he:"ערב"},
   conf:    {en:"Conf.", he:"אישור"},
   checkout:{en:"Check-out", he:"עזיבה"},
   nights:  {en:"nights", he:"לילות"},
@@ -358,6 +359,9 @@ const LEGS = [
         ],
         pm:[
           {time:"15:00", a:{en:"Check-in Kapa Chalet · relax (jacuzzi, BBQ)",he:"צ'ק-אין Kapa Chalet · מנוחה (ג'קוזי, על האש)"}},
+        ],
+        eve:[
+          {time:"20:00", a:{en:"Dinner: BBQ at the chalet (shop on the way), or Vila Bran",he:"ארוחת ערב: על האש בשאלֶה (קניות בדרך), או Vila Bran"}},
         ]},
       {d:{en:"Tue Aug 4",he:"ג׳ 4.8"},
         am:[
@@ -367,6 +371,9 @@ const LEGS = [
         pm:[
           {time:"13:30", a:{en:"Râșnov Fortress",he:"מבצר רשנוב"}},
           {time:"15:00", a:{en:"Dino Parc Râșnov",he:"דינו פארק רשנוב"}},
+        ],
+        eve:[
+          {time:"19:30", a:{en:"Dinner: Vila Bran (veg + trout · playground)",he:"ארוחת ערב: Vila Bran (צמחוני + פורל · מגרש משחקים)"}},
         ]},
       {d:{en:"Wed Aug 5",he:"ד׳ 5.8"},
         am:[
@@ -376,6 +383,9 @@ const LEGS = [
         pm:[
           {time:"13:00", a:{en:"Lunch",he:"צהריים"}},
           {time:"14:30", a:{en:"Cheile Dâmbovicioarei gorge & cave",he:"ערוץ ומערת דמבוביצ'ואארה"}},
+        ],
+        eve:[
+          {time:"20:00", a:{en:"Dinner at the chalet (kitchen / BBQ)",he:"ארוחת ערב בשאלֶה (מטבח / על האש)"}},
         ]},
       {d:{en:"Thu Aug 6",he:"ה׳ 6.8"},
         am:[
@@ -384,6 +394,9 @@ const LEGS = [
         pm:[
           {time:"13:00", a:{en:"Lunch in Brașov · old town (Piața Sfatului)",he:"צהריים בבראשוב · העיר העתיקה (Piața Sfatului)"}},
           {time:"—", a:{en:"Or a slow day: mountain villages + jacuzzi",he:"או יום רגוע: כפרי הרים + ג'קוזי"}},
+        ],
+        eve:[
+          {time:"19:30", a:{en:"Dinner: Sergiana in Brașov (veg options), or BBQ at the chalet",he:"ארוחת ערב: Sergiana בבראשוב (אפשרויות צמחוניות), או על האש בשאלֶה"}},
         ]},
     ],
     acts:{en:["Bran Castle","Dino Parc Râșnov + Râșnov fortress","Alpine Coaster at Cheile Grădiștei (Fundata)","Cheile Dâmbovicioarei gorge","Mountain villages"],
@@ -442,6 +455,9 @@ const LEGS = [
         ],
         pm:[
           {time:"16:00", a:{en:"Check-in Hotel Peștera · spa & rest",he:"צ'ק-אין Hotel Peștera · ספא ומנוחה"}},
+        ],
+        eve:[
+          {time:"20:00", a:{en:"Dinner at the hotel restaurant (handy — it's remote up here)",he:"ארוחת ערב במסעדת המלון (נוח — המקום מבודד)"}},
         ]},
       {d:{en:"Sat Aug 8",he:"ש׳ 8.8"},
         am:[
@@ -451,6 +467,9 @@ const LEGS = [
         pm:[
           {time:"13:30", a:{en:"Lunch",he:"צהריים"}},
           {time:"15:00", a:{en:"Spa / rest at the hotel",he:"ספא / מנוחה במלון"}},
+        ],
+        eve:[
+          {time:"20:00", a:{en:"Dinner at the hotel restaurant (veg on request)",he:"ארוחת ערב במסעדת המלון (צמחוני לפי בקשה)"}},
         ]},
     ],
     acts:{en:["Ialomița Cave + monastery","Bucegi plateau (Babele, the Sphinx)","Spa & wellness"],
@@ -484,6 +503,9 @@ const LEGS = [
         ],
         pm:[
           {time:"14:00", a:{en:"Lunch at Kuib · Sinaia town",he:"צהריים ב-Kuib · העיירה סינאיה"}},
+        ],
+        eve:[
+          {time:"19:30", a:{en:"Dinner: Taverna Sârbului (grills + big veg sides)",he:"ארוחת ערב: Taverna Sârbului (על האש + תוספות ירקות)"}},
         ]},
       {d:{en:"Mon Aug 10",he:"ב׳ 10.8"},
         am:[
@@ -492,6 +514,9 @@ const LEGS = [
         ],
         pm:[
           {time:"13:30", a:{en:"Lunch · back to Sinaia · relax",he:"צהריים · חזרה לסינאיה · מנוחה"}},
+        ],
+        eve:[
+          {time:"19:30", a:{en:"Dinner: Kuib (lots of veg/vegan)",he:"ארוחת ערב: Kuib (הרבה צמחוני/טבעוני)"}},
         ]},
     ],
     acts:{en:["Aug 9: Peleș Castle (closed Mon/Tue — reserve online)","Aug 10: Slănic Prahova salt mine (Mina Unirea)"],
@@ -736,6 +761,7 @@ function legCard(leg, lang){
         let inner = '<div class="pday"><div class="pdh">'+esc(d.d[lang])+'</div>';
         if(d.am && d.am.length) inner += '<div class="pper">'+esc(UI.morning[lang])+'</div>'+rows(d.am);
         if(d.pm && d.pm.length) inner += '<div class="pper">'+esc(UI.afternoon[lang])+'</div>'+rows(d.pm);
+        if(d.eve && d.eve.length) inner += '<div class="pper">'+esc(UI.evening[lang])+'</div>'+rows(d.eve);
         return inner + '</div>';
       }).join("")+'</div></div>';
   }
