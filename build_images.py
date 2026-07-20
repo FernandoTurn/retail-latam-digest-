@@ -66,7 +66,7 @@ SLOTS = {
     "transfagarasan": ["Transfagarasan", "Transfagarasan road"],
     "vidraru":        ["Lacul Vidraru", "Lake Vidraru", "Vidraru reservoir"],
     "poenari":        ["Poenari Castle", "Cetatea Poenari"],
-    "slanic":         ["Salina Slanic Prahova", "Slanic Prahova salt mine", "Unirea salt mine Slanic"],
+    "slanic":         ["Unirea salt mine", "Salina Slanic Prahova", "Slanic Prahova salt mine"],
 }
 
 FREE_HINTS = ("cc", "public domain", "pd", "no restrictions", "free")
