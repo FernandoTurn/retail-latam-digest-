@@ -64,9 +64,10 @@ SLOTS = {
     "museum_senses":  ["Museum of Senses Bucharest"],
     "brasov":         ["Brasov Council Square", "Piata Sfatului Brasov", "Brasov old town"],
     "transfagarasan": ["Transfagarasan", "Transfagarasan road"],
+    "balea":          ["Balea Lake", "Lacul Balea", "Balea Lac Transfagarasan"],
     "vidraru":        ["Lacul Vidraru", "Lake Vidraru", "Vidraru reservoir"],
     "poenari":        ["Poenari Castle", "Cetatea Poenari"],
-    "slanic":         ["Unirea salt mine", "Salina Slanic Prahova", "Slanic Prahova salt mine"],
+    "sibiu":          ["Piata Mare Sibiu", "Sibiu Grand Square", "Sibiu old town"],
 }
 
 FREE_HINTS = ("cc", "public domain", "pd", "no restrictions", "free")

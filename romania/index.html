@@ -290,6 +290,7 @@ const ROUTE = {
     bran:{lat:45.515,lng:25.367, en:"Bran",he:"בראן"},
     bucegi:{lat:45.400,lng:25.460, en:"Bucegi",he:"בוצֶ'גי"},
     sinaia:{lat:45.350,lng:25.550, en:"Sinaia",he:"סינאיה"},
+    sibiu:{lat:45.792,lng:24.152, en:"Sibiu",he:"סיביו"},
     vidraru:{lat:45.354,lng:24.633, en:"Vidraru",he:"ווידרארו"},
     bucharest:{lat:44.500,lng:26.090, en:"București / Otopeni",he:"בוקרשט / אוטופני"},
   },
@@ -304,9 +305,12 @@ const ROUTE = {
     {from:"bucegi",to:"sinaia",    color:"#f59e0b", bow:0,
       day:{en:"Aug 9",he:"9.8"},  label:{en:"Bucegi → Sinaia",he:"בוצֶ'גי → סינאיה"},
       dur:{en:"~2 h",he:"~2 ש׳"}},
-    {from:"sinaia",to:"vidraru",   color:"#7c3aed", bow:0,
-      day:{en:"Aug 11",he:"11.8"},label:{en:"Sinaia → Vidraru (via Curtea de Argeș)",he:"סינאיה → ווידרארו (דרך קורטיאה דה ארג׳ש)"},
-      dur:{en:"~3 h",he:"~3 ש׳"}},
+    {from:"sinaia",to:"sibiu",     color:"#0891b2", bow:30,
+      day:{en:"Aug 10",he:"10.8"},label:{en:"Sinaia → Sibiu",he:"סינאיה → סיביו"},
+      dur:{en:"~2.5–3 h",he:"~2.5–3 ש׳"}},
+    {from:"sibiu",to:"vidraru",    color:"#7c3aed", bow:-16,
+      day:{en:"Aug 11",he:"11.8"},label:{en:"Sibiu → Bâlea → Vidraru (Transfăgărășan)",he:"סיביו → באלֶאה → ווידרארו (טרנספגרשאן)"},
+      dur:{en:"full day",he:"יום שלם"}},
     {from:"vidraru",to:"bucharest", color:"#db2777", bow:34,
       day:{en:"Aug 12",he:"12.8"},label:{en:"Vidraru → Bucharest",he:"ווידרארו → בוקרשט"},
       dur:{en:"~3 h",he:"~3 ש׳"}},
@@ -314,7 +318,7 @@ const ROUTE = {
   url:"https://www.google.com/maps/dir/?api=1"
       +"&origin="+encodeURIComponent("Henri Coanda International Airport Otopeni")
       +"&destination="+encodeURIComponent("Henri Coanda International Airport Otopeni")
-      +"&waypoints="+["Bran","Pestera Padina Bucegi","Sinaia","Barajul Vidraru","Bucharest"].map(encodeURIComponent).join("|")
+      +"&waypoints="+["Bran","Pestera Padina Bucegi","Sinaia","Sibiu","Balea Lac Transfagarasan","Barajul Vidraru","Bucharest"].map(encodeURIComponent).join("|")
       +"&travelmode=driving",
 };
 
@@ -327,24 +331,24 @@ const LEGS = [
     lodging:{en:"EL AL · arrives OTP 21:10", he:"אל על · נחיתה OTP 21:10"},
     conf:"XAEK28",
     lodgingNote:null,
-    acts:{en:["Land at Henri Coandă (OTP) 21:10 · at the hotel ~22:00","Airport Wi-Fi + a little roaming to the hotel — SIMs tomorrow at Băneasa","Car pick-up is next morning (Aug 3, 10:00)"],
-          he:["נחיתה באנרי קואנדה (OTP) 21:10 · במלון ~22:00","Wi-Fi בשדה + מעט נדידה עד המלון — SIM מחר בבנאסה","איסוף הרכב למחרת בבוקר (3.8, 10:00)"]},
+    acts:{en:["Land at Henri Coandă (OTP) 21:10","Grab a SIM · then 3 min to the hotel (Ramada Otopeni)","Car pick-up is next morning (Aug 3, 10:00)"],
+          he:["נחיתה באנרי קואנדה (OTP) 21:10","קונים SIM · ואז 3 דק' למלון (Ramada אוטופני)","איסוף הרכב למחרת בבוקר (3.8, 10:00)"]},
     mapsQ:"Henri Coanda International Airport Otopeni", caption:{en:"Arrival",he:"נחיתה"},
   },
   {
     key:"bucharest", status:"g",
     when:{en:"Sun 2 Aug · 1 night", he:"א׳ 2 באוג׳ · לילה 1"},
-    place:{en:"Bucharest / Otopeni", he:"בוקרשט / אוטופני"},
-    lodging:{en:"Ramada by Wyndham", he:"Ramada by Wyndham"},
+    place:{en:"Otopeni (Ramada)", he:"אוטופני (Ramada)"},
+    lodging:{en:"Ramada Otopeni", he:"Ramada אוטופני"},
     conf:"92104EE034749",
     stayUrl:"Ramada by Wyndham Bucharest North",
-    lodgingNote:{en:"Check-out Aug 3", he:"עזיבה 3 באוג׳"},
-    acts:{en:["At the hotel ~22:00 · airport Wi-Fi + a little roaming (no airport SIM)","Car is picked up tomorrow morning (Aug 3, 10:00)"],
-          he:["במלון ~22:00 · Wi-Fi בשדה + מעט נדידה (בלי SIM בשדה)","איסוף הרכב מחר בבוקר (3.8, 10:00)"]},
-    mapsQ:"Ramada by Wyndham Bucharest North", caption:{en:"Bucharest",he:"בוקרשט"},
+    lodgingNote:{en:"Booked · check-out Aug 3", he:"הוזמן · עזיבה 3 באוג׳"},
+    acts:{en:["Land 21:10 · grab a SIM · 3 min to the hotel","At the hotel ~22:00 — rest for the road trip","Car is picked up tomorrow morning (Aug 3, 10:00)"],
+          he:["נחיתה 21:10 · קונים SIM · 3 דק' למלון","במלון ~22:00 — מנוחה לפני הטיול","איסוף הרכב מחר בבוקר (3.8, 10:00)"]},
+    mapsQ:"Ramada by Wyndham Bucharest North", caption:{en:"Otopeni",he:"אוטופני"},
   },
   {
-    key:"bran_castle", status:"g", drive:{en:"Otopeni → Bran · ~2.5–3 h · stops: Băneasa + Ploiești",he:"אוטופני → בראן · ~2.5–3 ש׳ · עצירות: בנאסה + פלוישט"},
+    key:"bran_castle", status:"g", drive:{en:"Otopeni → Bran · ~2.5–3 h · stop: Ploiești",he:"אוטופני → בראן · ~2.5–3 ש׳ · עצירה: פלוישט"},
     when:{en:"3–6 Aug · 4 nights", he:"3–6 באוג׳ · 4 לילות"},
     place:{en:"Bran / Sohodol", he:"בראן / סוהודול"},
     lodging:{en:"Kapa Chalet — kitchen, jacuzzi, A/C", he:"Kapa Chalet — מטבח, ג'קוזי, מיזוג"},
@@ -353,9 +357,10 @@ const LEGS = [
     plan:[
       {d:{en:"Mon Aug 3",he:"ב׳ 3.8"},
         am:[
+          {time:"08:30", a:{en:"Breakfast at Ramada · hotel shuttle to the airport",he:"ארוחת בוקר ב-Ramada · שאטל המלון לשדה"}},
+          {time:"09:30", a:{en:"Call Klass Wagen (+40 374 779 709) for the shuttle to the counter",he:"להתקשר ל-Klass Wagen (+40 374 779 709) לשאטל לדלפק"}},
           {time:"10:00", a:{en:"Pick up the car at Otopeni",he:"איסוף הרכב באוטופני"}},
-          {time:"10:30", a:{en:"Băneasa: Orange SIMs + water/snacks",he:"בנאסה: סימי Orange + מים/חטיפים"}},
-          {time:"12:00", a:{en:"Drive to Bran · quick stop in Ploiești",he:"נסיעה לבראן · עצירה קצרה בפלוישט"}},
+          {time:"11:00", a:{en:"Ploiești stop: Chen → Humana Victoriei · Fernando + kids → Antique 217 / Piața Victoriei (10:00–13:00)",he:"עצירת פלוישט: צ'ן → Humana Victoriei · פרננדו + ילדים → Antique 217 / Piața Victoriei (10:00–13:00)"}},
         ],
         pm:[
           {time:"15:00", a:{en:"Check-in Kapa Chalet · relax (jacuzzi, BBQ)",he:"צ'ק-אין Kapa Chalet · מנוחה (ג'קוזי, על האש)"}},
@@ -402,10 +407,6 @@ const LEGS = [
     acts:{en:["Bran Castle","Dino Parc Râșnov + Râșnov fortress","Alpine Coaster at Cheile Grădiștei (Fundata)","Cheile Dâmbovicioarei gorge","Mountain villages"],
           he:["טירת בראן","דינו פארק רשנוב + מבצר רשנוב","רכבת הרים אלפינית בקֵיילה גרדישטיי (פונדטה)","ערוץ קֵיילה דמבוביצ'ואארה","כפרי הרים"]},
     attr:[
-      {name:{en:"Băneasa Shopping City — Orange SIMs + supplies (Aug 3)",he:"בנאסה Shopping City — סימי Orange + ציוד (3.8)"},
-        maps:"Orange Shop Baneasa Shopping City",
-        cost:{en:"4 Orange SIMs (official store) · water & snacks",he:"4 סימי Orange (חנות רשמית) · מים וחטיפים"},
-        time:{en:"Open Sun 10–22 · on DN1 north (first stop)",he:"פתוח א׳ 10–22 · על DN1 צפונה (עצירה ראשונה)"}},
       {name:{en:"Ploiești — second-hand stop (Aug 3, on the way)",he:"פלוישט — עצירת יד-שנייה (3.8, בדרך)"},
         maps:"Piata Victoriei Ploiesti",
         cost:{en:"Chen: Humana Victoriei · Fernando+kids: Antique 217 / Piața Victoriei",he:"צ'ן: Humana Victoriei · פרננדו+ילדים: Antique 217 / Piața Victoriei"},
@@ -490,73 +491,112 @@ const LEGS = [
   },
   {
     key:"peles", status:"a", drive:{en:"Peștera → Sinaia · ~2 h",he:"פשטרה → סינאיה · ~2 ש׳"},
-    when:{en:"9–10 Aug · 2 nights", he:"9–10 באוג׳ · 2 לילות"},
+    when:{en:"9 Aug · 1 night", he:"9 באוג׳ · לילה 1"},
     place:{en:"Sinaia", he:"סינאיה"},
     lodging:{en:"Alexandrion Experience — to book", he:"Alexandrion Experience — להזמין"},
     conf:null, stayUrl:"Alexandrion Experience",
-    lodgingNote:{en:"2 nights · check-out Aug 11", he:"2 לילות · עזיבה 11 באוג׳"},
+    lodgingNote:{en:"1 night · check-out Aug 10", he:"לילה 1 · עזיבה 10 באוג׳"},
     plan:[
       {d:{en:"Sun Aug 9",he:"א׳ 9.8"},
         am:[
-          {time:"09:00", a:{en:"Check-out · drive Peștera → Sinaia (~2 h)",he:"עזיבה · נסיעה פשטרה → סינאיה (~2 ש׳)"}},
-          {time:"12:00", a:{en:"Peleș Castle (book online · last entry 16:00)",he:"טירת פלֶש (להזמין אונליין · כניסה אחרונה 16:00)"}},
+          {time:"11:30", a:{en:"Check-out Peștera · drive to Sinaia (~2 h)",he:"עזיבת פשטרה · נסיעה לסינאיה (~2 ש׳)"}},
         ],
         pm:[
-          {time:"14:00", a:{en:"Lunch at Kuib · Sinaia town",he:"צהריים ב-Kuib · העיירה סינאיה"}},
-        ],
-        eve:[
-          {time:"19:30", a:{en:"Dinner: Taverna Sârbului (grills + big veg sides)",he:"ארוחת ערב: Taverna Sârbului (על האש + תוספות ירקות)"}},
-        ]},
-      {d:{en:"Mon Aug 10",he:"ב׳ 10.8"},
-        am:[
-          {time:"09:30", a:{en:"Drive to Slănic Prahova (~1 h)",he:"נסיעה לסלניק פראחובה (~1 ש׳)"}},
-          {time:"11:00", a:{en:"Slănic salt mine (Mina Unirea) · bring a jacket",he:"מכרה המלח סלניק (מכרה Unirea) · קחו מעיל"}},
-        ],
-        pm:[
-          {time:"13:30", a:{en:"Lunch · back to Sinaia · relax",he:"צהריים · חזרה לסינאיה · מנוחה"}},
+          {time:"14:00", a:{en:"Arrive · straight to Peleș Castle (book online · last entry 16:00) · leave bags in the car / at reception",he:"הגעה · ישר לטירת פלֶש (להזמין אונליין · כניסה אחרונה 16:00) · להשאיר מזוודות ברכב / בקבלה"}},
+          {time:"15:30", a:{en:"Check-in Alexandrion Experience (from 15:00) · Sinaia town",he:"צ'ק-אין Alexandrion Experience (מ-15:00) · העיירה סינאיה"}},
         ],
         eve:[
           {time:"19:30", a:{en:"Dinner: Kuib (lots of veg/vegan)",he:"ארוחת ערב: Kuib (הרבה צמחוני/טבעוני)"}},
         ]},
     ],
-    acts:{en:["Aug 9: Peleș Castle (closed Mon/Tue — reserve online)","Aug 10: Slănic Prahova salt mine (Mina Unirea)"],
-          he:["9.8: טירת פלֶש (סגור ב׳/ג׳ — להזמין אונליין)","10.8: מכרה המלח סלניק פראחובה (מכרה Unirea)"]},
+    acts:{en:["Peleș Castle on arrival (closed Mon/Tue — reserve online)","Check-in Alexandrion after the castle","Dinner in Sinaia (Kuib)"],
+          he:["טירת פלֶש עם ההגעה (סגור ב׳/ג׳ — להזמין אונליין)","צ'ק-אין Alexandrion אחרי הטירה","ארוחת ערב בסינאיה (Kuib)"]},
     attr:[
-      {name:{en:"Peleș Castle (Aug 9)",he:"טירת פלֶש (9.8)"}, photo:"peles",
+      {name:{en:"Peleș Castle",he:"טירת פלֶש"}, photo:"peles",
         url:"https://peles.ro/",
         cost:{en:"Ground floor ≈60 · kids ≈15 RON",he:"קומת קרקע ≈60 · ילד ≈15 RON"},
         time:{en:"≈1.5 h · Thu–Sun 9:15, Wed 10:00 · last entry 16:00 · closed Mon/Tue · book online",he:"≈1.5 ש׳ · ה׳–א׳ 9:15, ד׳ 10:00 · כניסה אחרונה 16:00 · סגור ב׳/ג׳ · להזמין אונליין"}},
-      {name:{en:"Slănic Prahova salt mine (Aug 10)",he:"מכרה המלח סלניק פראחובה (10.8)"},
-        photo:"slanic", maps:"Salina Slanic Prahova Mina Unirea",
-        cost:{en:"~1 h from Sinaia · bring a jacket + cash",he:"~1 ש׳ מסינאיה · קחו מעיל + מזומן"},
-        time:{en:"Half day · 208 m deep, 12 °C · slides, karting, trampoline, mini-golf, salt sculptures",he:"חצי יום · 208 מ' עומק, 12° · מגלשות, קארטינג, טרמפולינה, מיני-גולף, פסלי מלח"}},
     ],
     veg:{en:"Veggie for Chen: Kuib", he:"צמחוני לצ'ן: Kuib"},
     mapsQ:"Peles Castle Sinaia", caption:{en:"Peleș Castle",he:"טירת פלֶש"},
   },
   {
-    key:"vidraru", photo:"vidraru", status:"g",
-    drive:{en:"Sinaia → Vidraru · ~3 h (via Curtea de Argeș, arriving from the south)",
-           he:"סינאיה → ווידרארו · ~3 ש׳ (דרך קורטיאה דה ארג׳ש, הגעה מהדרום)"},
+    key:"sibiu", photo:"sibiu", status:"a",
+    drive:{en:"Sinaia → Sibiu · ~2.5–3 h",he:"סינאיה → סיביו · ~2.5–3 ש׳"},
+    when:{en:"10 Aug · 1 night", he:"10 באוג׳ · לילה 1"},
+    place:{en:"Sibiu", he:"סיביו"},
+    lodging:{en:"Artisan Villa — to book · turquoise room", he:"Artisan Villa — להזמין · חדר טורקיז"},
+    conf:null, stayUrl:"Artisan Villa Sibiu",
+    lodgingNote:{en:"1 night · check-out Aug 11", he:"לילה 1 · עזיבה 11 באוג׳"},
+    plan:[
+      {d:{en:"Mon Aug 10",he:"ב׳ 10.8"},
+        am:[
+          {time:"09:30", a:{en:"Check-out Sinaia · drive to Sibiu (~2.5–3 h)",he:"עזיבת סינאיה · נסיעה לסיביו (~2.5–3 ש׳)"}},
+        ],
+        pm:[
+          {time:"13:00", a:{en:"Arrive · check-in Artisan Villa · lunch in the old town",he:"הגעה · צ'ק-אין Artisan Villa · צהריים בעיר העתיקה"}},
+          {time:"15:00", a:{en:"Piața Mare + Piața Mică · spot the 'eyes of Sibiu' (rooftop windows)",he:"Piața Mare + Piața Mică · לחפש את 'עיני סיביו' (חלונות גג)"}},
+          {time:"17:00", a:{en:"Liars' Bridge (Podul Minciunilor) · stroll & views",he:"גשר השקרנים (Podul Minciunilor) · טיול ונופים"}},
+        ],
+        eve:[
+          {time:"19:30", a:{en:"Dinner in the medieval centre",he:"ארוחת ערב במרכז ימי-הביניים"}},
+        ]},
+    ],
+    acts:{en:["Piața Mare & Piața Mică","Liars' Bridge (Podul Minciunilor)","The 'eyes of Sibiu' (rooftop windows)","Medieval old town & dinner"],
+          he:["Piața Mare ו-Piața Mică","גשר השקרנים (Podul Minciunilor)","'עיני סיביו' (חלונות הגג)","העיר העתיקה מימי-הביניים וארוחת ערב"]},
+    attr:[
+      {name:{en:"Piața Mare (Grand Square)",he:"Piața Mare (הכיכר הגדולה)"}, photo:"sibiu",
+        maps:"Piata Mare Sibiu",
+        cost:{en:"Free · the heart of the old town",he:"חינם · לב העיר העתיקה"}, time:{en:"Evening stroll",he:"טיול ערב"}},
+      {name:{en:"Liars' Bridge (Podul Minciunilor)",he:"גשר השקרנים (Podul Minciunilor)"},
+        maps:"Podul Minciunilor Sibiu",
+        cost:{en:"Free",he:"חינם"}, time:{en:"≈15 min",he:"≈15 דק'"}},
+      {name:{en:"Piața Mică & the 'eyes of Sibiu'",he:"Piața Mică ו'עיני סיביו'"},
+        maps:"Piata Mica Sibiu",
+        cost:{en:"Free · rooftop windows that seem to watch you",he:"חינם · חלונות גג שנראים כמשגיחים"}, time:{en:"≈30 min",he:"≈30 דק'"}},
+    ],
+    veg:{en:"Veggie for Chen: plenty in the old town (e.g. Kulinarium, Pardon Café)", he:"צמחוני לצ'ן: הרבה בעיר העתיקה (למשל Kulinarium, Pardon Café)"},
+    mapsQ:"Piata Mare Sibiu", caption:{en:"Sibiu old town",he:"העיר העתיקה סיביו"},
+  },
+  {
+    key:"vidraru", photo:"transfagarasan", status:"g",
+    drive:{en:"Sibiu → Bâlea → Vidraru · Transfăgărășan · full day",
+           he:"סיביו → באלֶאה → ווידרארו · טרנספגרשאן · יום שלם"},
     when:{en:"11 Aug · 1 night", he:"11 באוג׳ · לילה 1"},
-    place:{en:"Lake Vidraru", he:"אגם ווידרארו"},
+    place:{en:"Transfăgărășan → Lake Vidraru", he:"טרנספגרשאן → אגם ווידרארו"},
     lodging:{en:"Posada Vidraru", he:"Posada Vidraru"},
     conf:null, stayUrl:"Posada Vidraru",
     lodgingNote:{en:"Booked · pay at reception · check-out Aug 12", he:"הוזמן · תשלום בקבלה · עזיבה 12 באוג׳"},
-    acts:{en:["Lake Vidraru and the dam","Optional: Poenari (Dracula's castle, 1,480 steps)","Optional: drive up toward Bâlea from the dam"],
-          he:["אגם ווידרארו והסכר","אופציונלי: פואנארי (טירת דרקולה, 1,480 מדרגות)","אופציונלי: נסיעה קצרה לכיוון באלֶאה מהסכר"]},
+    plan:[
+      {d:{en:"Tue Aug 11",he:"ג׳ 11.8"},
+        am:[
+          {time:"08:30", a:{en:"Leave Sibiu early · onto the Transfăgărășan",he:"יציאה מוקדמת מסיביו · אל הטרנספגרשאן"}},
+          {time:"10:00", a:{en:"Bâlea Waterfall (cable-car area)",he:"מפל באלֶאה (אזור הרכבל)"}},
+          {time:"11:00", a:{en:"Bâlea Lake — long stop, walk around (snow & alpine flowers)",he:"אגם באלֶאה — עצירה ארוכה, הליכה מסביב (שלג ופרחי אלפים)"}},
+        ],
+        pm:[
+          {time:"13:30", a:{en:"Viewpoints + the bear section (stay in the car)",he:"נקודות תצפית + קטע הדובים (להישאר ברכב)"}},
+          {time:"15:30", a:{en:"Lake Vidraru & dam — all accessible by car, no hiking",he:"אגם וסכר ווידרארו — הכול נגיש ברכב, בלי הליכה"}},
+          {time:"16:30", a:{en:"Optional: Poenari Citadel (Dracula's castle, 1,480 steps)",he:"אופציונלי: מבצר פואנארי (טירת דרקולה, 1,480 מדרגות)"}},
+        ],
+        eve:[
+          {time:"19:00", a:{en:"Check-in Posada Vidraru (pay at reception) · dinner",he:"צ'ק-אין Posada Vidraru (תשלום בקבלה) · ארוחת ערב"}},
+        ]},
+    ],
+    acts:{en:["Bâlea waterfall & Bâlea Lake (long stop)","Viewpoints + the bear section","Lake Vidraru & the dam (car-accessible)","Optional: Poenari (Dracula's castle)"],
+          he:["מפל באלֶאה ואגם באלֶאה (עצירה ארוכה)","נקודות תצפית + קטע הדובים","אגם וסכר ווידרארו (נגיש ברכב)","אופציונלי: פואנארי (טירת דרקולה)"]},
     attr:[
+      {name:{en:"Bâlea Lake (Transfăgărășan)",he:"אגם באלֶאה (טרנספגרשאן)"},
+        photo:"balea", maps:"Balea Lac Transfagarasan",
+        cost:{en:"Free · snow & flowers even in summer · long stop",he:"חינם · שלג ופרחים גם בקיץ · עצירה ארוכה"}, time:{en:"1–2 h",he:"1–2 ש׳"}},
       {name:{en:"Lake Vidraru & dam",he:"אגם וסכר ווידרארו"},
         photo:"vidraru", maps:"Barajul Vidraru",
-        cost:{en:"Free",he:"חינם"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
+        cost:{en:"Free · all accessible by car",he:"חינם · הכול נגיש ברכב"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
       {name:{en:"Poenari Citadel — Dracula's castle (optional)",he:"מבצר פואנארי — טירת דרקולה (אופציונלי)"},
         photo:"poenari", maps:"Cetatea Poenari",
         cost:{en:"≈15 RON · 1,480 steps",he:"≈15 RON · 1,480 מדרגות"}, time:{en:"≈1.5 h",he:"≈1.5 ש׳"}},
-      {name:{en:"Drive up toward Bâlea (optional)",he:"נסיעה לכיוון באלֶאה (אופציונלי)"},
-        photo:"transfagarasan", maps:"Transfagarasan Balea Lake",
-        cost:{en:"Free · daytime only · seasonal",he:"חינם · ביום בלבד · עונתי"}, time:{en:"As you like",he:"כרצונכם"}},
     ],
-    mapsQ:"Posada Vidraru", caption:{en:"Lake Vidraru",he:"אגם ווידרארו"},
+    mapsQ:"Transfagarasan Balea Lake", caption:{en:"Transfăgărășan / Bâlea",he:"טרנספגרשאן / באלֶאה"},
   },
   {
     key:"therme", status:"g",
@@ -567,20 +607,34 @@ const LEGS = [
     conf:"92104EE034750",
     stayUrl:"Ramada by Wyndham Bucharest North",
     lodgingNote:null,
-    acts:{en:["Leave Vidraru 9:30 (~3 h from the south)","AFI Cotroceni: Primark (Chen) + Museum of Senses + lunch at the mall","Check-in at Ramada Otopeni, then Therme ~15:00 → out by ~18:00"],
-          he:["יציאה מווידרארו 9:30 (~3 ש׳ מהדרום)","AFI Cotroceni: Primark (צ'ן) + מוזיאון החושים + צהריים בקניון","צ'ק-אין ב-Ramada אוטופני, ואז ת'רמה ~15:00 → סיום ~18:00"]},
+    plan:[
+      {d:{en:"Wed Aug 12",he:"ד׳ 12.8"},
+        am:[
+          {time:"09:30", a:{en:"Leave Vidraru (~3 h)",he:"יציאה מווידרארו (~3 ש׳)"}},
+          {time:"12:30", a:{en:"Arrive AFI Cotroceni · lunch at the mall",he:"הגעה ל-AFI Cotroceni · צהריים בקניון"}},
+        ],
+        pm:[
+          {time:"13:30", a:{en:"Primark (Chen) · in parallel Fernando + kids at Gymboland (ball pool, slides, boats)",he:"Primark (צ'ן) · במקביל פרננדו + ילדים ב-Gymboland (בריכת כדורים, מגלשות, סירות)"}},
+          {time:"15:00", a:{en:"Check-in Ramada · then Therme București / Galaxy",he:"צ'ק-אין Ramada · ואז ת'רמה בוקרשט / Galaxy"}},
+        ],
+        eve:[
+          {time:"—", a:{en:"Therme open to 23:00 · 4–5 h · kids ≤14 free Galaxy→The Palm upgrade (until Sep 6)",he:"ת'רמה פתוח עד 23:00 · 4–5 ש׳ · ילדים עד 14 שדרוג חינם Galaxy→The Palm (עד 6.9)"}},
+        ]},
+    ],
+    acts:{en:["Leave Vidraru 9:30 (~3 h) · arrive AFI ~12:30","AFI Cotroceni: Primark (Chen) · Fernando + kids at Gymboland · lunch at the mall","Check-in Ramada, then Therme București / Galaxy (4–5 h, open to 23:00)"],
+          he:["יציאה מווידרארו 9:30 (~3 ש׳) · הגעה ל-AFI ~12:30","AFI Cotroceni: Primark (צ'ן) · פרננדו + ילדים ב-Gymboland · צהריים בקניון","צ'ק-אין Ramada, ואז ת'רמה בוקרשט / Galaxy (4–5 ש׳, פתוח עד 23:00)"]},
     attr:[
       {name:{en:"AFI Cotroceni — Primark (Chen) + lunch",he:"AFI Cotroceni — Primark (צ'ן) + צהריים"},
         photo:"afi_cotroceni", url:"https://www.aficotroceni.ro/",
         cost:{en:"Free entry · the only Primark on the route",he:"כניסה חינם · ה-Primark היחיד במסלול"},
-        time:{en:"Late morning",he:"לפני הצהריים"}},
-      {name:{en:"Museum of Senses (same mall)",he:"מוזיאון החושים (באותו קניון)"},
-        photo:"museum_senses", url:"https://museumofsenses.ro/",
-        cost:{en:"≈50 · kids ≈40 RON",he:"≈50 · ילד ≈40 RON"}, time:{en:"≈1–1.5 h",he:"≈1–1.5 ש׳"}},
+        time:{en:"From ~12:30",he:"מ-~12:30"}},
+      {name:{en:"Gymboland (inside AFI) — Fernando + kids",he:"Gymboland (בתוך AFI) — פרננדו + הילדים"},
+        photo:"gymboland", maps:"Gymboland AFI Cotroceni",
+        cost:{en:"Ball pool, slides, climbers, boat lake",he:"בריכת כדורים, מגלשות, מתקני טיפוס, אגם סירות"}, time:{en:"While Chen shops",he:"בזמן שצ'ן קונה"}},
       {name:{en:"Therme București (Galaxy) — you + kids",he:"ת'רמה בוקרשט (Galaxy) — אתה + הילדים"},
         photo:"therme", url:"https://therme.ro/",
-        cost:{en:"From ≈69 RON · kids ≤14 free Galaxy→Palm upgrade (until Sep 6)",he:"החל מ-≈69 RON · ילדים עד 14 שדרוג חינם Galaxy→Palm (עד 6.9)"},
-        time:{en:"~15:00–18:00 · open to 23:00",he:"~15:00–18:00 · פתוח עד 23:00"}},
+        cost:{en:"From ≈69 RON · kids ≤14 free Galaxy→The Palm upgrade (until Sep 6)",he:"החל מ-≈69 RON · ילדים עד 14 שדרוג חינם Galaxy→The Palm (עד 6.9)"},
+        time:{en:"4–5 h · open to 23:00",he:"4–5 ש׳ · פתוח עד 23:00"}},
     ],
     mapsQ:"Therme Bucuresti", caption:{en:"Water park",he:"פארק מים"},
   },
@@ -633,7 +687,7 @@ const ROMANIA_PATH="M101.9,52.1 L117.1,41.2 L139.0,46.8 L161.6,47.0 L178.0,59.4 
 // mountain trio spread ~2.6× around their centroid so the short daily legs are
 // legible (they sit within ~15 km IRL); Bucharest kept at its true position.
 const RXY={bran:[182.9,153.1], bucegi:[198.9,182.6], sinaia:[214.9,195.1],
-  vidraru:[169.8,180.5], bucharest:[221.2,223.9]};
+  sibiu:[151.5,156.5], vidraru:[169.8,180.5], bucharest:[221.2,223.9]};
 
 function routeCard(lang){
   const W=360, H=300;
@@ -661,8 +715,8 @@ function routeCard(lang){
   });
   const lbl={
     bran:{dx:0,dy:-9,anchor:"middle"}, bucegi:{dx:-7,dy:14,anchor:"end"},
-    sinaia:{dx:9,dy:-6,anchor:"start"}, vidraru:{dx:-9,dy:-8,anchor:"end"},
-    bucharest:{dx:0,dy:17,anchor:"middle"},
+    sinaia:{dx:9,dy:-6,anchor:"start"}, sibiu:{dx:-8,dy:-8,anchor:"end"},
+    vidraru:{dx:2,dy:15,anchor:"middle"}, bucharest:{dx:0,dy:17,anchor:"middle"},
   };
   let dots="";
   for(const [k,n] of Object.entries(ROUTE.points)){
