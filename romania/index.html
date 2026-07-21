@@ -722,19 +722,20 @@ function routeCard(lang){
     const ux=dx/len, uy=dy/len, nx=-uy, ny=ux;            // unit dir + left normal
     const mx=(a[0]+b[0])/2, my=(a[1]+b[1])/2;
     const dash = sg.dashed ? ' stroke-dasharray="7 5"' : '';
+    let ax=mx, ay=my;                      // arrow anchor (midpoint, or curve midpoint)
     if(bow){
       const cx=mx+nx*bow, cy=my+ny*bow;
       lines+='<path d="M'+a[0]+','+a[1]+' Q'+cx.toFixed(1)+','+cy.toFixed(1)+' '+b[0]+','+b[1]+
         '" fill="none" stroke="'+sg.color+'" stroke-width="3.5" stroke-linecap="round"'+dash+'/>';
-      if(!sg.dashed){  // direction arrow only on the confirmed (solid) legs
-        const px=mx+0.5*bow*nx, py=my+0.5*bow*ny;
-        const tip=[px+ux*5.5,py+uy*5.5], l=[px-ux*3+nx*4.2,py-uy*3+ny*4.2], r=[px-ux*3-nx*4.2,py-uy*3-ny*4.2];
-        arrows+='<path d="M'+tip[0].toFixed(1)+','+tip[1].toFixed(1)+' L'+l[0].toFixed(1)+','+l[1].toFixed(1)+
-          ' L'+r[0].toFixed(1)+','+r[1].toFixed(1)+' Z" fill="'+sg.color+'"/>';
-      }
+      ax=mx+0.5*bow*nx; ay=my+0.5*bow*ny;
     } else {
       lines+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+
         '" stroke="'+sg.color+'" stroke-width="3.5" stroke-linecap="round"'+dash+'/>';
+    }
+    if(!sg.dashed){  // direction arrow (travel order) on every solid leg
+      const tip=[ax+ux*5.5,ay+uy*5.5], l=[ax-ux*3+nx*4.2,ay-uy*3+ny*4.2], r=[ax-ux*3-nx*4.2,ay-uy*3-ny*4.2];
+      arrows+='<path d="M'+tip[0].toFixed(1)+','+tip[1].toFixed(1)+' L'+l[0].toFixed(1)+','+l[1].toFixed(1)+
+        ' L'+r[0].toFixed(1)+','+r[1].toFixed(1)+' Z" fill="'+sg.color+'"/>';
     }
   });
   const lbl={
