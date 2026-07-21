@@ -97,6 +97,27 @@
   .note.veg::before{content:"🥗 "}
   .alert{margin:0 0 10px;font-size:.86rem;font-weight:700;background:#fdeaea;
     border:1px solid #f3b4b4;color:#b42318;border-radius:10px;padding:9px 11px}
+  /* Day-10 two-option decision block */
+  .decision{margin-top:12px;border:1px solid #f0c274;background:#fff8ec;border-radius:12px;padding:12px}
+  .dec-head{font-weight:800;color:#b45309;font-size:.96rem;margin:0 0 10px}
+  .dec-cols{display:flex;gap:12px;flex-wrap:wrap}
+  .dec-opt{flex:1 1 250px;min-width:0;background:#fff;border:1px solid #f0d9b0;
+    border-radius:10px;padding:10px;display:flex;flex-direction:column}
+  .dec-photo{aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#e9edf2;margin-bottom:8px;position:relative}
+  .dec-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .dec-photo .ph-fallback{position:absolute;inset:0;display:flex;align-items:center;
+    justify-content:center;text-align:center;padding:6px;font-size:.72rem;font-weight:700;color:#5d6b7a}
+  .dec-title{font-weight:800;font-size:.9rem;margin:0 0 6px;color:#1f2733}
+  .dec-alert{background:#fdeaea;border:1px solid #f3b4b4;color:#b42318;font-weight:700;
+    font-size:.78rem;border-radius:8px;padding:6px 8px;margin-bottom:8px}
+  .dec-opt ul{margin:0 0 10px;padding-inline-start:18px;font-size:.82rem;line-height:1.45}
+  .dec-opt ul li{margin:3px 0}
+  .dec-pc{margin-top:auto;font-size:.8rem;display:flex;flex-direction:column;gap:2px;
+    border-top:1px solid #f0e6d2;padding-top:7px}
+  .dec-pro{color:#15803d}.dec-pro::before{content:"✔ "}
+  .dec-con{color:#b42318}.dec-con::before{content:"✕ "}
+  .dec-note{margin-top:10px;font-size:.82rem;color:#8a6d3b;background:#fdf3e0;
+    border:1px solid #f3e2c2;border-radius:8px;padding:8px 10px}
   /* Car card */
   .infocard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
     box-shadow:var(--shadow);padding:14px 16px;margin-top:14px;display:flex;gap:14px;align-items:center}
@@ -534,47 +555,33 @@ const LEGS = [
   },
   {
     key:"sibiu", photo:"sibiu", status:"g",
-    drive:{en:"Sinaia → Ocnele Mari → Sibiu · early start! · ~3–3.5 h + ~2 h",he:"סינאיה → אוקנלה מארי → סיביו · יציאה מוקדמת! · ~3–3.5 ש׳ + ~2 ש׳"},
+    drive:{en:"Sinaia → Sibiu · 2 options below",he:"סינאיה → סיביו · 2 אפשרויות למטה"},
     when:{en:"10 Aug · 1 night", he:"10 באוג׳ · לילה 1"},
-    place:{en:"Ocnele Mari → Sibiu", he:"אוקנלה מארי → סיביו"},
-    alert:{en:"Leave Sinaia by 8:00 AM! The salt mine's last entry is 16:00 and it's ~3–3.5 h away.",he:"לצאת מסינאיה עד 8:00 בבוקר! הכניסה האחרונה למכרה 16:00 והנסיעה ~3–3.5 ש׳."},
+    place:{en:"Sibiu", he:"סיביו"},
     lodging:{en:"Artisan Villa — turquoise apartment", he:"Artisan Villa — דירת טורקיז"},
     conf:null, stayUrl:"Artisan Villa Sibiu",
     lodgingNote:{en:"Booked ✓ check-in 10 / out 11 Aug · 650 lei/night (pay on site) · breakfast +70 adult / +35 kid · check-in 14:00 / out 12:00 · parking 50 m (9 Mai St)", he:"הוזמן ✓ צ'ק-אין 10 / עזיבה 11.8 · 650 ליי/לילה (תשלום במקום) · ארוחת בוקר +70 מבוגר / +35 ילד · צ'ק-אין 14:00 / עזיבה 12:00 · חניה 50 מ' (רח' 9 Mai)"},
-    plan:[
-      {d:{en:"Mon Aug 10",he:"ב׳ 10.8"},
-        am:[
-          {time:"08:00", a:{en:"Leave Sinaia early (mine is ~3–3.5 h away)",he:"יציאה מוקדמת מסינאיה (המכרה ~3–3.5 ש׳)"}},
-          {time:"11:30", a:{en:"Salina Ocnele Mari — trampolines, inflatable slides, pedal karting, mini-golf, skating rink (~2 h · 13–15 °C · sweater + cash)",he:"סלינה אוקנלה מארי — טרמפולינות, מגלשות מתנפחות, קרטינג דוושות, מיני-גולף, החלקה על הקרח (~2 ש׳ · 13–15° · סוודר + מזומן)"}},
-        ],
-        pm:[
-          {time:"13:30", a:{en:"Quick lunch · Ocnele Mari → Sibiu (~2 h, Olt valley)",he:"צהריים קצר · אוקנלה מארי → סיביו (~2 ש׳, עמק האולט)"}},
-          {time:"15:30", a:{en:"Arrive Sibiu · check-in Artisan Villa · rest",he:"הגעה לסיביו · צ'ק-אין Artisan Villa · מנוחה"}},
-          {time:"17:00", a:{en:"Sunset stroll: Piața Mare + Piața Mică + Council Tower + 'eyes of Sibiu' + Liars' Bridge + Lower Town",he:"טיול שקיעה: Piața Mare + Piața Mică + מגדל המועצה + 'עיני סיביו' + גשר השקרנים + העיר התחתית"}},
-        ],
-        eve:[
-          {time:"20:00", a:{en:"Dinner in Piața Mică",he:"ארוחת ערב ב-Piața Mică"}},
-        ]},
-    ],
-    acts:{en:["Salina Ocnele Mari salt mine (trampolines, pedal karting, mini-golf, skating rink)","Piața Mare & Piața Mică + Council Tower","Liars' Bridge + the 'eyes of Sibiu'","Lower Town & dinner in Piața Mică"],
-          he:["מכרה המלח סלינה אוקנלה מארי (טרמפולינות, קרטינג דוושות, מיני-גולף, החלקה על הקרח)","Piața Mare ו-Piața Mică + מגדל המועצה","גשר השקרנים + 'עיני סיביו'","העיר התחתית וארוחת ערב ב-Piața Mică"]},
-    attr:[
-      {name:{en:"Salina Ocnele Mari (salt mine)",he:"סלינה אוקנלה מארי (מכרה מלח)"},
-        photo:"ocnele", maps:"Salina Ocnele Mari",
-        cost:{en:"Playground (trampolines, inflatable slides), pedal karting, mini-golf, skating rink, sports courts, billiards, salt sculptures, underground church",he:"מתקני משחק (טרמפולינות, מגלשות מתנפחות), קרטינג דוושות, מיני-גולף, החלקה על הקרח, מגרשי ספורט, ביליארד, פסלי מלח, כנסייה תת-קרקעית"},
-        time:{en:"~2 h · 13–15 °C · open 9–17, last entry 16:00 · sweater + cash",he:"~2 ש׳ · 13–15° · פתוח 9–17, כניסה אחרונה 16:00 · סוודר + מזומן"}},
-      {name:{en:"Piața Mare (Grand Square) + Council Tower",he:"Piața Mare (הכיכר הגדולה) + מגדל המועצה"}, photo:"sibiu",
-        maps:"Piata Mare Sibiu",
-        cost:{en:"Free · the heart of the old town",he:"חינם · לב העיר העתיקה"}, time:{en:"Evening stroll",he:"טיול ערב"}},
-      {name:{en:"Liars' Bridge (Podul Minciunilor)",he:"גשר השקרנים (Podul Minciunilor)"},
-        photo:"podul", maps:"Podul Minciunilor Sibiu",
-        cost:{en:"Free",he:"חינם"}, time:{en:"≈15 min",he:"≈15 דק'"}},
-      {name:{en:"Piața Mică & the 'eyes of Sibiu'",he:"Piața Mică ו'עיני סיביו'"},
-        photo:"piata_mica", maps:"Piata Mica Sibiu",
-        cost:{en:"Free · rooftop windows that seem to watch you · dinner here",he:"חינם · חלונות גג שנראים כמשגיחים · ארוחת ערב כאן"}, time:{en:"≈30 min",he:"≈30 דק'"}},
-    ],
+    decision:{
+      heading:{en:"Day 10 — decision pending: pick one",he:"יום 10 — החלטה פתוחה: לבחור אחת"},
+      note:{en:"Both options sleep in Sibiu (Artisan Villa, turquoise room). Aug 11 (Transfăgărășan → Vidraru) and Aug 12 are identical either way.",he:"שתי האפשרויות לנות בסיביו (Artisan Villa, חדר טורקיז). ה-11 (טרנספגרשאן → ווידרארו) וה-12 זהים בשתיהן."},
+      options:[
+        { photo:"sibiu",
+          title:{en:"Option A · Straight to Sibiu (relaxed)",he:"אפשרות A · ישר לסיביו (רגוע)"},
+          items:{en:["Easy start from Sinaia (no early wake-up) · check-out 12:00","Drive Sinaia → Sibiu ~2.5–3 h","Whole afternoon/evening free in Sibiu: Piața Mare, Piața Mică, Liars' Bridge, the 'eyes of Sibiu', Council Tower, Lower Town · dinner in Piața Mică","No salt mine"],
+                 he:["יציאה נינוחה מסינאיה (בלי להשכים) · צ'ק-אאוט 12:00","נסיעה סינאיה → סיביו ~2.5–3 ש׳","כל אחה\"צ/הערב חופשי בסיביו: Piața Mare, Piața Mică, גשר השקרנים, 'עיני סיביו', מגדל המועצה, העיר התחתית · ארוחה ב-Piața Mică","בלי מכרה מלח"]},
+          pro:{en:"Rest + all of Sibiu",he:"מנוחה + כל סיביו"},
+          con:{en:"The kids miss the mine",he:"הילדים מפספסים את המכרה"} },
+        { photo:"ocnele",
+          alert:{en:"Leave Sinaia at 8:00 AM!",he:"לצאת מסינאיה ב-8:00 בבוקר!"},
+          title:{en:"Option B · Salt mine + Sibiu (early start)",he:"אפשרות B · מכרה מלח + סיביו (השכמה)"},
+          items:{en:["Sinaia → Salina Ocnele Mari ~3–3.5 h (near Râmnicu Vâlcea)","Mine 2–3 h — for the kids: inflatable slides, pedal karting, mini-golf, ping-pong, billiards, courts, ground-salt floor; 13–15 °C (sweater + cash). Check hours on the official Salrom site (varies by season; summer ~9:00–17:00, last entry 16:00)","Leave the mine ~15:00 · Ocnele Mari → Sibiu ~2 h · arrive ~17:00","Shorter Sibiu stroll at sunset + dinner"],
+                 he:["סינאיה → סלינה אוקנלה מארי ~3–3.5 ש׳ (ליד רמניקו ולצ'ה)","מכרה 2–3 ש׳ — לילדים: מגלשות מתנפחות, קרטינג דוושות, מיני-גולף, פינג-פונג, ביליארד, מגרשים, רצפת מלח; 13–15° (סוודר + מזומן). לבדוק שעות באתר הרשמי Salrom (משתנה לפי עונה; בקיץ ~9:00–17:00, כניסה אחרונה 16:00)","יציאה מהמכרה ~15:00 · אוקנלה מארי → סיביו ~2 ש׳ · הגעה ~17:00","סיור קצר יותר בסיביו + ארוחה"]},
+          pro:{en:"A unique experience for the kids",he:"חוויה ייחודית לילדים"},
+          con:{en:"Early wake-up + Sibiu cut short",he:"השכמה + סיביו מקוצר"} },
+      ],
+    },
     veg:{en:"Veggie for Chen: plenty in the old town (e.g. Kulinarium, Pardon Café)", he:"צמחוני לצ'ן: הרבה בעיר העתיקה (למשל Kulinarium, Pardon Café)"},
-    mapsQ:"Piata Mare Sibiu", caption:{en:"Ocnele Mari / Sibiu",he:"אוקנלה מארי / סיביו"},
+    mapsQ:"Piata Mare Sibiu", caption:{en:"Sibiu",he:"סיביו"},
   },
   {
     key:"vidraru", photo:"transfagarasan", status:"g",
@@ -826,6 +833,20 @@ function legCard(leg, lang){
     html += '<a class="staylink" href="'+shref+'" target="_blank" rel="noopener">📷 '+esc(slabel)+'</a>';
   }
   html += '</div>';
+  if(leg.decision){
+    const dc = leg.decision;
+    html += '<div class="decision"><div class="dec-head">🟠 '+esc(dc.heading[lang])+'</div><div class="dec-cols">';
+    dc.options.forEach(o=>{
+      html += '<div class="dec-opt">';
+      if(o.photo) html += '<div class="dec-photo"><img src="img/'+o.photo+'.jpg" alt="'+esc(o.title[lang])+'" loading="lazy" data-fb="'+esc(o.title[lang])+'"></div>';
+      html += '<div class="dec-title">'+esc(o.title[lang])+'</div>';
+      if(o.alert) html += '<div class="dec-alert">🔴 '+esc(o.alert[lang])+'</div>';
+      html += '<ul>'+o.items[lang].map(i=>'<li>'+esc(i)+'</li>').join("")+'</ul>';
+      html += '<div class="dec-pc"><span class="dec-pro">'+esc(o.pro[lang])+'</span><span class="dec-con">'+esc(o.con[lang])+'</span></div>';
+      html += '</div>';
+    });
+    html += '</div><div class="dec-note">'+esc(dc.note[lang])+'</div></div>';
+  } else {
   // day-by-day schedule (multi-day base stays)
   if(leg.plan){
     const rows = arr => '<ul class="prows">'+arr.map(it=>'<li><span class="ptime">'+
@@ -848,6 +869,7 @@ function legCard(leg, lang){
     html += '<ul class="acts">'+leg.acts[lang].map(a=>'<li>'+esc(a)+'</li>').join("")+'</ul>';
   }
   html += '</div>';
+  }
   if(leg.veg) html += '<div class="note veg">'+esc(leg.veg[lang])+'</div>';
   html += '</div></div>';
   return html;
