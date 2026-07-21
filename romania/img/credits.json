@@ -182,5 +182,29 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
     "source": "https://commons.wikimedia.org/wiki/File:2023_Piata_Mare_din_Sibiu.jpg",
     "query": "Piata Mare Sibiu"
+  },
+  "podul": {
+    "title": "RO SB Bridge of Lies 01.jpg",
+    "artist": "Andrei Stroe",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:RO_SB_Bridge_of_Lies_01.jpg",
+    "query": "Podul Minciunilor Sibiu"
+  },
+  "piata_mica": {
+    "title": "Sibiu Piata Mica nr.22.jpg",
+    "artist": "Andrei kokelburg",
+    "license": "CC BY-SA 3.0 ro",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/ro/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Sibiu_Piata_Mica_nr.22.jpg",
+    "query": "Piata Mica Sibiu"
+  },
+  "moieciu": {
+    "title": "Moieciu de Sus, septembrie2.jpg",
+    "artist": "Ioan Bodean",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Moieciu_de_Sus,_septembrie2.jpg",
+    "query": "Moieciu de Sus"
   }
 }
