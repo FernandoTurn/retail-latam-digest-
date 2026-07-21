@@ -95,6 +95,8 @@
   .note{margin-top:10px;font-size:.83rem;background:var(--green-bg);border:1px solid var(--green-line);
     color:#155d36;border-radius:10px;padding:8px 10px}
   .note.veg::before{content:"🥗 "}
+  .alert{margin:0 0 10px;font-size:.86rem;font-weight:700;background:#fdeaea;
+    border:1px solid #f3b4b4;color:#b42318;border-radius:10px;padding:9px 11px}
   /* Car card */
   .infocard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
     box-shadow:var(--shadow);padding:14px 16px;margin-top:14px;display:flex;gap:14px;align-items:center}
@@ -290,6 +292,7 @@ const ROUTE = {
     bran:{lat:45.515,lng:25.367, en:"Bran",he:"בראן"},
     bucegi:{lat:45.400,lng:25.460, en:"Bucegi",he:"בוצֶ'גי"},
     sinaia:{lat:45.350,lng:25.550, en:"Sinaia",he:"סינאיה"},
+    ocnele:{lat:45.083,lng:24.283, en:"Ocnele Mari",he:"אוקנלה מארי"},
     sibiu:{lat:45.792,lng:24.152, en:"Sibiu",he:"סיביו"},
     vidraru:{lat:45.354,lng:24.633, en:"Vidraru",he:"ווידרארו"},
     bucharest:{lat:44.500,lng:26.090, en:"București / Otopeni",he:"בוקרשט / אוטופני"},
@@ -305,9 +308,12 @@ const ROUTE = {
     {from:"bucegi",to:"sinaia",    color:"#f59e0b", bow:0,
       day:{en:"Aug 9",he:"9.8"},  label:{en:"Bucegi → Sinaia",he:"בוצֶ'גי → סינאיה"},
       dur:{en:"~2 h",he:"~2 ש׳"}},
-    {from:"sinaia",to:"sibiu",     color:"#0891b2", bow:30,
-      day:{en:"Aug 10",he:"10.8"},label:{en:"Sinaia → Sibiu",he:"סינאיה → סיביו"},
-      dur:{en:"~2.5–3 h",he:"~2.5–3 ש׳"}},
+    {from:"sinaia",to:"ocnele",    color:"#0891b2", bow:-16,
+      day:{en:"Aug 10",he:"10.8"},label:{en:"Sinaia → Ocnele Mari → Sibiu",he:"סינאיה → אוקנלה מארי → סיביו"},
+      dur:{en:"full day · early start",he:"יום שלם · יציאה מוקדמת"}},
+    {from:"ocnele",to:"sibiu",     color:"#0891b2", bow:0, legendHide:true,
+      day:{en:"Aug 10",he:"10.8"},label:{en:"Ocnele Mari → Sibiu",he:"אוקנלה מארי → סיביו"},
+      dur:{en:"~2 h",he:"~2 ש׳"}},
     {from:"sibiu",to:"vidraru",    color:"#7c3aed", bow:-16,
       day:{en:"Aug 11",he:"11.8"},label:{en:"Sibiu → Bâlea → Vidraru (Transfăgărășan)",he:"סיביו → באלֶאה → ווידרארו (טרנספגרשאן)"},
       dur:{en:"full day",he:"יום שלם"}},
@@ -318,7 +324,7 @@ const ROUTE = {
   url:"https://www.google.com/maps/dir/?api=1"
       +"&origin="+encodeURIComponent("Henri Coanda International Airport Otopeni")
       +"&destination="+encodeURIComponent("Henri Coanda International Airport Otopeni")
-      +"&waypoints="+["Bran","Pestera Padina Bucegi","Sinaia","Sibiu","Balea Lac Transfagarasan","Barajul Vidraru","Bucharest"].map(encodeURIComponent).join("|")
+      +"&waypoints="+["Bran","Pestera Padina Bucegi","Sinaia","Salina Ocnele Mari","Sibiu","Balea Lac Transfagarasan","Barajul Vidraru","Bucharest"].map(encodeURIComponent).join("|")
       +"&travelmode=driving",
 };
 
@@ -364,7 +370,7 @@ const LEGS = [
         ],
         pm:[
           {time:"12:00", a:{en:"Ploiești stop: Chen → Humana Victoriei · Fernando + kids → Antique 217 / Piața Victoriei (until 13:00)",he:"עצירת פלוישט: צ'ן → Humana Victoriei · פרננדו + ילדים → Antique 217 / Piața Victoriei (עד 13:00)"}},
-          {time:"14:00", a:{en:"Carrefour: groceries + BBQ (meat, veg, charcoal, firelighters, foil, tongs)",he:"Carrefour: מצרכים + על-האש (בשר, ירקות, פחמים, מציתים, נייר כסף, מלקחיים)"}},
+          {time:"14:00", a:{en:"Carrefour: groceries + BBQ (meat, veg, charcoal, firelighters, foil, tongs) · bring a cooler bag",he:"Carrefour: מצרכים + על-האש (בשר, ירקות, פחמים, מציתים, נייר כסף, מלקחיים) · קחו צידנית"}},
           {time:"15:00", a:{en:"Check-in Kapa Chalet · relax (jacuzzi)",he:"צ'ק-אין Kapa Chalet · מנוחה (ג'קוזי)"}},
         ],
         eve:[
@@ -528,31 +534,36 @@ const LEGS = [
   },
   {
     key:"sibiu", photo:"sibiu", status:"g",
-    drive:{en:"Sinaia → Sibiu · ~2.5–3 h",he:"סינאיה → סיביו · ~2.5–3 ש׳"},
+    drive:{en:"Sinaia → Ocnele Mari → Sibiu · early start! · ~3–3.5 h + ~2 h",he:"סינאיה → אוקנלה מארי → סיביו · יציאה מוקדמת! · ~3–3.5 ש׳ + ~2 ש׳"},
     when:{en:"10 Aug · 1 night", he:"10 באוג׳ · לילה 1"},
-    place:{en:"Sibiu", he:"סיביו"},
+    place:{en:"Ocnele Mari → Sibiu", he:"אוקנלה מארי → סיביו"},
+    alert:{en:"Leave Sinaia by 8:00 AM! The salt mine's last entry is 16:00 and it's ~3–3.5 h away.",he:"לצאת מסינאיה עד 8:00 בבוקר! הכניסה האחרונה למכרה 16:00 והנסיעה ~3–3.5 ש׳."},
     lodging:{en:"Artisan Villa — turquoise apartment", he:"Artisan Villa — דירת טורקיז"},
     conf:null, stayUrl:"Artisan Villa Sibiu",
     lodgingNote:{en:"Booked ✓ check-in 10 / out 11 Aug · 650 lei/night (pay on site) · breakfast +70 adult / +35 kid · check-in 14:00 / out 12:00 · parking 50 m (9 Mai St)", he:"הוזמן ✓ צ'ק-אין 10 / עזיבה 11.8 · 650 ליי/לילה (תשלום במקום) · ארוחת בוקר +70 מבוגר / +35 ילד · צ'ק-אין 14:00 / עזיבה 12:00 · חניה 50 מ' (רח' 9 Mai)"},
     plan:[
       {d:{en:"Mon Aug 10",he:"ב׳ 10.8"},
         am:[
-          {time:"09:30", a:{en:"Check-out Sinaia · drive to Sibiu (~2.5–3 h)",he:"עזיבת סינאיה · נסיעה לסיביו (~2.5–3 ש׳)"}},
+          {time:"08:00", a:{en:"Leave Sinaia early (mine is ~3–3.5 h away)",he:"יציאה מוקדמת מסינאיה (המכרה ~3–3.5 ש׳)"}},
+          {time:"11:30", a:{en:"Salina Ocnele Mari — playground/slides, mini-karting, salt church (2–3 h · 13–15 °C · sweater + cash)",he:"סלינה אוקנלה מארי — מתקנים/מגלשות, מיני-קרטינג, כנסיית מלח (2–3 ש׳ · 13–15° · סוודר + מזומן)"}},
         ],
         pm:[
-          {time:"12:30", a:{en:"Arrive · lunch in the old town (check-in is 14:00)",he:"הגעה · צהריים בעיר העתיקה (צ'ק-אין ב-14:00)"}},
-          {time:"14:00", a:{en:"Check-in Artisan Villa (turquoise apt)",he:"צ'ק-אין Artisan Villa (דירת טורקיז)"}},
-          {time:"15:00", a:{en:"Piața Mare + Piața Mică · spot the 'eyes of Sibiu' (rooftop windows)",he:"Piața Mare + Piața Mică · לחפש את 'עיני סיביו' (חלונות גג)"}},
-          {time:"17:00", a:{en:"Liars' Bridge (Podul Minciunilor) · stroll & views",he:"גשר השקרנים (Podul Minciunilor) · טיול ונופים"}},
+          {time:"15:00", a:{en:"Leave the mine · Ocnele Mari → Sibiu (~2 h, Olt valley)",he:"יציאה מהמכרה · אוקנלה מארי → סיביו (~2 ש׳, עמק האולט)"}},
+          {time:"17:00", a:{en:"Arrive Sibiu · check-in Artisan Villa · rest",he:"הגעה לסיביו · צ'ק-אין Artisan Villa · מנוחה"}},
+          {time:"18:30", a:{en:"Sunset stroll: Piața Mare + Piața Mică + Council Tower + 'eyes of Sibiu' + Liars' Bridge + Lower Town",he:"טיול שקיעה: Piața Mare + Piața Mică + מגדל המועצה + 'עיני סיביו' + גשר השקרנים + העיר התחתית"}},
         ],
         eve:[
-          {time:"19:30", a:{en:"Dinner in the medieval centre",he:"ארוחת ערב במרכז ימי-הביניים"}},
+          {time:"20:00", a:{en:"Dinner in Piața Mică",he:"ארוחת ערב ב-Piața Mică"}},
         ]},
     ],
-    acts:{en:["Piața Mare & Piața Mică","Liars' Bridge (Podul Minciunilor)","The 'eyes of Sibiu' (rooftop windows)","Medieval old town & dinner"],
-          he:["Piața Mare ו-Piața Mică","גשר השקרנים (Podul Minciunilor)","'עיני סיביו' (חלונות הגג)","העיר העתיקה מימי-הביניים וארוחת ערב"]},
+    acts:{en:["Salina Ocnele Mari salt mine (playground, karting, salt church)","Piața Mare & Piața Mică + Council Tower","Liars' Bridge + the 'eyes of Sibiu'","Lower Town & dinner in Piața Mică"],
+          he:["מכרה המלח סלינה אוקנלה מארי (מתקנים, קרטינג, כנסיית מלח)","Piața Mare ו-Piața Mică + מגדל המועצה","גשר השקרנים + 'עיני סיביו'","העיר התחתית וארוחת ערב ב-Piața Mică"]},
     attr:[
-      {name:{en:"Piața Mare (Grand Square)",he:"Piața Mare (הכיכר הגדולה)"}, photo:"sibiu",
+      {name:{en:"Salina Ocnele Mari (salt mine)",he:"סלינה אוקנלה מארי (מכרה מלח)"},
+        photo:"ocnele", maps:"Salina Ocnele Mari",
+        cost:{en:"Playground/slides, mini-karting, football/volley/tennis, billiards, ping-pong, salt sculptures, underground church",he:"מתקנים/מגלשות, מיני-קרטינג, כדורגל/כדורעף/טניס, ביליארד, פינג-פונג, פסלי מלח, כנסייה תת-קרקעית"},
+        time:{en:"2–3 h · 13–15 °C · open 9–17, last entry 16:00 · sweater + cash",he:"2–3 ש׳ · 13–15° · פתוח 9–17, כניסה אחרונה 16:00 · סוודר + מזומן"}},
+      {name:{en:"Piața Mare (Grand Square) + Council Tower",he:"Piața Mare (הכיכר הגדולה) + מגדל המועצה"}, photo:"sibiu",
         maps:"Piata Mare Sibiu",
         cost:{en:"Free · the heart of the old town",he:"חינם · לב העיר העתיקה"}, time:{en:"Evening stroll",he:"טיול ערב"}},
       {name:{en:"Liars' Bridge (Podul Minciunilor)",he:"גשר השקרנים (Podul Minciunilor)"},
@@ -560,10 +571,10 @@ const LEGS = [
         cost:{en:"Free",he:"חינם"}, time:{en:"≈15 min",he:"≈15 דק'"}},
       {name:{en:"Piața Mică & the 'eyes of Sibiu'",he:"Piața Mică ו'עיני סיביו'"},
         photo:"piata_mica", maps:"Piata Mica Sibiu",
-        cost:{en:"Free · rooftop windows that seem to watch you",he:"חינם · חלונות גג שנראים כמשגיחים"}, time:{en:"≈30 min",he:"≈30 דק'"}},
+        cost:{en:"Free · rooftop windows that seem to watch you · dinner here",he:"חינם · חלונות גג שנראים כמשגיחים · ארוחת ערב כאן"}, time:{en:"≈30 min",he:"≈30 דק'"}},
     ],
     veg:{en:"Veggie for Chen: plenty in the old town (e.g. Kulinarium, Pardon Café)", he:"צמחוני לצ'ן: הרבה בעיר העתיקה (למשל Kulinarium, Pardon Café)"},
-    mapsQ:"Piata Mare Sibiu", caption:{en:"Sibiu old town",he:"העיר העתיקה סיביו"},
+    mapsQ:"Piata Mare Sibiu", caption:{en:"Ocnele Mari / Sibiu",he:"אוקנלה מארי / סיביו"},
   },
   {
     key:"vidraru", photo:"transfagarasan", status:"g",
@@ -694,7 +705,7 @@ const ROMANIA_PATH="M101.9,52.1 L117.1,41.2 L139.0,46.8 L161.6,47.0 L178.0,59.4 
 // mountain trio spread ~2.6× around their centroid so the short daily legs are
 // legible (they sit within ~15 km IRL); Bucharest kept at its true position.
 const RXY={bran:[182.9,153.1], bucegi:[198.9,182.6], sinaia:[214.9,195.1],
-  sibiu:[151.5,156.5], vidraru:[169.8,180.5], bucharest:[221.2,223.9]};
+  ocnele:[156.7,191.7], sibiu:[151.5,156.5], vidraru:[169.8,180.5], bucharest:[221.2,223.9]};
 
 function routeCard(lang){
   const W=360, H=300;
@@ -722,8 +733,9 @@ function routeCard(lang){
   });
   const lbl={
     bran:{dx:0,dy:-9,anchor:"middle"}, bucegi:{dx:-7,dy:14,anchor:"end"},
-    sinaia:{dx:9,dy:-6,anchor:"start"}, sibiu:{dx:-8,dy:-8,anchor:"end"},
-    vidraru:{dx:2,dy:15,anchor:"middle"}, bucharest:{dx:0,dy:17,anchor:"middle"},
+    sinaia:{dx:9,dy:-6,anchor:"start"}, sibiu:{dx:-9,dy:-8,anchor:"end"},
+    ocnele:{dx:0,dy:16,anchor:"middle"},
+    vidraru:{dx:9,dy:3,anchor:"start"}, bucharest:{dx:0,dy:18,anchor:"middle"},
   };
   let dots="";
   for(const [k,n] of Object.entries(ROUTE.points)){
@@ -802,6 +814,7 @@ function legCard(leg, lang){
   html += '<div class="body">';
   html += '<div class="head"><div><div class="when">'+esc(leg.when[lang])+'</div>'+
           '<h2>'+esc(leg.place[lang])+'</h2></div>'+badge+'</div>';
+  if(leg.alert){ html += '<div class="alert">🔴 '+esc(leg.alert[lang])+'</div>'; }
   // stay
   html += '<div class="block"><div class="lbl">🏨 '+esc(UI.lodging[lang])+'</div>'+
           '<div class="lodging">'+esc(leg.lodging[lang])+'</div>';
