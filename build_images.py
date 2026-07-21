@@ -68,6 +68,9 @@ SLOTS = {
     "vidraru":        ["Lacul Vidraru", "Lake Vidraru", "Vidraru reservoir"],
     "poenari":        ["Poenari Castle", "Cetatea Poenari"],
     "sibiu":          ["Piata Mare Sibiu", "Sibiu Grand Square", "Sibiu old town"],
+    "podul":          ["Podul Minciunilor Sibiu", "Liars Bridge Sibiu", "Bridge of Lies Sibiu"],
+    "piata_mica":     ["Piata Mica Sibiu", "Piata Mica Sibiu Romania", "Small Square Sibiu"],
+    "moieciu":        ["Moieciu de Sus", "Magura Brasov Romania", "Pestera village Brasov"],
 }
 
 FREE_HINTS = ("cc", "public domain", "pd", "no restrictions", "free")
