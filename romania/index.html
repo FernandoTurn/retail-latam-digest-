@@ -183,6 +183,8 @@
   .attr-photo .ph-fallback{position:absolute;inset:0;display:flex;align-items:center;
     justify-content:center;text-align:center;padding:4px;font-size:.6rem;font-weight:600;
     color:#43586a;background:linear-gradient(135deg,#eef2f6,#dbe4ec);line-height:1.12}
+  .attr-photo .ph-emoji{position:absolute;inset:0;display:flex;align-items:center;
+    justify-content:center;font-size:1.9rem;background:linear-gradient(135deg,#eef2f6,#dbe4ec)}
   .attr-info{flex:1;min-width:0}
   .attr-name{font-weight:600;font-size:.95rem;display:flex;align-items:center;gap:5px}
   .attr-name .ext{opacity:.55;font-size:.85em;flex:0 0 auto}
@@ -437,11 +439,11 @@ const LEGS = [
           he:["טירת בראן","דינו פארק רשנוב + מבצר רשנוב","רכבת הרים אלפינית בקֵיילה גרדישטיי (פונדטה)","ערוץ קֵיילה דמבוביצ'ואארה","כפרי הרים"]},
     attr:[
       {name:{en:"Băneasa Shopping City — SIMs + Zara & brands (Aug 3)",he:"בנאסה Shopping City — סימים + Zara ומותגים (3.8)"},
-        maps:"Baneasa Shopping City",
+        emoji:"🛍️", maps:"Baneasa Shopping City",
         cost:{en:"4 Orange SIMs (official store) · Zara, H&M, brands",he:"4 סימי Orange (חנות רשמית) · Zara, H&M, מותגים"},
         time:{en:"Open Sun 10–22 · on DN1 north (first stop)",he:"פתוח א׳ 10–22 · על DN1 צפונה (עצירה ראשונה)"}},
       {name:{en:"Ploiești — second-hand stop (Aug 3, on the way)",he:"פלוישט — עצירת יד-שנייה (3.8, בדרך)"},
-        maps:"Piata Victoriei Ploiesti",
+        emoji:"👕", maps:"Piata Victoriei Ploiesti",
         cost:{en:"Chen: Humana Victoriei · Fernando+kids: Antique 217 / Piața Victoriei",he:"צ'ן: Humana Victoriei · פרננדו+ילדים: Antique 217 / Piața Victoriei"},
         time:{en:"~45 min from Otopeni · window 10:00–13:00",he:"~45 דק' מאוטופני · חלון 10:00–13:00"}},
       {name:{en:"Bran Castle",he:"טירת בראן"}, photo:"bran_castle",
@@ -518,6 +520,7 @@ const LEGS = [
         cost:{en:"Bușteni cable car ≈70 RON",he:"רכבל בושטֶני ≈70 RON"},
         time:{en:"Half day",he:"חצי יום"}},
       {name:{en:"Spa & wellness — the rest stretch (Brașov is ~2 h, skip from here)",he:"ספא ובריאות — תחנת המנוחה (בראשוב ~2 ש׳, לא כדאי מכאן)"},
+        emoji:"🧖", maps:"Hotel Pestera Padina Bucegi",
         cost:{en:"Included",he:"כלול"}, time:{en:"Relax",he:"רגיעה"}},
     ],
     mapsQ:"Hotel Pestera Padina Bucegi", caption:{en:"Bucegi Mtns / Sphinx",he:"הרי בוצֶ'גי / הספינקס"},
@@ -654,7 +657,7 @@ const LEGS = [
         cost:{en:"Free entry · the only Primark on the route",he:"כניסה חינם · ה-Primark היחיד במסלול"},
         time:{en:"From ~12:30",he:"מ-~12:30"}},
       {name:{en:"Gymboland (inside AFI) — Fernando + kids",he:"Gymboland (בתוך AFI) — פרננדו + הילדים"},
-        photo:"gymboland", maps:"Gymboland AFI Cotroceni",
+        emoji:"🎈", maps:"Gymboland AFI Cotroceni",
         cost:{en:"Ball pool, slides, climbers, boat lake",he:"בריכת כדורים, מגלשות, מתקני טיפוס, אגם סירות"}, time:{en:"While Chen shops",he:"בזמן שצ'ן קונה"}},
       {name:{en:"Therme București (Galaxy) — you + kids",he:"ת'רמה בוקרשט (Galaxy) — אתה + הילדים"},
         photo:"therme", url:"https://therme.ro/",
@@ -798,7 +801,9 @@ function attrItem(a, lang){
   const href = a.url ? a.url : mapsUrl(a.maps || a.name.en);
   const thumb = a.photo
     ? '<img src="img/'+a.photo+'.jpg" alt="'+esc(a.name[lang])+'" loading="lazy" data-fb="'+esc(a.name[lang])+'">'
-    : '<div class="ph-fallback">'+esc(a.name[lang])+'</div>';
+    : a.emoji
+      ? '<div class="ph-emoji">'+esc(a.emoji)+'</div>'
+      : '<div class="ph-fallback">'+esc(a.name[lang])+'</div>';
   const ext = a.url ? '<span class="ext">↗</span>' : '<span class="ext">'+pinIcon()+'</span>';
   return '<a class="attr" href="'+href+'" target="_blank" rel="noopener">'+
     '<span class="attr-photo">'+thumb+'</span>'+
