@@ -151,6 +151,14 @@
     "source": "https://commons.wikimedia.org/wiki/File:Transfagarasan_P190717a.jpg",
     "query": "Transfagarasan"
   },
+  "balea": {
+    "title": "RO SB Balea cabin clouds 1.jpg",
+    "artist": "Andrei Stroe",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:RO_SB_Balea_cabin_clouds_1.jpg",
+    "query": "Balea Lake"
+  },
   "vidraru": {
     "title": "Lacul Vidraru.jpg",
     "artist": "Wikimedia Commons",
@@ -167,12 +175,12 @@
     "source": "https://commons.wikimedia.org/wiki/File:Cetatea_Poenari_1.jpg",
     "query": "Poenari Castle"
   },
-  "slanic": {
-    "title": "Slanic Unirea mine entrance.jpg",
-    "artist": "Andrei Stroe",
-    "license": "CC BY 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Slanic_Unirea_mine_entrance.jpg",
-    "query": "Unirea salt mine"
+  "sibiu": {
+    "title": "2023 Piata Mare din Sibiu.jpg",
+    "artist": "Chainwit.",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:2023_Piata_Mare_din_Sibiu.jpg",
+    "query": "Piata Mare Sibiu"
   }
 }
