@@ -68,7 +68,9 @@ SLOTS = {
     "vidraru":        ["Lacul Vidraru", "Lake Vidraru", "Vidraru reservoir"],
     "poenari":        ["Poenari Castle", "Cetatea Poenari"],
     "sibiu":          ["Piata Mare Sibiu", "Sibiu Grand Square", "Sibiu old town"],
-    "ocnele":         ["Salina Ocnele Mari", "Ocnele Mari", "Ocnele Mari mina", "Muntele de Sare Ocnele Mari", "Baile Ocnele Mari", "Ocnele Mari salt mine"],
+    # Ocnele Mari salt mine: no free-license image on Commons (broad "Ocnele Mari"
+    # only returns a village church, which is wrong for this card). Left out on
+    # purpose — the card degrades to a text tile until a real photo is provided.
     "podul":          ["Podul Minciunilor Sibiu", "Liars Bridge Sibiu", "Bridge of Lies Sibiu"],
     "piata_mica":     ["Piata Mica Sibiu", "Piata Mica Sibiu Romania", "Small Square Sibiu"],
     "moieciu":        ["Moieciu de Sus", "Magura Brasov Romania", "Pestera village Brasov"],
