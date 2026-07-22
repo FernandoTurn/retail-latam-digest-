@@ -170,6 +170,7 @@
   .rlgname{font-weight:600;font-size:.9rem}
   .rlgdrive{font-size:.75rem;color:var(--muted)}
   .rlgdate{margin-inline-start:auto;color:var(--muted);font-size:.8rem;white-space:nowrap;align-self:flex-start;padding-top:1px}
+  .rt-note{padding:8px 14px 12px;font-size:.8rem;color:var(--muted)}
   .route-btn{display:flex;align-items:center;justify-content:center;gap:8px;
     padding:13px 14px;background:var(--accent);color:#fff;font-weight:700;
     text-decoration:none;font-size:.92rem;border-top:1px solid rgba(255,255,255,.15)}
@@ -694,14 +695,20 @@ function mapIcon(){
 // route from data/route.geojson (precomputed with OSRM by build_route.py).
 let LMAP=null, LMARKERS=[];
 
-// Drive time to reach each numbered stop from the previous one (mountain flagged).
+// Drive to reach each numbered stop from the previous one: distance · time
+// (mountain roads flagged). No road tolls on this route (see ROUTE_NOTE).
 const DRIVE={
-  2:{en:"~2.5–3 h",he:"~2.5–3 ש׳"},
-  3:{en:"~1–1.5 h · mountain road (slow)",he:"~1–1.5 ש׳ · כביש הררי (איטי)"},
-  4:{en:"~2 h · mountain road",he:"~2 ש׳ · כביש הררי"},
-  5:{en:"~2.5–3 h (direct)",he:"~2.5–3 ש׳ (ישיר)"},
-  6:{en:"~3–4 h · Transfăgărășan (slow, winding mountain road)",he:"~3–4 ש׳ · טרנספגרשאן (כביש הרים איטי ומפותל)"},
-  7:{en:"~3 h",he:"~3 ש׳"},
+  2:{en:"~170 km · ~2.5–3 h",he:"~170 ק\"מ · ~2.5–3 ש׳"},
+  3:{en:"~45 km · ~1–1.5 h · mountain road (slow)",he:"~45 ק\"מ · ~1–1.5 ש׳ · כביש הררי (איטי)"},
+  4:{en:"~50 km · ~2 h · mountain road",he:"~50 ק\"מ · ~2 ש׳ · כביש הררי"},
+  5:{en:"~130 km · ~2.5–3 h (direct)",he:"~130 ק\"מ · ~2.5–3 ש׳ (ישיר)"},
+  6:{en:"~150 km · ~3–4 h · Transfăgărășan (slow, winding mountain road)",he:"~150 ק\"מ · ~3–4 ש׳ · טרנספגרשאן (כביש הרים איטי ומפותל)"},
+  7:{en:"~200 km · ~3 h",he:"~200 ק\"מ · ~3 ש׳"},
+};
+// No per-leg road tolls in Romania on this loop — only the vignette (included).
+const ROUTE_NOTE={
+  en:"🚫 No road tolls on this route — the vignette (rovinietă) is included in the rental.",
+  he:"🚫 אין אגרות דרך במסלול הזה — הוינייטה (rovinietă) כלולה בהשכרה.",
 };
 
 function buildRoute(lang){
@@ -717,6 +724,7 @@ function buildRoute(lang){
       '<b id="rt-title"></b></div>'+
       '<div id="lmap" class="lmap"><span class="northbadge">N ↑</span></div>'+
       '<div id="rt-legend" class="rt-legend"></div>'+
+      '<div id="rt-note" class="rt-note"></div>'+
       '<a id="rt-btn" class="route-btn" target="_blank" rel="noopener"></a></div>';
     LMAP=L.map("lmap",{scrollWheelZoom:false, zoomControl:true}).setView([45.5,25.3],7);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -731,6 +739,7 @@ function buildRoute(lang){
   }
   const t=$("#rt-title"); if(t) t.textContent=UI.routeTitle[lang];
   const btn=$("#rt-btn"); if(btn){ btn.href=ROUTE.url; btn.textContent="🧭 "+UI.routeCta[lang]+" →"; }
+  const note=$("#rt-note"); if(note) note.textContent=ROUTE_NOTE[lang];
   refreshRoutePopups(lang);
   renderLegend(lang);
 }
