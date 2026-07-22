@@ -137,7 +137,7 @@ def main():
     try:
         line, dist, dur = fetch_route()
         raw = len(line)
-        line = rdp(line, 0.0006)                         # simplifica conservando curvas
+        line = rdp(line, 0.00008)                        # ~9 m: conserva las curvas de montaña
         line = [[round(x, 5), round(y, 5)] for x, y in line]   # ~1 m de precision
         fc = features(line, dist, dur, "OSRM")
         print(f"[OK] ruta OSRM: {raw} -> {len(line)} puntos, {round(dist/1000)} km, {round(dur/3600,1)} h")
