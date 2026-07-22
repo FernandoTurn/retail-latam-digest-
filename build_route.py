@@ -75,7 +75,9 @@ def http_get(url):
 
 def fetch_route():
     coords = ";".join(f"{lng},{lat}" for lng, lat in ROUTE_COORDS)
-    url = OSRM + coords + "?overview=full&geometries=geojson"
+    # overview=simplified: sigue las carreteras pero con muchos menos puntos que
+    # "full" (~600 KB -> ~decenas de KB), ideal para cargar rapido en el celular.
+    url = OSRM + coords + "?overview=simplified&geometries=geojson"
     data = json.loads(http_get(url))
     if data.get("code") != "Ok":
         raise RuntimeError("OSRM code=" + str(data.get("code")))
