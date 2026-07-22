@@ -143,21 +143,25 @@
     .infocard{flex-direction:row}
   }
   /* Route map banner */
-  .route{display:block;text-decoration:none;color:inherit;margin:16px 0 2px;
-    background:linear-gradient(135deg,#eaf5ee,#f4faf6);border:1px solid var(--green-line);
-    border-radius:var(--radius);padding:13px 15px;box-shadow:var(--shadow)}
-  .route:active{background:#e2f1e8}
-  .route-head{display:flex;align-items:center;gap:8px;color:var(--accent);font-size:.95rem}
-  .route-head .route-cta{margin-inline-start:auto;font-size:.8rem;font-weight:700;white-space:nowrap}
-  .route .map{margin-top:11px;width:100%;max-width:340px;display:block;margin-inline:auto;
-    background:#eef5f0;border:1px solid var(--green-line);border-radius:12px}
-  /* keep text-anchor start/end consistent even when the page is RTL */
-  .route .map text{direction:ltr}
-  .route-legend{margin-top:11px;display:flex;flex-direction:column;gap:7px}
-  .rlg{display:flex;align-items:center;gap:8px;font-size:.83rem}
-  .rlg .sw{flex:0 0 auto;width:18px;height:5px;border-radius:3px}
-  .rlg .d{font-weight:700;color:var(--ink)}
-  .rlg .dur{margin-inline-start:auto;color:var(--muted);white-space:nowrap;font-size:.78rem}
+  .route{margin:16px 0 2px}
+  .route-box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden}
+  .route-head{display:flex;align-items:center;gap:8px;color:var(--accent);font-size:.95rem;
+    padding:12px 14px 10px}
+  .lmap{width:100%;height:360px;position:relative;background:#e9edf2;z-index:0;direction:ltr}
+  @media(max-width:520px){.lmap{height:300px}}
+  .lmap .northbadge{position:absolute;top:8px;right:8px;z-index:500;
+    background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:6px;
+    padding:2px 7px;font-size:.72rem;font-weight:800;color:#3f7d5c}
+  .rt-pin{width:28px;height:28px;border-radius:50% 50% 50% 0;background:var(--accent);
+    transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 1px 4px rgba(16,24,40,.45);
+    display:flex;align-items:center;justify-content:center}
+  .rt-pin span{transform:rotate(45deg);color:#fff;font-weight:800;font-size:.82rem;line-height:1}
+  .pop-date{color:var(--muted);font-size:.85em}
+  .route-btn{display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 14px;background:var(--accent);color:#fff;font-weight:700;
+    text-decoration:none;font-size:.92rem}
+  .route-btn:active{background:#0c4429}
   /* Stay photo link */
   .staylink{display:inline-flex;align-items:center;gap:5px;margin-top:7px;
     font-size:.82rem;font-weight:600;text-decoration:none;color:var(--accent);
@@ -194,6 +198,8 @@
   /* RTL fine-tuning */
   html[dir="rtl"] .langbtn{font-weight:700}
 </style>
+<link rel="stylesheet" href="lib/leaflet.css">
+<script src="lib/leaflet.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -308,46 +314,13 @@ const TIPS = [
    he:"נעליים נוחות: אבני מרצפת בעיר העתיקה ושבילים במערות ובמישור."},
 ];
 
-/* Car-only driving route inside Romania, drawn as an SVG map coloured per day.
-   Cities carry real lat/lng so their relative positions are geographically true. */
+/* Full driving route opened in Google Maps (real roads, waypoints in order).
+   The map itself is drawn with Leaflet from data/route.geojson (see build_route.py). */
 const ROUTE = {
-  points:{
-    bran:{lat:45.515,lng:25.367, en:"Bran",he:"בראן"},
-    bucegi:{lat:45.400,lng:25.460, en:"Bucegi",he:"בוצֶ'גי"},
-    sinaia:{lat:45.350,lng:25.550, en:"Sinaia",he:"סינאיה"},
-    ocnele:{lat:45.083,lng:24.283, en:"Ocnele Mari",he:"אוקנלה מארי"},
-    sibiu:{lat:45.792,lng:24.152, en:"Sibiu",he:"סיביו"},
-    vidraru:{lat:45.354,lng:24.633, en:"Vidraru",he:"ווידרארו"},
-    bucharest:{lat:44.500,lng:26.090, en:"București / Otopeni",he:"בוקרשט / אוטופני"},
-  },
-  // one segment per driving day, each its own colour
-  segs:[
-    {from:"bucharest",to:"bran",   color:"#2563eb", bow:30,
-      day:{en:"Aug 3",he:"3.8"},  label:{en:"Otopeni → Bran",he:"אוטופני → בראן"},
-      dur:{en:"~2.5–3 h",he:"~2.5–3 ש׳"}},
-    {from:"bran",to:"bucegi",      color:"#16a34a", bow:0,
-      day:{en:"Aug 7",he:"7.8"},  label:{en:"Bran → Bucegi",he:"בראן → בוצֶ'גי"},
-      dur:{en:"~1–1.5 h",he:"~1–1.5 ש׳"}},
-    {from:"bucegi",to:"sinaia",    color:"#f59e0b", bow:0,
-      day:{en:"Aug 9",he:"9.8"},  label:{en:"Bucegi → Sinaia",he:"בוצֶ'גי → סינאיה"},
-      dur:{en:"~2 h",he:"~2 ש׳"}},
-    {from:"sinaia",to:"ocnele",    color:"#0891b2", bow:-16,
-      day:{en:"Aug 10",he:"10.8"},label:{en:"Sinaia → Ocnele Mari → Sibiu",he:"סינאיה → אוקנלה מארי → סיביו"},
-      dur:{en:"~3.5 + 2 h drive",he:"~3.5 + 2 ש׳ נסיעה"}},
-    {from:"ocnele",to:"sibiu",     color:"#0891b2", bow:0, legendHide:true,
-      day:{en:"Aug 10",he:"10.8"},label:{en:"Ocnele Mari → Sibiu",he:"אוקנלה מארי → סיביו"},
-      dur:{en:"~2 h",he:"~2 ש׳"}},
-    {from:"sibiu",to:"vidraru",    color:"#7c3aed", bow:-16,
-      day:{en:"Aug 11",he:"11.8"},label:{en:"Sibiu → Bâlea → Vidraru (Transfăgărășan)",he:"סיביו → באלֶאה → ווידרארו (טרנספגרשאן)"},
-      dur:{en:"~3–4 h drive",he:"~3–4 ש׳ נסיעה"}},
-    {from:"vidraru",to:"bucharest", color:"#db2777", bow:34,
-      day:{en:"Aug 12",he:"12.8"},label:{en:"Vidraru → Bucharest",he:"ווידרארו → בוקרשט"},
-      dur:{en:"~3 h",he:"~3 ש׳"}},
-  ],
   url:"https://www.google.com/maps/dir/?api=1"
-      +"&origin="+encodeURIComponent("Henri Coanda International Airport Otopeni")
-      +"&destination="+encodeURIComponent("Henri Coanda International Airport Otopeni")
-      +"&waypoints="+["Bran","Pestera Padina Bucegi","Sinaia","Salina Ocnele Mari","Sibiu","Balea Lac Transfagarasan","Barajul Vidraru","Bucharest"].map(encodeURIComponent).join("|")
+      +"&origin="+encodeURIComponent("Bucharest Otopeni Airport")
+      +"&destination="+encodeURIComponent("Bucharest")
+      +"&waypoints="+["Bran","Hotel Pestera Wellness Spa Pestera Padina","Sinaia","Sibiu","Hotel Posada Vidraru"].map(encodeURIComponent).join("|")
       +"&travelmode=driving",
 };
 
@@ -705,66 +678,63 @@ function mapIcon(){
     'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+
     '<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>';
 }
-// Real Romania silhouette (projected to the 360×300 viewBox) + city pixel
-// positions in the SAME projection, so the route sits geographically on the map.
-const ROMANIA_PATH="M101.9,52.1 L117.1,41.2 L139.0,46.8 L161.6,47.0 L178.0,59.4 L190.0,51.6 L216.1,46.7 L225.0,34.9 L239.9,34.9 L250.6,39.8 L261.5,54.9 L272.7,76.3 L293.1,106.5 L294.2,128.8 L290.5,150.5 L296.8,173.7 L312.6,183.1 L329.2,174.9 L345.2,183.6 L346.0,196.7 L328.9,207.6 L318.2,202.9 L308.3,264.2 L287.5,258.8 L261.9,240.4 L220.3,252.2 L202.8,265.1 L151.0,262.5 L123.8,254.5 L110.2,258.3 L100.0,237.4 L93.5,228.5 L101.7,219.9 L93.0,213.6 L81.9,225.0 L61.4,210.2 L58.6,189.3 L37.1,177.4 L33.1,161.2 L14.0,141.2 L42.3,131.6 L63.6,97.2 L80.3,62.7 L101.9,52.1 Z";
-// mountain trio spread ~2.6× around their centroid so the short daily legs are
-// legible (they sit within ~15 km IRL); Bucharest kept at its true position.
-const RXY={bran:[177.1,140.6], bucegi:[198.2,179.5], sinaia:[219.4,196.0],
-  ocnele:[142.5,191.5], sibiu:[135.7,145.1], vidraru:[159.8,176.8], bucharest:[221.2,223.9]};
+// Interactive road map: Leaflet + OpenStreetMap tiles, drawing the real driving
+// route from data/route.geojson (precomputed with OSRM by build_route.py).
+let LMAP=null, LMARKERS=[];
 
-function routeCard(lang){
-  const W=360, H=300;
-  let lines="", arrows="";
-  ROUTE.segs.forEach(sg=>{
-    const a=RXY[sg.from], b=RXY[sg.to], bow=sg.bow||0;
-    const dx=b[0]-a[0], dy=b[1]-a[1], len=Math.hypot(dx,dy)||1;
-    const ux=dx/len, uy=dy/len, nx=-uy, ny=ux;            // unit dir + left normal
-    const mx=(a[0]+b[0])/2, my=(a[1]+b[1])/2;
-    const dash = sg.dashed ? ' stroke-dasharray="7 5"' : '';
-    let ax=mx, ay=my;                      // arrow anchor (midpoint, or curve midpoint)
-    if(bow){
-      const cx=mx+nx*bow, cy=my+ny*bow;
-      lines+='<path d="M'+a[0]+','+a[1]+' Q'+cx.toFixed(1)+','+cy.toFixed(1)+' '+b[0]+','+b[1]+
-        '" fill="none" stroke="'+sg.color+'" stroke-width="3.5" stroke-linecap="round"'+dash+'/>';
-      ax=mx+0.5*bow*nx; ay=my+0.5*bow*ny;
-    } else {
-      lines+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+
-        '" stroke="'+sg.color+'" stroke-width="3.5" stroke-linecap="round"'+dash+'/>';
-    }
-    if(!sg.dashed){  // direction arrow (travel order) on every solid leg
-      const tip=[ax+ux*5.5,ay+uy*5.5], l=[ax-ux*3+nx*4.2,ay-uy*3+ny*4.2], r=[ax-ux*3-nx*4.2,ay-uy*3-ny*4.2];
-      arrows+='<path d="M'+tip[0].toFixed(1)+','+tip[1].toFixed(1)+' L'+l[0].toFixed(1)+','+l[1].toFixed(1)+
-        ' L'+r[0].toFixed(1)+','+r[1].toFixed(1)+' Z" fill="'+sg.color+'"/>';
-    }
-  });
-  const lbl={
-    bran:{dx:0,dy:-9,anchor:"middle"}, bucegi:{dx:-7,dy:14,anchor:"end"},
-    sinaia:{dx:9,dy:-6,anchor:"start"}, sibiu:{dx:-9,dy:-8,anchor:"end"},
-    ocnele:{dx:0,dy:16,anchor:"middle"},
-    vidraru:{dx:9,dy:3,anchor:"start"}, bucharest:{dx:0,dy:18,anchor:"middle"},
-  };
-  let dots="";
-  for(const [k,n] of Object.entries(ROUTE.points)){
-    const p=RXY[k], L=lbl[k];
-    dots+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4.5" fill="#0f5132" stroke="#fff" stroke-width="1.8"/>'+
-      '<text x="'+(p[0]+L.dx)+'" y="'+(p[1]+L.dy)+'" text-anchor="'+L.anchor+
-      '" font-size="11" font-weight="700" fill="#12331f" paint-order="stroke" stroke="#dcefe3" stroke-width="3.5">'+
-      esc(n[lang])+'</text>';
+function buildRoute(lang){
+  const wrap=$("#route");
+  if(typeof L==="undefined"){                 // Leaflet failed to load → button only
+    wrap.innerHTML='<div class="route-box"><div class="route-head">'+mapIcon()+
+      '<b>'+esc(UI.routeTitle[lang])+'</b></div>'+
+      '<a class="route-btn" href="'+ROUTE.url+'" target="_blank" rel="noopener">🧭 '+esc(UI.routeCta[lang])+' →</a></div>';
+    return;
   }
-  const svg='<svg class="map" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(UI.routeTitle[lang])+'">'+
-    '<path d="'+ROMANIA_PATH+'" fill="#dcefe3" stroke="#7cc79b" stroke-width="1.4" stroke-linejoin="round"/>'+
-    '<text x="'+(W-12)+'" y="22" text-anchor="end" font-size="12" fill="#5f9e7c" font-weight="700">N ↑</text>'+
-    lines+arrows+dots+'</svg>';
-  const legend='<div class="route-legend">'+ROUTE.segs.filter(sg=>!sg.legendHide).map(sg=>
-    '<div class="rlg"><span class="sw" style="background:'+sg.color+'"></span>'+
-    '<span class="d">'+esc(sg.day[lang])+'</span>&nbsp;'+esc(sg.label[lang])+
-    '<span class="dur">'+esc(sg.dur[lang])+'</span></div>').join('')+'</div>';
-  return '<a class="route" href="'+ROUTE.url+'" target="_blank" rel="noopener">'+
-    '<div class="route-head">'+mapIcon()+'<b>'+esc(UI.routeTitle[lang])+'</b>'+
-      '<span class="route-cta">'+esc(UI.routeCta[lang])+' →</span></div>'+
-    svg+legend+
-  '</a>';
+  if(!LMAP){
+    wrap.innerHTML='<div class="route-box"><div class="route-head">'+mapIcon()+
+      '<b id="rt-title"></b></div>'+
+      '<div id="lmap" class="lmap"><span class="northbadge">N ↑</span></div>'+
+      '<a id="rt-btn" class="route-btn" target="_blank" rel="noopener"></a></div>';
+    LMAP=L.map("lmap",{scrollWheelZoom:false, zoomControl:true}).setView([45.5,25.3],7);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {maxZoom:17, attribution:"© OpenStreetMap contributors"}).addTo(LMAP);
+    fetch("data/route.geojson",{cache:"no-store"})
+      .then(r=>r.ok?r.json():null).then(gj=>drawRoute(gj)).catch(()=>{});
+  }
+  const t=$("#rt-title"); if(t) t.textContent=UI.routeTitle[lang];
+  const btn=$("#rt-btn"); if(btn){ btn.href=ROUTE.url; btn.textContent="🧭 "+UI.routeCta[lang]+" →"; }
+  refreshRoutePopups(lang);
+}
+
+function drawRoute(gj){
+  if(!LMAP || !gj || !gj.features) return;
+  const route=gj.features.find(f=>f.properties && f.properties.kind==="route");
+  const stops=gj.features.filter(f=>f.properties && f.properties.kind==="stop")
+    .sort((a,b)=>a.properties.order-b.properties.order);
+  let bounds=null;
+  if(route){
+    const line=L.geoJSON(route,{style:{color:"#0f5132",weight:4,opacity:.9,lineJoin:"round"}}).addTo(LMAP);
+    bounds=line.getBounds();
+  }
+  LMARKERS=[];
+  stops.forEach(s=>{
+    const p=s.properties, c=s.geometry.coordinates;      // [lng,lat]
+    const icon=L.divIcon({className:"", iconSize:[28,28], iconAnchor:[14,28], popupAnchor:[0,-26],
+      html:'<div class="rt-pin"><span>'+p.order+'</span></div>'});
+    LMARKERS.push({m:L.marker([c[1],c[0]],{icon:icon}).addTo(LMAP), p:p});
+  });
+  refreshRoutePopups(document.documentElement.lang==="he"?"he":"en");
+  if(bounds && bounds.isValid()) LMAP.fitBounds(bounds.pad(0.12));
+  else if(LMARKERS.length) LMAP.fitBounds(L.latLngBounds(LMARKERS.map(x=>x.m.getLatLng())).pad(0.15));
+  setTimeout(()=>{ if(LMAP) LMAP.invalidateSize(); },250);
+}
+
+function refreshRoutePopups(lang){
+  LMARKERS.forEach(({m,p})=>{
+    const name=lang==="he"?p.he:p.en, date=lang==="he"?p.date_he:p.date_en;
+    m.bindPopup('<b>'+p.order+' · '+esc(name)+'</b><br><span class="pop-date">'+esc(date)+'</span><br>'+
+      '<a href="'+mapsUrl(p.maps)+'" target="_blank" rel="noopener">'+esc(UI.mapcta[lang])+' ↗</a>');
+  });
 }
 
 function photoBlock(key, mapsQ, caption, lang){
@@ -926,7 +896,7 @@ function setText(){
   $("#t-cred-note").textContent  = UI.credNote[lang];
   $("#langbtn").textContent = lang==="he" ? "English":"עברית";
   document.title = UI.title[lang] + " — Aug 2026";
-  $("#route").innerHTML = routeCard(lang);
+  buildRoute(lang);
   $("#itinerary").innerHTML = LEGS.map(l=>legCard(l,lang)).join("");
   $("#car").innerHTML = carCard(lang);
   $("#t-sec-tips").textContent = UI.secTips[lang];

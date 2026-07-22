@@ -12,6 +12,7 @@ on:
       - main
     paths:
       - "build_images.py"
+      - "build_route.py"
       - "romania/index.html"
       - ".github/workflows/romania-images.yml"
       # NO incluimos romania/img/** a proposito: asi el commit de fotos
@@ -42,14 +43,17 @@ jobs:
       - name: Fetch & resize photos from Wikimedia Commons
         run: python build_images.py
 
-      - name: Commit photos if they changed
+      - name: Build real driving route (OSRM → GeoJSON)
+        run: python build_route.py
+
+      - name: Commit photos / route if they changed
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add romania/img
+          git add romania/img romania/data
           if git diff --cached --quiet; then
-            echo "Sin cambios en las fotos."
+            echo "Sin cambios en fotos ni ruta."
           else
-            git commit -m "Update Romania trip photos [skip ci]"
+            git commit -m "Update Romania trip photos & route [skip ci]"
             git push
           fi
