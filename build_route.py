@@ -11,6 +11,7 @@ Si OSRM falla, igual escribe un GeoJSON con los marcadores y una linea recta
 entre ellos como respaldo (el mapa sigue funcionando, degradado).
 """
 import json
+import math
 import os
 import sys
 import time
@@ -51,6 +52,37 @@ ROUTE_COORDS = ([ (STOPS[i]["lng"], STOPS[i]["lat"]) for i in range(5) ]  # OTP.
                     (STOPS[6]["lng"], STOPS[6]["lat"]) ])                 # Bucharest
 
 
+def rdp(points, eps):
+    """Ramer-Douglas-Peucker iterativo: reduce la polyline conservando su forma.
+    points = [[lng,lat], ...] · eps en grados (~0.0006 ≈ 65 m)."""
+    n = len(points)
+    if n < 3:
+        return points[:]
+    keep = [False] * n
+    keep[0] = keep[-1] = True
+    stack = [(0, n - 1)]
+    while stack:
+        s, e = stack.pop()
+        ax, ay = points[s]; bx, by = points[e]
+        dx = bx - ax; dy = by - ay
+        seg2 = dx * dx + dy * dy
+        dmax = 0.0; idx = -1
+        for i in range(s + 1, e):
+            px, py = points[i]
+            if seg2 == 0:
+                d = math.hypot(px - ax, py - ay)
+            else:
+                t = ((px - ax) * dx + (py - ay) * dy) / seg2
+                t = 0.0 if t < 0 else 1.0 if t > 1 else t
+                d = math.hypot(px - (ax + t * dx), py - (ay + t * dy))
+            if d > dmax:
+                dmax = d; idx = i
+        if idx != -1 and dmax > eps:
+            keep[idx] = True
+            stack.append((s, idx)); stack.append((idx, e))
+    return [points[i] for i in range(n) if keep[i]]
+
+
 def http_get(url):
     last = None
     for attempt in range(MAX_RETRIES):
@@ -75,9 +107,7 @@ def http_get(url):
 
 def fetch_route():
     coords = ";".join(f"{lng},{lat}" for lng, lat in ROUTE_COORDS)
-    # overview=simplified: sigue las carreteras pero con muchos menos puntos que
-    # "full" (~600 KB -> ~decenas de KB), ideal para cargar rapido en el celular.
-    url = OSRM + coords + "?overview=simplified&geometries=geojson"
+    url = OSRM + coords + "?overview=full&geometries=geojson"
     data = json.loads(http_get(url))
     if data.get("code") != "Ok":
         raise RuntimeError("OSRM code=" + str(data.get("code")))
@@ -106,8 +136,11 @@ def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     try:
         line, dist, dur = fetch_route()
+        raw = len(line)
+        line = rdp(line, 0.0006)                         # simplifica conservando curvas
+        line = [[round(x, 5), round(y, 5)] for x, y in line]   # ~1 m de precision
         fc = features(line, dist, dur, "OSRM")
-        print(f"[OK] ruta OSRM: {len(line)} puntos, {round(dist/1000)} km, {round(dur/3600,1)} h")
+        print(f"[OK] ruta OSRM: {raw} -> {len(line)} puntos, {round(dist/1000)} km, {round(dur/3600,1)} h")
     except Exception as e:
         print(f"[X] OSRM fallo ({e}); uso linea recta de respaldo", file=sys.stderr)
         straight = [[s["lng"], s["lat"]] for s in STOPS]
