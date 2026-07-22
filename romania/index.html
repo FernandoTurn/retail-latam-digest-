@@ -158,9 +158,19 @@
     display:flex;align-items:center;justify-content:center}
   .rt-pin span{transform:rotate(45deg);color:#fff;font-weight:800;font-size:.82rem;line-height:1}
   .pop-date{color:var(--muted);font-size:.85em}
+  .rt-legend{display:flex;flex-direction:column;padding:8px 8px 4px;gap:1px;
+    border-top:1px solid var(--line)}
+  .rlgrow{display:flex;align-items:center;gap:9px;width:100%;text-align:start;
+    background:none;border:none;border-radius:8px;padding:7px 8px;cursor:pointer;
+    font:inherit;color:inherit}
+  .rlgrow:active{background:var(--bg)}
+  .rlgnum{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--accent);
+    color:#fff;font-weight:800;font-size:.76rem;display:flex;align-items:center;justify-content:center}
+  .rlgname{font-weight:600;font-size:.9rem;flex:1;min-width:0}
+  .rlgdate{margin-inline-start:auto;color:var(--muted);font-size:.8rem;white-space:nowrap}
   .route-btn{display:flex;align-items:center;justify-content:center;gap:8px;
     padding:13px 14px;background:var(--accent);color:#fff;font-weight:700;
-    text-decoration:none;font-size:.92rem}
+    text-decoration:none;font-size:.92rem;border-top:1px solid rgba(255,255,255,.15)}
   .route-btn:active{background:#0c4429}
   /* Stay photo link */
   .staylink{display:inline-flex;align-items:center;gap:5px;margin-top:7px;
@@ -694,16 +704,34 @@ function buildRoute(lang){
     wrap.innerHTML='<div class="route-box"><div class="route-head">'+mapIcon()+
       '<b id="rt-title"></b></div>'+
       '<div id="lmap" class="lmap"><span class="northbadge">N ↑</span></div>'+
+      '<div id="rt-legend" class="rt-legend"></div>'+
       '<a id="rt-btn" class="route-btn" target="_blank" rel="noopener"></a></div>';
     LMAP=L.map("lmap",{scrollWheelZoom:false, zoomControl:true}).setView([45.5,25.3],7);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       {maxZoom:17, attribution:"© OpenStreetMap contributors"}).addTo(LMAP);
+    $("#rt-legend").addEventListener("click",e=>{
+      const row=e.target.closest(".rlgrow"); if(!row) return;
+      const mk=LMARKERS[+row.dataset.i];
+      if(mk){ LMAP.setView(mk.m.getLatLng(), Math.max(LMAP.getZoom(),9)); mk.m.openPopup(); }
+    });
     fetch("data/route.geojson",{cache:"no-store"})
       .then(r=>r.ok?r.json():null).then(gj=>drawRoute(gj)).catch(()=>{});
   }
   const t=$("#rt-title"); if(t) t.textContent=UI.routeTitle[lang];
   const btn=$("#rt-btn"); if(btn){ btn.href=ROUTE.url; btn.textContent="🧭 "+UI.routeCta[lang]+" →"; }
   refreshRoutePopups(lang);
+  renderLegend(lang);
+}
+
+function renderLegend(lang){
+  const el=$("#rt-legend"); if(!el) return;
+  el.innerHTML=LMARKERS.map((x,i)=>{
+    const p=x.p, name=lang==="he"?p.he:p.en, date=lang==="he"?p.date_he:p.date_en;
+    return '<button type="button" class="rlgrow" data-i="'+i+'">'+
+      '<span class="rlgnum">'+p.order+'</span>'+
+      '<span class="rlgname">'+esc(name)+'</span>'+
+      '<span class="rlgdate">'+esc(date)+'</span></button>';
+  }).join("");
 }
 
 function drawRoute(gj){
@@ -723,7 +751,9 @@ function drawRoute(gj){
       html:'<div class="rt-pin"><span>'+p.order+'</span></div>'});
     LMARKERS.push({m:L.marker([c[1],c[0]],{icon:icon}).addTo(LMAP), p:p});
   });
-  refreshRoutePopups(document.documentElement.lang==="he"?"he":"en");
+  const clang=document.documentElement.lang==="he"?"he":"en";
+  refreshRoutePopups(clang);
+  renderLegend(clang);
   if(bounds && bounds.isValid()) LMAP.fitBounds(bounds.pad(0.12));
   else if(LMARKERS.length) LMAP.fitBounds(L.latLngBounds(LMARKERS.map(x=>x.m.getLatLng())).pad(0.15));
   setTimeout(()=>{ if(LMAP) LMAP.invalidateSize(); },250);
