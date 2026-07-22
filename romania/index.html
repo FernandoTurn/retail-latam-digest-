@@ -166,8 +166,10 @@
   .rlgrow:active{background:var(--bg)}
   .rlgnum{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--accent);
     color:#fff;font-weight:800;font-size:.76rem;display:flex;align-items:center;justify-content:center}
-  .rlgname{font-weight:600;font-size:.9rem;flex:1;min-width:0}
-  .rlgdate{margin-inline-start:auto;color:var(--muted);font-size:.8rem;white-space:nowrap}
+  .rlgmid{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+  .rlgname{font-weight:600;font-size:.9rem}
+  .rlgdrive{font-size:.75rem;color:var(--muted)}
+  .rlgdate{margin-inline-start:auto;color:var(--muted);font-size:.8rem;white-space:nowrap;align-self:flex-start;padding-top:1px}
   .route-btn{display:flex;align-items:center;justify-content:center;gap:8px;
     padding:13px 14px;background:var(--accent);color:#fff;font-weight:700;
     text-decoration:none;font-size:.92rem;border-top:1px solid rgba(255,255,255,.15)}
@@ -692,6 +694,16 @@ function mapIcon(){
 // route from data/route.geojson (precomputed with OSRM by build_route.py).
 let LMAP=null, LMARKERS=[];
 
+// Drive time to reach each numbered stop from the previous one (mountain flagged).
+const DRIVE={
+  2:{en:"~2.5–3 h",he:"~2.5–3 ש׳"},
+  3:{en:"~1–1.5 h · mountain road (slow)",he:"~1–1.5 ש׳ · כביש הררי (איטי)"},
+  4:{en:"~2 h · mountain road",he:"~2 ש׳ · כביש הררי"},
+  5:{en:"~2.5–3 h (direct)",he:"~2.5–3 ש׳ (ישיר)"},
+  6:{en:"~3–4 h · Transfăgărășan (slow, winding mountain road)",he:"~3–4 ש׳ · טרנספגרשאן (כביש הרים איטי ומפותל)"},
+  7:{en:"~3 h",he:"~3 ש׳"},
+};
+
 function buildRoute(lang){
   const wrap=$("#route");
   if(typeof L==="undefined"){                 // Leaflet failed to load → button only
@@ -727,9 +739,11 @@ function renderLegend(lang){
   const el=$("#rt-legend"); if(!el) return;
   el.innerHTML=LMARKERS.map((x,i)=>{
     const p=x.p, name=lang==="he"?p.he:p.en, date=lang==="he"?p.date_he:p.date_en;
+    const dv=DRIVE[p.order];
+    const drive=dv?'<span class="rlgdrive">🚗 '+esc(dv[lang])+'</span>':'';
     return '<button type="button" class="rlgrow" data-i="'+i+'">'+
       '<span class="rlgnum">'+p.order+'</span>'+
-      '<span class="rlgname">'+esc(name)+'</span>'+
+      '<span class="rlgmid"><span class="rlgname">'+esc(name)+'</span>'+drive+'</span>'+
       '<span class="rlgdate">'+esc(date)+'</span></button>';
   }).join("");
 }
