@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5132">
+<title>Romania Trip — Packing & Laundry</title>
+<style>
+  :root{--ink:#1f2733;--muted:#5d6b7a;--line:#e3e8ee;--bg:#f5f7fa;--card:#fff;
+    --accent:#0f5132;--green-bg:#e7f6ec;--green-line:#9ed8b5;--radius:16px;
+    --shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06)}
+  *{box-sizing:border-box}html,body{margin:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.5;-webkit-text-size-adjust:100%}
+  a{color:var(--accent)}
+  .wrap{max-width:760px;margin:0 auto;padding:16px 16px 56px}
+  header.top{position:relative;background:linear-gradient(135deg,#0f5132,#15803d);color:#fff;
+    border-radius:var(--radius);padding:20px 18px;box-shadow:var(--shadow)}
+  header.top h1{margin:0 0 4px;font-size:1.4rem}
+  header.top .sub{opacity:.92;font-size:.92rem}
+  .langbtn{position:absolute;top:14px;inset-inline-end:14px;background:rgba(255,255,255,.16);
+    color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:6px 12px;
+    font-size:.82rem;font-weight:700;cursor:pointer}
+  .topnav{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 4px}
+  .navlink{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;
+    font-size:.85rem;font-weight:600;text-decoration:none;color:var(--accent);box-shadow:var(--shadow)}
+  h2.sec{margin:26px 2px 10px;font-size:1.15rem;display:flex;align-items:center;gap:8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:14px 16px;margin-bottom:12px}
+  .card h3{margin:0 0 8px;font-size:1.02rem}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}}
+  ul.list{margin:6px 0 0;padding-inline-start:18px}
+  ul.list li{margin:4px 0;font-size:.92rem}
+  ul.plain{margin:6px 0 0;padding:0;list-style:none}
+  ul.plain li{margin:5px 0;font-size:.92rem;padding-inline-start:22px;position:relative}
+  ul.plain li::before{content:"✓";position:absolute;inset-inline-start:0;color:var(--accent);font-weight:800}
+  ul.no li::before{content:"✕";color:#b42318}
+  .note{background:var(--green-bg);border:1px solid var(--green-line);color:#155d36;
+    border-radius:10px;padding:10px 12px;font-size:.88rem;margin:8px 0 2px}
+  .note.info{background:#eef4ff;border-color:#c7dbf5;color:#1d3f8f}
+  .tag{display:inline-block;font-size:.7rem;font-weight:800;padding:2px 9px;border-radius:999px;
+    margin-inline-start:6px;vertical-align:middle}
+  .tag.ok{background:var(--green-bg);color:#155d36;border:1px solid var(--green-line)}
+  .tag.no{background:#fdeaea;color:#b42318;border:1px solid #f3b4b4}
+  .tag.na{background:#eef2f7;color:#3a4b5c;border:1px solid #d6dee8}
+  table.kv{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:6px}
+  table.kv td{padding:5px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.kv td:first-child{color:var(--muted);white-space:nowrap;width:34%}
+  blockquote{margin:8px 0;padding:9px 12px;background:#f0f3f7;border-inline-start:3px solid var(--accent);
+    border-radius:8px;font-size:.9rem;color:#33404f}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:6px}
+  .plan b{color:var(--accent)}
+  footer{margin-top:28px;border-top:1px solid var(--line);padding-top:14px;font-size:.8rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <button class="langbtn" id="langbtn" type="button">עברית</button>
+    <h1 id="t-title">Packing &amp; Laundry</h1>
+    <div class="sub" id="t-sub">Romania · 2–13 August 2026 · family of 4</div>
+  </header>
+
+  <div class="topnav">
+    <a class="navlink" href="index.html" id="nav-trip">← Back to the trip</a>
+    <a class="navlink" id="nav-guide" href="guide-en.html">Guide</a>
+    <a class="navlink" href="pictures/">Pictures</a>
+  </div>
+
+  <div id="content"></div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const mapsUrl = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+
+const T = {
+  title:{en:"Packing & Laundry", he:"ציוד וכביסה"},
+  sub:{en:"Romania · 2–13 August 2026 · family of 4", he:"רומניה · 2–13 באוגוסט 2026 · משפחה של 4"},
+  navTrip:{en:"← Back to the trip", he:"← חזרה לטיול"},
+  navGuide:{en:"Guide", he:"מדריך"},
+  navPics:{en:"Pictures", he:"תמונות"},
+  secPack:{en:"🧳 Packing list", he:"🧳 רשימת ציוד"},
+  intro:{en:"Pack ~6 days of clothes and do one wash mid-trip — no need to bring outfits for all 11 days.",
+         he:"ארזו בגדים ל-~6 ימים ותעשו כביסה אחת באמצע הטיול — אין צורך בבגדים לכל 11 הימים."},
+  shared:{en:"Shared", he:"משותף"},
+  dont:{en:"Don't bring", he:"לא לקחת"},
+  towels:{en:"Hotels, spas and Therme normally provide towels — no need to fill the suitcase with them.",
+          he:"מלונות, ספא ות'רמה בדרך כלל מספקים מגבות — אין טעם למלא בהן את המזוודה."},
+  secLaundry:{en:"🧺 Where to do laundry on the trip", he:"🧺 איפה לכבס בטיול"},
+  laundryIntro:{en:"Priority: sort out laundry during the Bran / Sohodol stay (Aug 3–7), on the Brașov / Coresi day.",
+                he:"עדיפות: לפתור את הכביסה במהלך השהות בבראן / סוהודול (3–7.8), ביום בראשוב / Coresi."},
+  kapaTitle:{en:"Kapa Chalet (Sohodol)", he:"Kapa Chalet (סוהודול)"},
+  kapaStatus:{en:"Not confirmed", he:"לא מאושר"},
+  kapaBody:{en:"No washing machine or laundry service is listed on Booking, Airbnb or the listing pages we checked — so treat it as not confirmed. Ask the host before the trip:",
+            he:"אין אזכור של מכונת כביסה או שירות כביסה ב-Booking, Airbnb או בעמודי המודעה שבדקנו — לכן נחשב כלא מאושר. שאלו את המארח לפני הנסיעה:"},
+  kapaAsk:{en:"Hi, could you please confirm whether the chalet has a washing machine or whether laundry service is available during our stay?",
+           he:"Hi, could you please confirm whether the chalet has a washing machine or whether laundry service is available during our stay?"},
+  lgTitle:{en:"LG Laundry Lounge — Coresi (Brașov)", he:"LG Laundry Lounge — Coresi (בראשוב)"},
+  lgTag:{en:"Self-service", he:"שירות עצמי"},
+  kAddr:{en:"Address", he:"כתובת"},
+  kHours:{en:"Hours", he:"שעות"},
+  kMode:{en:"Mode", he:"אופן"},
+  kMachines:{en:"Machines", he:"מכונות"},
+  kPrice:{en:"Price", he:"מחיר"},
+  kDist:{en:"From Kapa Chalet", he:"מ-Kapa Chalet"},
+  kWhen:{en:"Combine with", he:"לשלב עם"},
+  kMap:{en:"Open in Google Maps ↗", he:"פתיחה ב-Google Maps ↗"},
+  lgAddr:{en:"Zaharia Stancu 1, Brașov (by Coresi)", he:"Zaharia Stancu 1, בראשוב (ליד Coresi)"},
+  lgHours:{en:"6:00–22:00 (later by appointment)", he:"6:00–22:00 (מאוחר יותר בתיאום)"},
+  lgMode:{en:"Self-service · wash + dry same day", he:"שירות עצמי · כביסה + ייבוש באותו יום"},
+  lgMachines:{en:"10 kg & 15 kg · cash or card", he:"10 ק\"ג ו-15 ק\"ג · מזומן או כרטיס"},
+  lgPrice:{en:"Wash from 28 RON, dry from 20 RON (published — confirm on the day)", he:"כביסה מ-28 RON, ייבוש מ-20 RON (מפורסם — לאמת ביום)"},
+  lgDist:{en:"~40 min / ~35 km — already on the Aug 6 Brașov / Coresi day", he:"~40 דק' / ~35 ק\"מ — ממילא ביום בראשוב / Coresi (6.8)"},
+  lgWhen:{en:"Aug 6 · Coresi Shopping + Brașov (start it, then shop while it runs)", he:"6.8 · Coresi + בראשוב (להתחיל ואז לקנות בזמן שרץ)"},
+  altTitle:{en:"Alternative", he:"חלופה"},
+  altBody:{en:"Total Wash, a laundry inside Coresi Shopping Resort (drop-off) — same mall, handy if the self-service is busy. Check its hours & prices on site.",
+           he:"Total Wash, כביסה בתוך Coresi Shopping Resort (מסירה) — אותו קניון, נוח אם השירות-עצמי עמוס. בדקו שעות ומחירים במקום."},
+  planTitle:{en:"The plan", he:"התוכנית"},
+  planA:{en:"Plan A — wash at Kapa Chalet if the host confirms a machine or service.",
+         he:"תוכנית A — לכבס ב-Kapa Chalet אם המארח מאשר מכונה או שירות."},
+  planB:{en:"Plan B — one family load at LG Laundry Lounge (Coresi) on Aug 6, during the Brașov / Coresi day.",
+         he:"תוכנית B — מכונה משפחתית אחת ב-LG Laundry Lounge (Coresi) ב-6.8, ביום בראשוב / Coresi."},
+  planC:{en:"Plan C — hand-wash only urgent items if the above fall through.",
+         he:"תוכנית C — לכבס ביד רק פריטים דחופים אם האפשרויות למעלה נופלות."},
+  foot:{en:"Approximate info from public sources — confirm hours & prices before you go. · Back to the trip",
+        he:"מידע משוער ממקורות ציבוריים — לאמת שעות ומחירים לפני הנסיעה. · חזרה לטיול"},
+};
+
+const PEOPLE = [
+  {name:{en:"Fernando",he:"פרננדו"}, items:[
+    {en:"5 T-shirts",he:"5 חולצות טי"},
+    {en:"2 shorts",he:"2 מכנסיים קצרים"},
+    {en:"2 long trousers (incl. the flight one)",he:"2 מכנסיים ארוכים (כולל של הטיסה)"},
+    {en:"1 hoodie / sweatshirt",he:"1 קפוצ'ון"},
+    {en:"1 light waterproof jacket",he:"1 מעיל גשם קל"},
+    {en:"6 underwear",he:"6 תחתונים"},
+    {en:"6 pairs of socks",he:"6 זוגות גרביים"},
+    {en:"1 pyjamas",he:"1 פיג'מה"},
+    {en:"1 swimsuit",he:"1 בגד ים"},
+    {en:"1 cap",he:"1 כובע מצחייה"},
+    {en:"1 pair of trainers",he:"1 זוג נעלי ספורט"},
+    {en:"1 pair of flip-flops",he:"1 זוג כפכפים"},
+  ]},
+  {name:{en:"Chen",he:"צ'ן"}, items:[
+    {en:"5 tops / T-shirts / blouses",he:"5 חולצות / טופים"},
+    {en:"2 shorts / skirts or similar",he:"2 מכנסיים קצרים / חצאיות"},
+    {en:"2 long trousers (incl. the flight one)",he:"2 מכנסיים ארוכים (כולל של הטיסה)"},
+    {en:"1 hoodie or cardigan",he:"1 קפוצ'ון או קרדיגן"},
+    {en:"1 light waterproof jacket",he:"1 מעיל גשם קל"},
+    {en:"6 underwear",he:"6 תחתונים"},
+    {en:"5–6 pairs of socks",he:"5–6 זוגות גרביים"},
+    {en:"1 pyjamas",he:"1 פיג'מה"},
+    {en:"1 swimsuit",he:"1 בגד ים"},
+    {en:"1 slightly dressier comfy outfit",he:"1 סט נוח מעט מכובד"},
+    {en:"1 cap",he:"1 כובע"},
+    {en:"1 pair of comfy shoes",he:"1 זוג נעליים נוחות"},
+    {en:"1 pair of sandals / flip-flops",he:"1 זוג סנדלים / כפכפים"},
+  ]},
+  {name:{en:"Ari",he:"ארי"}, items:[
+    {en:"6 T-shirts",he:"6 חולצות טי"},
+    {en:"3 shorts",he:"3 מכנסיים קצרים"},
+    {en:"2 long trousers (incl. the flight one)",he:"2 מכנסיים ארוכים (כולל של הטיסה)"},
+    {en:"1 hoodie / sweatshirt",he:"1 קפוצ'ון"},
+    {en:"1 light waterproof jacket",he:"1 מעיל גשם קל"},
+    {en:"7 underwear",he:"7 תחתונים"},
+    {en:"7 pairs of socks",he:"7 זוגות גרביים"},
+    {en:"1 pyjamas",he:"1 פיג'מה"},
+    {en:"1 swimsuit",he:"1 בגד ים"},
+    {en:"1 cap",he:"1 כובע"},
+    {en:"1 pair of trainers",he:"1 זוג נעלי ספורט"},
+    {en:"1 pair of flip-flops",he:"1 זוג כפכפים"},
+  ]},
+  {name:{en:"Omer",he:"עומר"}, items:[
+    {en:"6 T-shirts",he:"6 חולצות טי"},
+    {en:"3 shorts",he:"3 מכנסיים קצרים"},
+    {en:"2 long trousers (incl. the flight one)",he:"2 מכנסיים ארוכים (כולל של הטיסה)"},
+    {en:"1 hoodie / sweatshirt",he:"1 קפוצ'ון"},
+    {en:"1 light waterproof jacket",he:"1 מעיל גשם קל"},
+    {en:"7 underwear",he:"7 תחתונים"},
+    {en:"7 pairs of socks",he:"7 זוגות גרביים"},
+    {en:"1 pyjamas",he:"1 פיג'מה"},
+    {en:"1 swimsuit",he:"1 בגד ים"},
+    {en:"1 cap",he:"1 כובע"},
+    {en:"1 pair of trainers",he:"1 זוג נעלי ספורט"},
+    {en:"1 pair of flip-flops",he:"1 זוג כפכפים"},
+  ]},
+];
+
+const SHARED = [
+  {en:"Sunscreen",he:"קרם הגנה"},
+  {en:"Medication",he:"תרופות"},
+  {en:"Toiletries",he:"כלי רחצה"},
+  {en:"Dirty-laundry bag",he:"שקית לכביסה מלוכלכת"},
+  {en:"Bags for wet clothes",he:"שקיות לבגדים רטובים"},
+  {en:"Small daypack for excursions",he:"תיק גב קטן לטיולים"},
+  {en:"Water bottles",he:"בקבוקי מים"},
+  {en:"Chargers",he:"מטענים"},
+];
+
+const DONT = [
+  {en:"Towels",he:"מגבות"},
+  {en:"A second swimsuit",he:"בגד ים שני"},
+  {en:"Heavy boots",he:"מגפיים כבדים"},
+  {en:"Winter coats",he:"מעילי חורף"},
+  {en:"A second pair of trainers unless specifically needed",he:"זוג נעלי ספורט שני אלא אם באמת צריך"},
+  {en:"Clothes for all 11 days",he:"בגדים לכל 11 הימים"},
+];
+
+function personCard(p, lang){
+  return '<div class="card"><h3>'+esc(p.name[lang])+'</h3><ul class="plain">'+
+    p.items.map(i=>'<li>'+esc(i[lang])+'</li>').join("")+'</ul></div>';
+}
+
+function render(){
+  const lang = document.documentElement.lang==="he" ? "he":"en";
+  document.documentElement.dir = lang==="he" ? "rtl":"ltr";
+  $("#langbtn").textContent = lang==="he" ? "English":"עברית";
+  $("#t-title").textContent = T.title[lang];
+  $("#t-sub").textContent = T.sub[lang];
+  $("#nav-trip").textContent = T.navTrip[lang];
+  $("#nav-guide").textContent = T.navGuide[lang];
+  $("#nav-guide").setAttribute("href", lang==="he"?"guide-he.html":"guide-en.html");
+  document.title = T.title[lang] + " — Romania";
+
+  let h = '<h2 class="sec">'+esc(T.secPack[lang])+'</h2>';
+  h += '<div class="note">'+esc(T.intro[lang])+'</div>';
+  h += '<div class="grid">'+PEOPLE.map(p=>personCard(p,lang)).join("")+'</div>';
+  h += '<div class="grid">'+
+    '<div class="card"><h3>'+esc(T.shared[lang])+'</h3><ul class="plain">'+
+      SHARED.map(i=>'<li>'+esc(i[lang])+'</li>').join("")+'</ul></div>'+
+    '<div class="card"><h3>'+esc(T.dont[lang])+'</h3><ul class="plain no">'+
+      DONT.map(i=>'<li>'+esc(i[lang])+'</li>').join("")+'</ul>'+
+      '<div class="note info" style="margin-top:8px">'+esc(T.towels[lang])+'</div></div>'+
+  '</div>';
+
+  // Laundry
+  h += '<h2 class="sec">'+esc(T.secLaundry[lang])+'</h2>';
+  h += '<div class="note">'+esc(T.laundryIntro[lang])+'</div>';
+  h += '<div class="card"><h3>'+esc(T.kapaTitle[lang])+
+        '<span class="tag no">'+esc(T.kapaStatus[lang])+'</span></h3>'+
+        '<p style="margin:0 0 6px;font-size:.92rem">'+esc(T.kapaBody[lang])+'</p>'+
+        '<blockquote>'+esc(T.kapaAsk[lang])+'</blockquote>'+
+        '<a href="'+mapsUrl("Kapa Chalet Sohodol Bran")+'" target="_blank" rel="noopener">Kapa Chalet — '+esc(T.kMap[lang])+'</a></div>';
+
+  h += '<div class="card"><h3>'+esc(T.lgTitle[lang])+
+        '<span class="tag ok">'+esc(T.lgTag[lang])+'</span></h3>'+
+        '<table class="kv">'+
+        '<tr><td>'+esc(T.kAddr[lang])+'</td><td>'+esc(T.lgAddr[lang])+'</td></tr>'+
+        '<tr><td>'+esc(T.kHours[lang])+'</td><td>'+esc(T.lgHours[lang])+'</td></tr>'+
+        '<tr><td>'+esc(T.kMode[lang])+'</td><td>'+esc(T.lgMode[lang])+'</td></tr>'+
+        '<tr><td>'+esc(T.kMachines[lang])+'</td><td>'+esc(T.lgMachines[lang])+'</td></tr>'+
+        '<tr><td>'+esc(T.kPrice[lang])+'</td><td>'+esc(T.lgPrice[lang])+'</td></tr>'+
+        '<tr><td>'+esc(T.kDist[lang])+'</td><td>'+esc(T.lgDist[lang])+'</td></tr>'+
+        '<tr><td>'+esc(T.kWhen[lang])+'</td><td>'+esc(T.lgWhen[lang])+'</td></tr>'+
+        '</table>'+
+        '<a href="'+mapsUrl("LG Laundry Lounge Coresi Zaharia Stancu 1 Brasov")+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px">'+esc(T.kMap[lang])+'</a>'+
+        '<div class="note info" style="margin-top:10px"><b>'+esc(T.altTitle[lang])+':</b> '+esc(T.altBody[lang])+'</div>'+
+      '</div>';
+
+  h += '<div class="plan"><b>'+esc(T.planTitle[lang])+'</b>'+
+        '<ul class="list"><li>'+esc(T.planA[lang])+'</li><li>'+esc(T.planB[lang])+'</li><li>'+esc(T.planC[lang])+'</li></ul></div>';
+
+  $("#content").innerHTML = h;
+  $("#foot").innerHTML = '<a href="index.html">'+esc(T.foot[lang])+'</a>';
+}
+
+$("#langbtn").addEventListener("click", ()=>{
+  const next = document.documentElement.lang==="he" ? "en":"he";
+  document.documentElement.lang = next;
+  try{ localStorage.setItem("trip-lang", next); }catch(e){}
+  render();
+});
+
+(function init(){
+  let lang="en";
+  try{ lang = localStorage.getItem("trip-lang") || "en"; }catch(e){}
+  document.documentElement.lang = lang;
+  render();
+})();
+</script>
+</body>
+</html>

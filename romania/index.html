@@ -189,6 +189,28 @@
     font-weight:700;font-size:.95rem;padding:14px 16px;border-radius:var(--radius);box-shadow:var(--shadow)}
   .guide-btn:active{transform:scale(.99)}
   .guide-btn.kids{margin-top:10px;background:linear-gradient(135deg,#e23b3b,#f59e0b)}
+  .guide-btn.bag{margin-top:10px;background:linear-gradient(135deg,#2563eb,#0891b2)}
+  /* Weather accordion (compact, collapsed by default) */
+  .wx{margin-top:10px;border:1px solid #cfe0f0;background:#f2f8fd;border-radius:12px;overflow:hidden}
+  .wx>summary{cursor:pointer;list-style:none;padding:9px 12px;font-size:.86rem;font-weight:700;
+    color:#1d4ed8;display:flex;align-items:center;gap:6px}
+  .wx>summary::-webkit-details-marker{display:none}
+  .wx>summary::after{content:"▾";margin-inline-start:auto;font-size:.8rem;opacity:.7}
+  .wx[open]>summary::after{content:"▴"}
+  .wx-body{padding:0 12px 11px;font-size:.83rem;line-height:1.45}
+  .wx-locs{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 8px}
+  .wx-loc{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #cfe0f0;
+    border-radius:999px;padding:3px 8px;font-size:.78rem}
+  .wx-loc b{font-weight:700;color:var(--ink)}
+  .wx-loc a{color:#1d4ed8;text-decoration:none;font-weight:600}
+  .wx-loc a:active{text-decoration:underline}
+  .wx-line{margin:3px 0}
+  .wx-line.risk b{color:#b45309}
+  .wx-when{margin:6px 0 0;padding-inline-start:18px}
+  .wx-when li{margin:3px 0}
+  /* Laundry note */
+  .note.laundry{background:#eef4ff;border-color:#c7dbf5;color:#1d3f8f}
+  .note.laundry::before{content:"🧺 "}
   /* Attractions */
   .attractions{margin-top:6px;display:flex;flex-direction:column;gap:8px}
   .attr{display:flex;gap:10px;align-items:center;text-decoration:none;color:inherit;
@@ -236,6 +258,7 @@
   </div>
 
   <div class="sectionlabel" id="t-sec-trip">Itinerary</div>
+  <div id="wxwhen"></div>
   <div class="stack" id="itinerary"></div>
 
   <div class="sectionlabel" id="t-sec-car">Car rental</div>
@@ -303,6 +326,15 @@ const UI = {
   secTips:{en:"Tips", he:"טיפים"},
   guideCta:{en:"Full guide: shopping, food & prices", he:"מדריך מלא: קניות, אוכל ומחירים"},
   picturesCta:{en:"Picture calendar for the kids", he:"לוח תמונות לילדים"},
+  equipajeCta:{en:"Packing list & laundry", he:"רשימת ציוד וכביסה"},
+  wxTitle:{en:"Weather to check", he:"מזג אוויר לבדיקה"},
+  wxHist:{en:"Aug (historical, not a forecast)", he:"אוגוסט (היסטורי, לא תחזית)"},
+  wxRisk:{en:"Watch", he:"לשים לב"},
+  wxTip:{en:"Tip", he:"טיפ"},
+  wxWhenTitle:{en:"When to check the weather", he:"מתי לבדוק מזג אוויר"},
+  wxWhen:{en:["7–10 days before: general trend","48–72 h before: organise activities & times","The night before: hourly forecast","Same morning: radar, wind & webcams when relevant"],
+          he:["7–10 ימים לפני: מגמה כללית","48–72 ש׳ לפני: לארגן פעילויות ושעות","בלילה שלפני: תחזית שעתית","באותו בוקר: ראדאר, רוח ומצלמות רשת כשרלוונטי"]},
+  laundryTitle:{en:"Laundry", he:"כביסה"},
 };
 
 /* Quick practical tips shown on the main page. */
@@ -361,6 +393,12 @@ const LEGS = [
     acts:{en:["Land 21:10 · ~3 min to Ramada Otopeni","At the hotel ~22:00 · Wi-Fi + roaming (SIMs tomorrow at Băneasa)","Car is picked up tomorrow morning (Aug 3, 10:00)"],
           he:["נחיתה 21:10 · ~3 דק' ל-Ramada אוטופני","במלון ~22:00 · Wi-Fi + נדידה (SIM מחר בבנאסה)","איסוף הרכב מחר בבוקר (3.8, 10:00)"]},
     mapsQ:"Ramada by Wyndham Bucharest North", caption:{en:"Otopeni",he:"אוטופני"},
+    weather:{
+      locs:[{n:"Otopeni",lat:44.572,lng:26.102}],
+      hist:{en:"Plains, hot: ~29–33 °C days, warm nights; brief evening storms possible.",he:"מישור, חם: ~29–33° ביום, לילות חמים; ייתכנו סופות ערב קצרות."},
+      risk:{en:"Heat — but you land at night, so it's cooler on arrival.",he:"חום — אך הנחיתה בלילה, אז קריר יותר בהגעה."},
+      tip:{en:"Water + light clothes for the short drive to the hotel.",he:"מים + בגדים קלים לנסיעה הקצרה למלון."},
+    },
   },
   {
     key:"bran_castle", status:"g", drive:{en:"Otopeni → Bran · ~2.5–3 h · stops: Băneasa + Ploiești",he:"אוטופני → בראן · ~2.5–3 ש׳ · עצירות: בנאסה + פלוישט"},
@@ -412,6 +450,7 @@ const LEGS = [
       {d:{en:"Thu Aug 6",he:"ה׳ 6.8"},
         am:[
           {time:"09:30", a:{en:"Brașov day: Coresi + TakaPaka (or Joy Park)",he:"יום בראשוב: Coresi + TakaPaka (או Joy Park)"}},
+          {time:"~10:00", a:{en:"🧺 Laundry: wash & dry a family load at a self-service laundromat by Coresi while you shop (see Packing page)",he:"🧺 כביסה: לכבס ולייבש מכונה משפחתית בכביסה בשירות עצמי ליד Coresi בזמן הקניות (ראו עמוד הציוד)"}},
         ],
         pm:[
           {time:"13:00", a:{en:"Lunch in Brașov · old town (Piața Sfatului)",he:"צהריים בבראשוב · העיר העתיקה (Piața Sfatului)"}},
@@ -460,6 +499,21 @@ const LEGS = [
     ],
     veg:{en:"Veggie for Chen: Vila Bran · house time (jacuzzi, BBQ)", he:"צמחוני לצ'ן: Vila Bran · זמן בבית (ג'קוזי, על האש)"},
     mapsQ:"Bran Castle", caption:{en:"Bran Castle",he:"טירת בראן"},
+    laundry:{en:"Aug 6 — on the Brașov / Coresi day, wash & dry a family load at a self-service laundromat (details on the Packing page). Carry the used clothes in a bag in the car.",
+             he:"6.8 — ביום בראשוב / Coresi, לכבס ולייבש מכונה משפחתית בכביסה בשירות עצמי (פרטים בעמוד הציוד). לקחת את הבגדים המשומשים בשקית ברכב."},
+    weather:{
+      locs:[
+        {n:"Ploiești (Aug 3)",lat:44.941,lng:26.023},
+        {n:"Bran / Sohodol",lat:45.515,lng:25.367},
+        {n:"Râșnov",lat:45.593,lng:25.460},
+        {n:"Cheile Grădiștei",lat:45.448,lng:25.286},
+        {n:"Dâmbovicioara",lat:45.414,lng:25.237},
+        {n:"Brașov",lat:45.658,lng:25.601},
+      ],
+      hist:{en:"Mountains milder: ~22–27 °C days, ~11–14 °C nights; higher spots cooler.",he:"בהרים מתון: ~22–27° ביום, ~11–14° בלילה; גבוה יותר קריר יותר."},
+      risk:{en:"Afternoon showers/thunderstorms build in the hills; the Dâmbovicioara cave stays ~10 °C.",he:"אחה\"צ מתפתחים ממטרים/סופות רעמים בהרים; מערת דמבוביצ'ואארה ~10° קבוע."},
+      tip:{en:"Castle & coaster in the morning; pack a light rain jacket + a layer.",he:"טירה ורכבת הרים בבוקר; קחו מעיל גשם קל + שכבה."},
+    },
   },
   {
     key:"bucegi", status:"g", drive:{en:"Bran → Peștera-Padina · ~1–1.5 h (mountain)",he:"בראן → פשטרה-פדינה · ~1–1.5 ש׳ (הרים)"},
@@ -510,6 +564,16 @@ const LEGS = [
         cost:{en:"Included",he:"כלול"}, time:{en:"Relax",he:"רגיעה"}},
     ],
     mapsQ:"Hotel Pestera Padina Bucegi", caption:{en:"Bucegi Mtns / Sphinx",he:"הרי בוצֶ'גי / הספינקס"},
+    weather:{
+      locs:[
+        {n:"Hotel Peștera",lat:45.400,lng:25.457},
+        {n:"Ialomița Cave",lat:45.417,lng:25.410},
+        {n:"Babele / plateau (2200 m)",lat:45.406,lng:25.467},
+      ],
+      hist:{en:"High mountain: hotel ~15–20 °C; the plateau (Babele) ~8–15 °C, colder in wind.",he:"הר גבוה: המלון ~15–20°; המישור (באבלה) ~8–15°, קר יותר ברוח."},
+      risk:{en:"Plateau: fog, low visibility, wind & afternoon thunderstorms — check the plateau, not just Sinaia. Cave ~10 °C.",he:"מישור: ערפל, ראות נמוכה, רוח וסופות רעמים אחה\"צ — לבדוק את המישור, לא רק סינאיה. מערה ~10°."},
+      tip:{en:"Go up early before clouds; warm + windproof layer; skip the ridge in storms.",he:"לעלות מוקדם לפני העננים; שכבה חמה ועמידת רוח; לוותר על הרכס בסופה."},
+    },
   },
   {
     key:"peles", status:"g", drive:{en:"Peștera → Sinaia · ~2 h",he:"פשטרה → סינאיה · ~2 ש׳"},
@@ -541,6 +605,15 @@ const LEGS = [
     ],
     veg:{en:"Veggie for Chen: Kuib", he:"צמחוני לצ'ן: Kuib"},
     mapsQ:"Peles Castle Sinaia", caption:{en:"Peleș Castle",he:"טירת פלֶש"},
+    weather:{
+      locs:[
+        {n:"Sinaia",lat:45.350,lng:25.551},
+        {n:"Peleș Castle",lat:45.360,lng:25.543},
+      ],
+      hist:{en:"~22–26 °C days; cooler and a bit wetter than Bucharest.",he:"~22–26° ביום; קריר ולח מעט יותר מבוקרשט."},
+      risk:{en:"Afternoon showers possible — Peleș is indoors, so rain is fine.",he:"ייתכנו ממטרים אחה\"צ — פלֶש מקורה, אז גשם בסדר."},
+      tip:{en:"Book Peleș; light jacket / umbrella for the gardens.",he:"להזמין את פלֶש; מעיל קל / מטרייה לגנים."},
+    },
   },
   {
     key:"sibiu", photo:"sibiu", status:"g",
@@ -571,6 +644,12 @@ const LEGS = [
     },
     veg:{en:"Veggie for Chen: plenty in the old town (e.g. Kulinarium, Pardon Café)", he:"צמחוני לצ'ן: הרבה בעיר העתיקה (למשל Kulinarium, Pardon Café)"},
     mapsQ:"Piata Mare Sibiu", caption:{en:"Sibiu",he:"סיביו"},
+    weather:{
+      locs:[{n:"Sibiu",lat:45.798,lng:24.152}],
+      hist:{en:"Warm: ~26–29 °C days; occasional afternoon storm.",he:"חמים: ~26–29° ביום; מדי פעם סופה אחה\"צ."},
+      risk:{en:"Heat mid-afternoon; the old town is lovely at sunset.",he:"חום בשעות אחה\"צ; העיר העתיקה נעימה בשקיעה."},
+      tip:{en:"Old-town stroll in the evening; carry water by day.",he:"טיול בעיר העתיקה בערב; מים במשך היום."},
+    },
   },
   {
     key:"vidraru", photo:"transfagarasan", status:"g",
@@ -607,6 +686,15 @@ const LEGS = [
         cost:{en:"Free · all accessible by car",he:"חינם · הכול נגיש ברכב"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
     ],
     mapsQ:"Transfagarasan Balea Lake", caption:{en:"Transfăgărășan / Bâlea",he:"טרנספגרשאן / באלֶאה"},
+    weather:{
+      locs:[
+        {n:"Bâlea Lac (main · 2030 m)",lat:45.604,lng:24.617},
+        {n:"Vidraru",lat:45.360,lng:24.633},
+      ],
+      hist:{en:"Bâlea Lac (2030 m): cold, ~8–14 °C even in summer; Vidraru ~24–28 °C.",he:"באלֶאה לאק (2030 מ'): קר, ~8–14° גם בקיץ; ווידרארו ~24–28°."},
+      risk:{en:"High road: fog, low visibility, wind & thunderstorms up top — check Bâlea Lac, not the valley. Daytime & seasonal only.",he:"כביש גבוה: ערפל, ראות נמוכה, רוח וסופות למעלה — לבדוק את באלֶאה לאק, לא את העמק. ביום ועונתי בלבד."},
+      tip:{en:"Cross the pass in the morning (clearer); warm jacket up top even in August.",he:"לחצות את המעבר בבוקר (בהיר יותר); מעיל חם למעלה גם באוגוסט."},
+    },
   },
   {
     key:"therme", status:"g",
@@ -647,6 +735,15 @@ const LEGS = [
         time:{en:"4–5 h · open to 23:00",he:"4–5 ש׳ · פתוח עד 23:00"}},
     ],
     mapsQ:"Therme Bucuresti", caption:{en:"Water park",he:"פארק מים"},
+    weather:{
+      locs:[
+        {n:"Bucharest",lat:44.427,lng:26.103},
+        {n:"Therme București",lat:44.564,lng:26.034},
+      ],
+      hist:{en:"Plains heat: ~29–33 °C, can top 35 °C on hot days.",he:"חום מישורי: ~29–33°, יכול לעבור 35° בימים חמים."},
+      risk:{en:"Possible strong heat — Therme has indoor + outdoor pools, so it works rain or shine.",he:"ייתכן חום כבד — לת'רמה בריכות מקורות וחיצוניות, אז עובד בכל מזג אוויר."},
+      tip:{en:"Hydrate well; Therme is a great hot-day plan.",he:"לשתות הרבה; ת'רמה תוכנית מצוינת ליום חם."},
+    },
   },
   {
     key:"airplane", status:"g", flight:true,
@@ -896,8 +993,27 @@ function legCard(leg, lang){
   html += '</div>';
   }
   if(leg.veg) html += '<div class="note veg">'+esc(leg.veg[lang])+'</div>';
+  if(leg.laundry) html += '<div class="note laundry"><b>'+esc(UI.laundryTitle[lang])+':</b> '+esc(leg.laundry[lang])+'</div>';
+  if(leg.weather) html += weatherBlock(leg.weather, lang);
   html += '</div></div>';
   return html;
+}
+
+// Links use exact coordinates (from the itinerary) — no invented place slugs.
+const meteoblueUrl = (lat,lng) => "https://www.meteoblue.com/en/weather/week/"+lat+"N"+lng+"E";
+const windyUrl     = (lat,lng) => "https://www.windy.com/?"+lat+","+lng+",9";
+
+function weatherBlock(w, lang){
+  const locs = w.locs.map(l =>
+    '<span class="wx-loc"><b>'+esc(l.n)+'</b>'+
+    '<a href="'+meteoblueUrl(l.lat,l.lng)+'" target="_blank" rel="noopener">Meteoblue</a>'+
+    '<a href="'+windyUrl(l.lat,l.lng)+'" target="_blank" rel="noopener">Windy</a></span>').join("");
+  return '<details class="wx"><summary>🌤️ '+esc(UI.wxTitle[lang])+'</summary><div class="wx-body">'+
+    '<div class="wx-locs">'+locs+'</div>'+
+    '<div class="wx-line"><b>'+esc(UI.wxHist[lang])+':</b> '+esc(w.hist[lang])+'</div>'+
+    '<div class="wx-line risk"><b>'+esc(UI.wxRisk[lang])+':</b> '+esc(w.risk[lang])+'</div>'+
+    '<div class="wx-line"><b>'+esc(UI.wxTip[lang])+':</b> '+esc(w.tip[lang])+'</div>'+
+  '</div></details>';
 }
 
 function carCard(lang){
@@ -950,12 +1066,15 @@ function setText(){
   $("#langbtn").textContent = lang==="he" ? "English":"עברית";
   document.title = UI.title[lang] + " — Aug 2026";
   buildRoute(lang);
+  $("#wxwhen").innerHTML = '<details class="wx"><summary>🌤️ '+esc(UI.wxWhenTitle[lang])+'</summary>'+
+    '<div class="wx-body"><ul class="wx-when">'+UI.wxWhen[lang].map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul></div></details>';
   $("#itinerary").innerHTML = LEGS.map(l=>legCard(l,lang)).join("");
   $("#car").innerHTML = carCard(lang);
   $("#t-sec-tips").textContent = UI.secTips[lang];
   $("#tips").innerHTML = '<ul class="tips">'+TIPS.map(t=>'<li>'+esc(t[lang])+'</li>').join("")+'</ul>';
   $("#guide").innerHTML = '<a class="guide-btn" href="'+(lang==="he"?"guide-he.html":"guide-en.html")+'">'+
     '📖 '+esc(UI.guideCta[lang])+' →</a>'+
+    '<a class="guide-btn bag" href="equipaje.html">🧳 '+esc(UI.equipajeCta[lang])+' →</a>'+
     '<a class="guide-btn kids" href="pictures/">📸 '+esc(UI.picturesCta[lang])+' →</a>';
   attachFallbacks();
   renderCredits(lang);
