@@ -229,6 +229,8 @@
   .attr-name .ext{opacity:.55;font-size:.85em;flex:0 0 auto}
   .attr-meta{margin-top:3px;font-size:.8rem;color:var(--muted);
     display:flex;flex-wrap:wrap;gap:3px 12px}
+  .attr-meta .am-wx{color:#1d4ed8;font-weight:600}
+  .attr-bring{display:block;margin-top:4px;font-size:.78rem;color:#b45309;font-weight:600}
   .pricenote{font-size:.74rem;color:var(--muted);margin-top:8px;font-style:italic}
   /* RTL fine-tuning */
   html[dir="rtl"] .langbtn{font-weight:700}
@@ -466,36 +468,45 @@ const LEGS = [
       {name:{en:"Băneasa Shopping City — SIMs + Zara & brands (Aug 3)",he:"בנאסה Shopping City — סימים + Zara ומותגים (3.8)"},
         emoji:"🛍️", maps:"Baneasa Shopping City",
         cost:{en:"4 Orange SIMs (official store) · Zara, H&M, brands",he:"4 סימי Orange (חנות רשמית) · Zara, H&M, מותגים"},
-        time:{en:"Open Sun 10–22 · on DN1 north (first stop)",he:"פתוח א׳ 10–22 · על DN1 צפונה (עצירה ראשונה)"}},
+        time:{en:"Open Sun 10–22 · on DN1 north (first stop)",he:"פתוח א׳ 10–22 · על DN1 צפונה (עצירה ראשונה)"},
+        wx:{t:{en:"🛍️ Indoor",he:"🛍️ מקורה"}}},
       {name:{en:"Ploiești — second-hand stop (Aug 3, on the way)",he:"פלוישט — עצירת יד-שנייה (3.8, בדרך)"},
         emoji:"👕", maps:"Piata Victoriei Ploiesti",
         cost:{en:"Chen: Humana Victoriei · Fernando+kids: Antique 217 / Piața Victoriei",he:"צ'ן: Humana Victoriei · פרננדו+ילדים: Antique 217 / Piața Victoriei"},
-        time:{en:"~45 min from Otopeni · window 10:00–13:00",he:"~45 דק' מאוטופני · חלון 10:00–13:00"}},
+        time:{en:"~45 min from Otopeni · window 10:00–13:00",he:"~45 דק' מאוטופני · חלון 10:00–13:00"},
+        wx:{t:{en:"☀️ ~28 °C",he:"☀️ ~28°"},bring:{en:"💧 Water + hat (hot plains)",he:"💧 מים + כובע (מישור חם)"}}},
       {name:{en:"Bran Castle",he:"טירת בראן"}, photo:"bran_castle",
         url:"https://www.bran-castle.com/",
         cost:{en:"Adults ≈70 · kids ≈15 RON",he:"מבוגר ≈70 · ילד ≈15 RON"},
-        time:{en:"1.5–2 h · Tue–Sun 9–19, Mon 12–19",he:"1.5–2 ש׳ · ג׳–א׳ 9–19, ב׳ 12–19"}},
+        time:{en:"1.5–2 h · Tue–Sun 9–19, Mon 12–19",he:"1.5–2 ש׳ · ג׳–א׳ 9–19, ב׳ 12–19"},
+        wx:{t:{en:"🌤️ ~24 °C",he:"🌤️ ~24°"},bring:{en:"👟 Comfy shoes (cobbles)",he:"👟 נעליים נוחות (מרצפות)"}}},
       {name:{en:"Dino Parc Râșnov",he:"דינו פארק רשנוב"}, photo:"dino_parc",
         url:"https://dinoparc.ro/",
         cost:{en:"Adults ≈50 · kids ≈40 RON",he:"מבוגר ≈50 · ילד ≈40 RON"},
-        time:{en:"≈2 h",he:"≈2 ש׳"}},
+        time:{en:"≈2 h",he:"≈2 ש׳"},
+        wx:{t:{en:"☀️ ~25 °C",he:"☀️ ~25°"},bring:{en:"🧢 Sun hat + water",he:"🧢 כובע + מים"}}},
       {name:{en:"Râșnov Fortress",he:"מבצר רשנוב"}, photo:"rasnov_fortress",
         maps:"Rasnov Citadel",
-        cost:{en:"≈12 RON",he:"≈12 RON"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
+        cost:{en:"≈12 RON",he:"≈12 RON"}, time:{en:"≈1 h",he:"≈1 ש׳"},
+        wx:{t:{en:"☀️ ~25 °C",he:"☀️ ~25°"},bring:{en:"👟 Grippy shoes",he:"👟 נעליים אוחזות"}}},
       {name:{en:"Alpine Coaster + UTV / mountain karts — Cheile Grădiștei (Fundata)",he:"רכבת הרים + UTV / קארטים הרריים — קֵיילה גרדישטיי (פונדטה)"},
         photo:"alpine_coaster", url:"https://cheilegradistei.ro/",
-        cost:{en:"Coaster ≈20 RON/ride · rain-proof",he:"רכבת ≈20 RON/סבב · עמיד לגשם"}, time:{en:"≈1–2 h",he:"≈1–2 ש׳"}},
+        cost:{en:"Coaster ≈20 RON/ride · rain-proof",he:"רכבת ≈20 RON/סבב · עמיד לגשם"}, time:{en:"≈1–2 h",he:"≈1–2 ש׳"},
+        wx:{t:{en:"🌤️ ~20 °C (1300 m)",he:"🌤️ ~20° (1300 מ')"},bring:{en:"🧥 Light rain jacket",he:"🧥 מעיל גשם קל"}}},
       {name:{en:"Cheile Dâmbovicioarei gorge + cave",he:"ערוץ ומערת דמבוביצ'ואארה"},
         photo:"dambovicioara", maps:"Cheile Dambovicioarei",
         cost:{en:"Cave ≈12 RON · gorge free",he:"מערה ≈12 RON · ערוץ חינם"},
-        time:{en:"1–2 h",he:"1–2 ש׳"}},
+        time:{en:"1–2 h",he:"1–2 ש׳"},
+        wx:{t:{en:"🌥️ Cave ~10 °C",he:"🌥️ מערה ~10°"},bring:{en:"🧥 A layer for the cave",he:"🧥 שכבה למערה"}}},
       {name:{en:"Brașov day — Coresi + TakaPaka (alt. Joy Park / HighJump)",he:"יום בראשוב — Coresi + TakaPaka (אלט. Joy Park / HighJump)"},
         photo:"brasov", maps:"Coresi Shopping Resort Brasov",
         cost:{en:"Free entry · open 10–22",he:"כניסה חינם · פתוח 10–22"},
-        time:{en:"40 min drive",he:"40 דק' נסיעה"}},
+        time:{en:"40 min drive",he:"40 דק' נסיעה"},
+        wx:{t:{en:"🌤️ ~26 °C · indoor",he:"🌤️ ~26° · מקורה"}}},
       {name:{en:"Mountain villages: Moieciu · Peștera · Măgura",he:"כפרי הרים: מויצ'ו · פשטרה · מגורה"},
         photo:"moieciu", maps:"Magura Brasov Romania",
-        cost:{en:"Free",he:"חינם"}, time:{en:"Half day",he:"חצי יום"}},
+        cost:{en:"Free",he:"חינם"}, time:{en:"Half day",he:"חצי יום"},
+        wx:{t:{en:"🌤️ ~22 °C",he:"🌤️ ~22°"},bring:{en:"🧥 A light layer",he:"🧥 שכבה קלה"}}},
     ],
     veg:{en:"Veggie for Chen: Vila Bran · house time (jacuzzi, BBQ)", he:"צמחוני לצ'ן: Vila Bran · זמן בבית (ג'קוזי, על האש)"},
     mapsQ:"Bran Castle", caption:{en:"Bran Castle",he:"טירת בראן"},
@@ -554,14 +565,17 @@ const LEGS = [
       {name:{en:"Ialomița Cave + Monastery",he:"מערת יאלומיצה + מנזר"},
         photo:"ialomita_cave", maps:"Pestera Ialomitei",
         cost:{en:"Cave ≈20 RON · monastery free",he:"מערה ≈20 RON · מנזר חינם"},
-        time:{en:"≈1 h",he:"≈1 ש׳"}},
+        time:{en:"≈1 h",he:"≈1 ש׳"},
+        wx:{t:{en:"🌥️ Cave ~10 °C",he:"🌥️ מערה ~10°"},bring:{en:"🧥 A warm layer",he:"🧥 שכבה חמה"}}},
       {name:{en:"Bucegi plateau — Sphinx & Babele",he:"מישור בוצֶ'גי — הספינקס ובאבלה"},
         photo:"bucegi", maps:"Babele Bucegi",
         cost:{en:"Bușteni cable car ≈70 RON",he:"רכבל בושטֶני ≈70 RON"},
-        time:{en:"Half day",he:"חצי יום"}},
+        time:{en:"Half day",he:"חצי יום"},
+        wx:{t:{en:"🌫️ ~10 °C · wind/fog (2200 m)",he:"🌫️ ~10° · רוח/ערפל (2200 מ')"},bring:{en:"🧥 Warm windproof jacket + hat",he:"🧥 מעיל חם עמיד רוח + כובע"}}},
       {name:{en:"Spa & wellness — the rest stretch (Brașov is ~2 h, skip from here)",he:"ספא ובריאות — תחנת המנוחה (בראשוב ~2 ש׳, לא כדאי מכאן)"},
         emoji:"🧖", maps:"Hotel Pestera Padina Bucegi",
-        cost:{en:"Included",he:"כלול"}, time:{en:"Relax",he:"רגיעה"}},
+        cost:{en:"Included",he:"כלול"}, time:{en:"Relax",he:"רגיעה"},
+        wx:{t:{en:"🧖 Indoor",he:"🧖 מקורה"}}},
     ],
     mapsQ:"Hotel Pestera Padina Bucegi", caption:{en:"Bucegi Mtns / Sphinx",he:"הרי בוצֶ'גי / הספינקס"},
     weather:{
@@ -601,7 +615,8 @@ const LEGS = [
       {name:{en:"Peleș Castle",he:"טירת פלֶש"}, photo:"peles",
         url:"https://peles.ro/",
         cost:{en:"Ground floor ≈60 · kids ≈15 RON",he:"קומת קרקע ≈60 · ילד ≈15 RON"},
-        time:{en:"≈1.5 h · Thu–Sun 9:15, Wed 10:00 · last entry 16:00 · closed Mon/Tue · book online",he:"≈1.5 ש׳ · ה׳–א׳ 9:15, ד׳ 10:00 · כניסה אחרונה 16:00 · סגור ב׳/ג׳ · להזמין אונליין"}},
+        time:{en:"≈1.5 h · Thu–Sun 9:15, Wed 10:00 · last entry 16:00 · closed Mon/Tue · book online",he:"≈1.5 ש׳ · ה׳–א׳ 9:15, ד׳ 10:00 · כניסה אחרונה 16:00 · סגור ב׳/ג׳ · להזמין אונליין"},
+        wx:{t:{en:"🌤️ ~24 °C",he:"🌤️ ~24°"},bring:{en:"🧥 Light jacket (gardens)",he:"🧥 מעיל קל (הגנים)"}}},
     ],
     veg:{en:"Veggie for Chen: Kuib", he:"צמחוני לצ'ן: Kuib"},
     mapsQ:"Peles Castle Sinaia", caption:{en:"Peleș Castle",he:"טירת פלֶש"},
@@ -680,10 +695,12 @@ const LEGS = [
     attr:[
       {name:{en:"Bâlea Lake (Transfăgărășan)",he:"אגם באלֶאה (טרנספגרשאן)"},
         photo:"balea", maps:"Balea Lac Transfagarasan",
-        cost:{en:"Free · snow & flowers even in summer · long stop",he:"חינם · שלג ופרחים גם בקיץ · עצירה ארוכה"}, time:{en:"1–2 h",he:"1–2 ש׳"}},
+        cost:{en:"Free · snow & flowers even in summer · long stop",he:"חינם · שלג ופרחים גם בקיץ · עצירה ארוכה"}, time:{en:"1–2 h",he:"1–2 ש׳"},
+        wx:{t:{en:"🌫️ ~10 °C · wind (2030 m)",he:"🌫️ ~10° · רוח (2030 מ')"},bring:{en:"🧥 Warm jacket (cold even in August)",he:"🧥 מעיל חם (קר גם באוגוסט)"}}},
       {name:{en:"Lake Vidraru & dam",he:"אגם וסכר ווידרארו"},
         photo:"vidraru", maps:"Barajul Vidraru",
-        cost:{en:"Free · all accessible by car",he:"חינם · הכול נגיש ברכב"}, time:{en:"≈1 h",he:"≈1 ש׳"}},
+        cost:{en:"Free · all accessible by car",he:"חינם · הכול נגיש ברכב"}, time:{en:"≈1 h",he:"≈1 ש׳"},
+        wx:{t:{en:"🌤️ ~26 °C",he:"🌤️ ~26°"}}},
     ],
     mapsQ:"Transfagarasan Balea Lake", caption:{en:"Transfăgărășan / Bâlea",he:"טרנספגרשאן / באלֶאה"},
     weather:{
@@ -725,14 +742,17 @@ const LEGS = [
       {name:{en:"AFI Cotroceni — Primark (Chen) + lunch",he:"AFI Cotroceni — Primark (צ'ן) + צהריים"},
         photo:"afi_cotroceni", url:"https://www.aficotroceni.ro/",
         cost:{en:"Free entry · the only Primark on the route",he:"כניסה חינם · ה-Primark היחיד במסלול"},
-        time:{en:"From ~12:30",he:"מ-~12:30"}},
+        time:{en:"From ~12:30",he:"מ-~12:30"},
+        wx:{t:{en:"🛍️ Indoor · A/C",he:"🛍️ מקורה · מיזוג"}}},
       {name:{en:"Gymboland (inside AFI) — Fernando + kids",he:"Gymboland (בתוך AFI) — פרננדו + הילדים"},
         emoji:"🎈", maps:"Gymboland AFI Cotroceni",
-        cost:{en:"Ball pool, slides, climbers, boat lake",he:"בריכת כדורים, מגלשות, מתקני טיפוס, אגם סירות"}, time:{en:"While Chen shops",he:"בזמן שצ'ן קונה"}},
+        cost:{en:"Ball pool, slides, climbers, boat lake",he:"בריכת כדורים, מגלשות, מתקני טיפוס, אגם סירות"}, time:{en:"While Chen shops",he:"בזמן שצ'ן קונה"},
+        wx:{t:{en:"🎈 Indoor",he:"🎈 מקורה"},bring:{en:"🧦 Socks for the play area",he:"🧦 גרביים לאזור המשחק"}}},
       {name:{en:"Therme București (Galaxy) — you + kids",he:"ת'רמה בוקרשט (Galaxy) — אתה + הילדים"},
         photo:"therme", url:"https://therme.ro/",
         cost:{en:"From ≈69 RON · kids ≤14 free Galaxy→The Palm upgrade (until Sep 6)",he:"החל מ-≈69 RON · ילדים עד 14 שדרוג חינם Galaxy→The Palm (עד 6.9)"},
-        time:{en:"4–5 h · open to 23:00",he:"4–5 ש׳ · פתוח עד 23:00"}},
+        time:{en:"4–5 h · open to 23:00",he:"4–5 ש׳ · פתוח עד 23:00"},
+        wx:{t:{en:"🏊 ~29 °C · indoor+outdoor pools",he:"🏊 ~29° · בריכות פנים+חוץ"},bring:{en:"🩳 Swimsuit + sunscreen",he:"🩳 בגד ים + קרם הגנה"}}},
     ],
     mapsQ:"Therme Bucuresti", caption:{en:"Water park",he:"פארק מים"},
     weather:{
@@ -927,7 +947,9 @@ function attrItem(a, lang){
     '<span class="attr-info">'+
       '<span class="attr-name">'+esc(a.name[lang])+ext+'</span>'+
       '<span class="attr-meta"><span>💶 '+esc(a.cost[lang])+'</span>'+
-        '<span>⏱️ '+esc(a.time[lang])+'</span></span>'+
+        '<span>⏱️ '+esc(a.time[lang])+'</span>'+
+        (a.wx?'<span class="am-wx">'+esc(a.wx.t[lang])+'</span>':'')+'</span>'+
+      (a.wx && a.wx.bring ? '<span class="attr-bring">'+esc(a.wx.bring[lang])+'</span>' : '')+
     '</span></a>';
 }
 
