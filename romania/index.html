@@ -231,6 +231,8 @@
     display:flex;flex-wrap:wrap;gap:3px 12px}
   .attr-meta .am-wx{color:#1d4ed8;font-weight:600}
   .attr-bring{display:block;margin-top:4px;font-size:.78rem;color:#b45309;font-weight:600}
+  .staytemp{margin-top:3px;font-size:.83rem;color:#1d4ed8;font-weight:600}
+  .staytemp .cold{color:#b45309}
   .pricenote{font-size:.74rem;color:var(--muted);margin-top:8px;font-style:italic}
   /* RTL fine-tuning */
   html[dir="rtl"] .langbtn{font-weight:700}
@@ -389,6 +391,7 @@ const LEGS = [
     when:{en:"Sun 2 Aug · 1 night", he:"א׳ 2 באוג׳ · לילה 1"},
     place:{en:"Otopeni (Ramada)", he:"אוטופני (Ramada)"},
     lodging:{en:"Ramada Otopeni", he:"Ramada אוטופני"},
+    stayTemp:{en:"Day ~33 °C · night ~19 °C",he:"יום ~33° · לילה ~19°"},
     conf:"92104EE034749",
     stayUrl:"Ramada by Wyndham Bucharest North",
     lodgingNote:{en:"Booked · check-out Aug 3", he:"הוזמן · עזיבה 3 באוג׳"},
@@ -407,6 +410,7 @@ const LEGS = [
     when:{en:"3–6 Aug · 4 nights", he:"3–6 באוג׳ · 4 לילות"},
     place:{en:"Bran / Sohodol", he:"בראן / סוהודול"},
     lodging:{en:"Kapa Chalet — kitchen, jacuzzi, A/C", he:"Kapa Chalet — מטבח, ג'קוזי, מיזוג"},
+    stayTemp:{en:"Day ~27 °C · nights ~14 °C (cool — take a layer)",he:"יום ~27° · לילות ~14° (קריר — קחו שכבה)"},
     conf:null, stayUrl:"Kapa Chalet Sohodol Bran",
     lodgingNote:{en:"Check-out Aug 7", he:"עזיבה 7 באוג׳"},
     plan:[
@@ -531,6 +535,7 @@ const LEGS = [
     when:{en:"7–8 Aug · 2 nights", he:"7–8 באוג׳ · 2 לילות"},
     place:{en:"Bucegi / Peștera-Padina", he:"בוצֶ'גי / פשטרה-פדינה"},
     lodging:{en:"Hotel Peștera Wellness & Spa ⭐⭐⭐⭐⭐ — spa + breakfast", he:"Hotel Peștera Wellness & Spa ⭐⭐⭐⭐⭐ — ספא + ארוחת בוקר"},
+    stayTemp:{en:"Day ~20 °C · nights ~9 °C — cold at 1600 m, warm layer for sleeping",he:"יום ~20° · לילות ~9° — קר ב-1600 מ', שכבה חמה לשינה"},
     conf:"573846176",
     stayUrl:"Hotel Pestera Wellness Spa Bucegi",
     lodgingNote:{en:"Check-out Aug 9", he:"עזיבה 9 באוג׳"},
@@ -594,6 +599,7 @@ const LEGS = [
     when:{en:"9 Aug · 1 night", he:"9 באוג׳ · לילה 1"},
     place:{en:"Sinaia", he:"סינאיה"},
     lodging:{en:"Alexandrion Experience — 2 connecting Deluxe rooms (B&B)", he:"Alexandrion Experience — 2 חדרי Deluxe מחוברים (כולל א. בוקר)"},
+    stayTemp:{en:"Day ~26 °C · night ~14 °C",he:"יום ~26° · לילה ~14°"},
     conf:null, stayUrl:"Alexandrion Experience",
     lodgingNote:{en:"Booked · ref 4014741D · ~1,426.50 RON · ⚠️ pay now on confirmation · non-refundable (no cancellation)", he:"הוזמן · ref 4014741D · ~1,426.50 RON · ⚠️ תשלום עכשיו עם האישור · ללא ביטול/החזר"},
     plan:[
@@ -636,6 +642,7 @@ const LEGS = [
     when:{en:"10 Aug · 1 night", he:"10 באוג׳ · לילה 1"},
     place:{en:"Sibiu", he:"סיביו"},
     lodging:{en:"Artisan Villa — turquoise apartment", he:"Artisan Villa — דירת טורקיז"},
+    stayTemp:{en:"Day ~31 °C · night ~17 °C",he:"יום ~31° · לילה ~17°"},
     conf:null, stayUrl:"Artisan Villa Sibiu",
     lodgingNote:{en:"Booked ✓ check-in 10 / out 11 Aug · 650 lei/night (pay on site) · breakfast +70 adult / +35 kid · check-in 14:00 / out 12:00 · parking 50 m (9 Mai St)", he:"הוזמן ✓ צ'ק-אין 10 / עזיבה 11.8 · 650 ליי/לילה (תשלום במקום) · ארוחת בוקר +70 מבוגר / +35 ילד · צ'ק-אין 14:00 / עזיבה 12:00 · חניה 50 מ' (רח' 9 Mai)"},
     decision:{
@@ -673,6 +680,7 @@ const LEGS = [
     when:{en:"11 Aug · 1 night", he:"11 באוג׳ · לילה 1"},
     place:{en:"Transfăgărășan → Lake Vidraru", he:"טרנספגרשאן → אגם ווידרארו"},
     lodging:{en:"Posada Vidraru", he:"Posada Vidraru"},
+    stayTemp:{en:"Day ~28 °C · night ~15 °C",he:"יום ~28° · לילה ~15°"},
     conf:null, stayUrl:"Posada Vidraru",
     lodgingNote:{en:"Booked · pay at reception · check-out Aug 12", he:"הוזמן · תשלום בקבלה · עזיבה 12 באוג׳"},
     plan:[
@@ -719,6 +727,7 @@ const LEGS = [
     when:{en:"12 Aug · 1 night", he:"12 באוג׳ · לילה 1"},
     place:{en:"Bucharest — AFI + Therme", he:"בוקרשט — AFI + ת'רמה"},
     lodging:{en:"Ramada by Wyndham", he:"Ramada by Wyndham"},
+    stayTemp:{en:"Day ~33 °C · night ~20 °C",he:"יום ~33° · לילה ~20°"},
     conf:"92104EE034750",
     stayUrl:"Ramada by Wyndham Bucharest North",
     lodgingNote:null,
@@ -969,6 +978,7 @@ function legCard(leg, lang){
   // stay
   html += '<div class="block"><div class="lbl">🏨 '+esc(UI.lodging[lang])+'</div>'+
           '<div class="lodging">'+esc(leg.lodging[lang])+'</div>';
+  if(leg.stayTemp) html += '<div class="staytemp">🌡️ '+esc(leg.stayTemp[lang])+'</div>';
   if(leg.conf) html += '<div class="conf">'+esc(UI.conf[lang])+' <code>'+esc(leg.conf)+'</code></div>';
   if(leg.lodgingNote) html += '<div class="conf">'+esc(leg.lodgingNote[lang])+'</div>';
   if(leg.stayUrl){
