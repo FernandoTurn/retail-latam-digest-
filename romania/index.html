@@ -76,7 +76,11 @@
   .block{margin-top:12px}
   .block .lbl{font-size:.72rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
     color:var(--muted);margin-bottom:4px;display:flex;align-items:center;gap:6px}
-  .lodging{font-weight:600}
+  .lodging{font-weight:600;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .lodging .lodging-name{flex:1 1 auto;min-width:0}
+  .lodging .staytemp{flex:0 0 auto;margin-inline-start:auto;font-size:.8rem;font-weight:600;
+    color:#1d4ed8;white-space:nowrap}
+  .staynote{margin-top:2px;font-size:.78rem;color:#b45309;font-weight:600}
   .conf{font-size:.8rem;color:var(--muted)}
   .conf code{background:#f0f3f7;border-radius:5px;padding:1px 6px;font-size:.92em}
   ul.acts{margin:4px 0 0;padding-inline-start:18px}
@@ -231,8 +235,6 @@
     display:flex;flex-wrap:wrap;gap:3px 12px}
   .attr-meta .am-wx{color:#1d4ed8;font-weight:600}
   .attr-bring{display:block;margin-top:4px;font-size:.78rem;color:#b45309;font-weight:600}
-  .staytemp{margin-top:3px;font-size:.83rem;color:#1d4ed8;font-weight:600}
-  .staytemp .cold{color:#b45309}
   .pricenote{font-size:.74rem;color:var(--muted);margin-top:8px;font-style:italic}
   /* RTL fine-tuning */
   html[dir="rtl"] .langbtn{font-weight:700}
@@ -391,7 +393,7 @@ const LEGS = [
     when:{en:"Sun 2 Aug · 1 night", he:"א׳ 2 באוג׳ · לילה 1"},
     place:{en:"Otopeni (Ramada)", he:"אוטופני (Ramada)"},
     lodging:{en:"Ramada Otopeni", he:"Ramada אוטופני"},
-    stayTemp:{en:"Day ~33 °C · night ~19 °C",he:"יום ~33° · לילה ~19°"},
+    stayTemp:{t:{en:"☀️ ~33° · 🌙 ~19°",he:"☀️ ~33° · 🌙 ~19°"}},
     conf:"92104EE034749",
     stayUrl:"Ramada by Wyndham Bucharest North",
     lodgingNote:{en:"Booked · check-out Aug 3", he:"הוזמן · עזיבה 3 באוג׳"},
@@ -410,7 +412,7 @@ const LEGS = [
     when:{en:"3–6 Aug · 4 nights", he:"3–6 באוג׳ · 4 לילות"},
     place:{en:"Bran / Sohodol", he:"בראן / סוהודול"},
     lodging:{en:"Kapa Chalet — kitchen, jacuzzi, A/C", he:"Kapa Chalet — מטבח, ג'קוזי, מיזוג"},
-    stayTemp:{en:"Day ~27 °C · nights ~14 °C (cool — take a layer)",he:"יום ~27° · לילות ~14° (קריר — קחו שכבה)"},
+    stayTemp:{t:{en:"☀️ ~27° · 🌙 ~14°",he:"☀️ ~27° · 🌙 ~14°"}, note:{en:"Cool nights (~14 °C) — take a layer",he:"לילות קרירים (~14°) — קחו שכבה"}},
     conf:null, stayUrl:"Kapa Chalet Sohodol Bran",
     lodgingNote:{en:"Check-out Aug 7", he:"עזיבה 7 באוג׳"},
     plan:[
@@ -535,7 +537,7 @@ const LEGS = [
     when:{en:"7–8 Aug · 2 nights", he:"7–8 באוג׳ · 2 לילות"},
     place:{en:"Bucegi / Peștera-Padina", he:"בוצֶ'גי / פשטרה-פדינה"},
     lodging:{en:"Hotel Peștera Wellness & Spa ⭐⭐⭐⭐⭐ — spa + breakfast", he:"Hotel Peștera Wellness & Spa ⭐⭐⭐⭐⭐ — ספא + ארוחת בוקר"},
-    stayTemp:{en:"Day ~20 °C · nights ~9 °C — cold at 1600 m, warm layer for sleeping",he:"יום ~20° · לילות ~9° — קר ב-1600 מ', שכבה חמה לשינה"},
+    stayTemp:{t:{en:"☀️ ~20° · 🌙 ~9°",he:"☀️ ~20° · 🌙 ~9°"}, note:{en:"Cold at 1600 m (~9 °C at night) — warm layer for sleeping",he:"קר ב-1600 מ' (~9° בלילה) — שכבה חמה לשינה"}},
     conf:"573846176",
     stayUrl:"Hotel Pestera Wellness Spa Bucegi",
     lodgingNote:{en:"Check-out Aug 9", he:"עזיבה 9 באוג׳"},
@@ -599,7 +601,7 @@ const LEGS = [
     when:{en:"9 Aug · 1 night", he:"9 באוג׳ · לילה 1"},
     place:{en:"Sinaia", he:"סינאיה"},
     lodging:{en:"Alexandrion Experience — 2 connecting Deluxe rooms (B&B)", he:"Alexandrion Experience — 2 חדרי Deluxe מחוברים (כולל א. בוקר)"},
-    stayTemp:{en:"Day ~26 °C · night ~14 °C",he:"יום ~26° · לילה ~14°"},
+    stayTemp:{t:{en:"☀️ ~26° · 🌙 ~14°",he:"☀️ ~26° · 🌙 ~14°"}},
     conf:null, stayUrl:"Alexandrion Experience",
     lodgingNote:{en:"Booked · ref 4014741D · ~1,426.50 RON · ⚠️ pay now on confirmation · non-refundable (no cancellation)", he:"הוזמן · ref 4014741D · ~1,426.50 RON · ⚠️ תשלום עכשיו עם האישור · ללא ביטול/החזר"},
     plan:[
@@ -642,7 +644,7 @@ const LEGS = [
     when:{en:"10 Aug · 1 night", he:"10 באוג׳ · לילה 1"},
     place:{en:"Sibiu", he:"סיביו"},
     lodging:{en:"Artisan Villa — turquoise apartment", he:"Artisan Villa — דירת טורקיז"},
-    stayTemp:{en:"Day ~31 °C · night ~17 °C",he:"יום ~31° · לילה ~17°"},
+    stayTemp:{t:{en:"☀️ ~31° · 🌙 ~17°",he:"☀️ ~31° · 🌙 ~17°"}},
     conf:null, stayUrl:"Artisan Villa Sibiu",
     lodgingNote:{en:"Booked ✓ check-in 10 / out 11 Aug · 650 lei/night (pay on site) · breakfast +70 adult / +35 kid · check-in 14:00 / out 12:00 · parking 50 m (9 Mai St)", he:"הוזמן ✓ צ'ק-אין 10 / עזיבה 11.8 · 650 ליי/לילה (תשלום במקום) · ארוחת בוקר +70 מבוגר / +35 ילד · צ'ק-אין 14:00 / עזיבה 12:00 · חניה 50 מ' (רח' 9 Mai)"},
     decision:{
@@ -680,7 +682,7 @@ const LEGS = [
     when:{en:"11 Aug · 1 night", he:"11 באוג׳ · לילה 1"},
     place:{en:"Transfăgărășan → Lake Vidraru", he:"טרנספגרשאן → אגם ווידרארו"},
     lodging:{en:"Posada Vidraru", he:"Posada Vidraru"},
-    stayTemp:{en:"Day ~28 °C · night ~15 °C",he:"יום ~28° · לילה ~15°"},
+    stayTemp:{t:{en:"☀️ ~28° · 🌙 ~15°",he:"☀️ ~28° · 🌙 ~15°"}},
     conf:null, stayUrl:"Posada Vidraru",
     lodgingNote:{en:"Booked · pay at reception · check-out Aug 12", he:"הוזמן · תשלום בקבלה · עזיבה 12 באוג׳"},
     plan:[
@@ -727,7 +729,7 @@ const LEGS = [
     when:{en:"12 Aug · 1 night", he:"12 באוג׳ · לילה 1"},
     place:{en:"Bucharest — AFI + Therme", he:"בוקרשט — AFI + ת'רמה"},
     lodging:{en:"Ramada by Wyndham", he:"Ramada by Wyndham"},
-    stayTemp:{en:"Day ~33 °C · night ~20 °C",he:"יום ~33° · לילה ~20°"},
+    stayTemp:{t:{en:"☀️ ~33° · 🌙 ~20°",he:"☀️ ~33° · 🌙 ~20°"}},
     conf:"92104EE034750",
     stayUrl:"Ramada by Wyndham Bucharest North",
     lodgingNote:null,
@@ -778,11 +780,13 @@ const LEGS = [
     key:"airplane", status:"g", flight:true,
     when:{en:"Thu 13 Aug", he:"ה׳ 13 באוג׳"},
     place:{en:"Fly home: OTP → TLV", he:"טיסה הביתה: OTP → TLV"},
-    lodging:{en:"EL AL · departs 12:30", he:"אל על · המראה 12:30"},
+    lodging:{en:"EL AL · departs 08:30", he:"אל על · המראה 08:30"},
     conf:"XAEK28",
     lodgingNote:null,
-    acts:{en:["Breakfast, then return the car at Otopeni (~9:30–10:00)","Henri Coandă (OTP) — flight 12:30"],
-          he:["ארוחת בוקר, ואז החזרת הרכב באוטופני (~9:30–10:00)","אנרי קואנדה (OTP) — טיסה 12:30"]},
+    alert:{en:"Early flight (08:30) — leave Bucharest ~05:30 · be at OTP by ~06:00 · return the car first (confirm early return with Klass Wagen; booking says 11:00)",
+           he:"טיסה מוקדמת (08:30) — לצאת מבוקרשט ~05:30 · להגיע ל-OTP עד ~06:00 · קודם להחזיר את הרכב (לאשר החזרה מוקדמת מול Klass Wagen; בהזמנה רשום 11:00)"},
+    acts:{en:["Very early start — leave Bucharest ~05:30","Return the car at Otopeni first (~05:45) · confirm early return with Klass Wagen","Henri Coandă (OTP) by ~06:00 — flight 08:30"],
+          he:["השכמה מוקדמת מאוד — לצאת מבוקרשט ~05:30","קודם להחזיר את הרכב באוטופני (~05:45) · לאשר החזרה מוקדמת מול Klass Wagen","אנרי קואנדה (OTP) עד ~06:00 — טיסה 08:30"]},
     mapsQ:"Henri Coanda International Airport Otopeni", caption:{en:"Departure",he:"המראה"},
   },
 ];
@@ -791,8 +795,8 @@ const CAR = {
   key:"car",
   title:{en:"VW Tiguan or similar", he:"פולקסווגן Tiguan או דומה"},
   det:{
-    en:"Automatic · 5 seats · Klass Wagen · Conf. B41813965 · Total 503.27 ILS · Pick-up Aug 3, 10:00 · Return Aug 13, 11:00 · Otopeni",
-    he:"אוטומט · 5 מקומות · Klass Wagen · אישור B41813965 · סך הכל 503.27 ₪ · איסוף 3 באוג׳ 10:00 · החזרה 13 באוג׳ 11:00 · אוטופני"
+    en:"Automatic · 5 seats · Klass Wagen · Conf. B41813965 · Total 503.27 ILS · Pick-up Aug 3, 10:00 · Return Aug 13 · Otopeni · ⚠️ flight is now 08:30 — need the car back ~05:45; booking says 11:00, confirm early return with Klass Wagen",
+    he:"אוטומט · 5 מקומות · Klass Wagen · אישור B41813965 · סך הכל 503.27 ₪ · איסוף 3 באוג׳ 10:00 · החזרה 13 באוג׳ · אוטופני · ⚠️ הטיסה עכשיו 08:30 — צריך להחזיר את הרכב ~05:45; בהזמנה רשום 11:00, לאשר החזרה מוקדמת מול Klass Wagen"
   },
   mapsQ:"Klass Wagen Otopeni Bucharest Airport",
 };
@@ -977,8 +981,9 @@ function legCard(leg, lang){
   if(leg.alert){ html += '<div class="alert">🔴 '+esc(leg.alert[lang])+'</div>'; }
   // stay
   html += '<div class="block"><div class="lbl">🏨 '+esc(UI.lodging[lang])+'</div>'+
-          '<div class="lodging">'+esc(leg.lodging[lang])+'</div>';
-  if(leg.stayTemp) html += '<div class="staytemp">🌡️ '+esc(leg.stayTemp[lang])+'</div>';
+          '<div class="lodging"><span class="lodging-name">'+esc(leg.lodging[lang])+'</span>'+
+          (leg.stayTemp?'<span class="staytemp">'+esc(leg.stayTemp.t[lang])+'</span>':'')+'</div>';
+  if(leg.stayTemp && leg.stayTemp.note) html += '<div class="staynote">🌡️ '+esc(leg.stayTemp.note[lang])+'</div>';
   if(leg.conf) html += '<div class="conf">'+esc(UI.conf[lang])+' <code>'+esc(leg.conf)+'</code></div>';
   if(leg.lodgingNote) html += '<div class="conf">'+esc(leg.lodgingNote[lang])+'</div>';
   if(leg.stayUrl){
