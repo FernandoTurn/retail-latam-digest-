@@ -73,6 +73,20 @@
   .badge.a{color:var(--amber);background:var(--amber-bg);border-color:var(--amber-line)}
   .card.g{border-top:4px solid var(--green)}
   .card.a{border-top:4px solid var(--amber)}
+  /* Collapsible day cards */
+  details.card>summary{list-style:none;cursor:pointer;padding:14px 16px;display:block;
+    -webkit-tap-highlight-color:transparent}
+  details.card>summary::-webkit-details-marker{display:none}
+  details.card>summary:hover{background:rgba(0,0,0,.02)}
+  .cardsum .head{align-items:flex-start}
+  .sum-right{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+  .chev{color:var(--muted);font-size:.85rem;transition:transform .18s ease;flex:0 0 auto}
+  details.card[open] .chev{transform:rotate(180deg)}
+  .sum-stay{margin-top:6px;font-weight:600;display:flex;align-items:baseline;gap:8px;
+    flex-wrap:wrap;font-size:.92rem}
+  .sum-stay .lodging-name{flex:1 1 auto;min-width:0}
+  .sum-stay .staytemp{flex:0 0 auto;margin-inline-start:auto;font-size:.8rem;
+    font-weight:600;color:#1d4ed8;white-space:nowrap}
   .block{margin-top:12px}
   .block .lbl{font-size:.72rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
     color:var(--muted);margin-bottom:4px;display:flex;align-items:center;gap:6px}
@@ -973,25 +987,30 @@ function legCard(leg, lang){
   if(leg.drive){
     html += '<div class="drive">'+driveIcon()+'<span><b>'+esc(UI.drive[lang])+':</b> '+esc(leg.drive[lang])+'</span></div>';
   }
-  html += '<div class="card '+st+'">';
+  html += '<details class="card '+st+'">';
+  // Summary = clickable header (always visible): dates + place + lodging
+  html += '<summary class="cardsum">';
+  html += '<div class="head"><div><div class="when">'+esc(leg.when[lang])+'</div>'+
+          '<h2>'+esc(leg.place[lang])+'</h2></div>'+
+          '<div class="sum-right">'+badge+'<span class="chev" aria-hidden="true">▾</span></div></div>';
+  html += '<div class="sum-stay">🏨 <span class="lodging-name">'+esc(leg.lodging[lang])+'</span>'+
+          (leg.stayTemp?'<span class="staytemp">'+esc(leg.stayTemp.t[lang])+'</span>':'')+'</div>';
+  if(leg.alert){ html += '<div class="alert">🔴 '+esc(leg.alert[lang])+'</div>'; }
+  html += '</summary>';
+  // Body = revealed on click
   html += photoBlock(leg.photo||leg.key, leg.mapsQ, leg.caption, lang);
   html += '<div class="body">';
-  html += '<div class="head"><div><div class="when">'+esc(leg.when[lang])+'</div>'+
-          '<h2>'+esc(leg.place[lang])+'</h2></div>'+badge+'</div>';
-  if(leg.alert){ html += '<div class="alert">🔴 '+esc(leg.alert[lang])+'</div>'; }
-  // stay
-  html += '<div class="block"><div class="lbl">🏨 '+esc(UI.lodging[lang])+'</div>'+
-          '<div class="lodging"><span class="lodging-name">'+esc(leg.lodging[lang])+'</span>'+
-          (leg.stayTemp?'<span class="staytemp">'+esc(leg.stayTemp.t[lang])+'</span>':'')+'</div>';
-  if(leg.stayTemp && leg.stayTemp.note) html += '<div class="staynote">🌡️ '+esc(leg.stayTemp.note[lang])+'</div>';
-  if(leg.conf) html += '<div class="conf">'+esc(UI.conf[lang])+' <code>'+esc(leg.conf)+'</code></div>';
-  if(leg.lodgingNote) html += '<div class="conf">'+esc(leg.lodgingNote[lang])+'</div>';
+  // stay extras (name / temp / alert already shown in the summary)
+  let sx = '';
+  if(leg.stayTemp && leg.stayTemp.note) sx += '<div class="staynote">🌡️ '+esc(leg.stayTemp.note[lang])+'</div>';
+  if(leg.conf) sx += '<div class="conf">'+esc(UI.conf[lang])+' <code>'+esc(leg.conf)+'</code></div>';
+  if(leg.lodgingNote) sx += '<div class="conf">'+esc(leg.lodgingNote[lang])+'</div>';
   if(leg.stayUrl){
     const slabel = leg.status==="g" ? UI.stayPhotos[lang] : UI.stayOptions[lang];
     const shref = leg.stayUrl.startsWith("http") ? leg.stayUrl : mapsUrl(leg.stayUrl);
-    html += '<a class="staylink" href="'+shref+'" target="_blank" rel="noopener">📷 '+esc(slabel)+'</a>';
+    sx += '<a class="staylink" href="'+shref+'" target="_blank" rel="noopener">📷 '+esc(slabel)+'</a>';
   }
-  html += '</div>';
+  if(sx) html += '<div class="block"><div class="lbl">🏨 '+esc(UI.lodging[lang])+'</div>'+sx+'</div>';
   if(leg.decision){
     const dc = leg.decision;
     html += '<div class="decision"><div class="dec-head">🟠 '+esc(dc.heading[lang])+'</div><div class="dec-cols">';
@@ -1032,7 +1051,7 @@ function legCard(leg, lang){
   if(leg.veg) html += '<div class="note veg">'+esc(leg.veg[lang])+'</div>';
   if(leg.laundry) html += '<div class="note laundry"><b>'+esc(UI.laundryTitle[lang])+':</b> '+esc(leg.laundry[lang])+'</div>';
   if(leg.weather) html += weatherBlock(leg.weather, lang);
-  html += '</div></div>';
+  html += '</div></details>';
   return html;
 }
 
