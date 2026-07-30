@@ -756,15 +756,15 @@ const LEGS = [
         ],
         pm:[
           {time:"13:30", a:{en:"Primark (Chen) · in parallel Fernando + kids at Gymboland (ball pool, slides, boats)",he:"Primark (צ'ן) · במקביל פרננדו + ילדים ב-Gymboland (בריכת כדורים, מגלשות, סירות)"}},
-          {time:"15:00", a:{en:"Check-in Ramada · drop the family & bags",he:"צ'ק-אין Ramada · להוריד את המשפחה והמזוודות"}},
-          {time:"15:30", a:{en:"Return the car at Klass Wagen (shuttle, office ~2 km) · confirm the time (weekday ~08:30–17:30)",he:"החזרת הרכב ב-Klass Wagen (שאטל, משרד ~2 ק\"מ) · לאשר את השעה (ימי חול ~08:30–17:30)"}},
+          {time:"15:00", a:{en:"Check-in Ramada · drop the bags (keep the car for Therme)",he:"צ'ק-אין Ramada · להוריד את המזוודות (משאירים את הרכב לת'רמה)"}},
         ],
         eve:[
-          {time:"—", a:{en:"Therme by taxi/Uber (~15 min) · open to 23:00 · 4–5 h · kids ≤14 free Galaxy→The Palm upgrade (until Sep 6)",he:"ת'רמה במונית/אובר (~15 דק') · פתוח עד 23:00 · 4–5 ש׳ · ילדים עד 14 שדרוג חינם Galaxy→The Palm (עד 6.9)"}},
+          {time:"16:00", a:{en:"Therme by car (~15 min) · Galaxy + The Palm · plan to leave ~20:00 (early flight next day)",he:"ת'רמה ברכב (~15 דק') · Galaxy + The Palm · לתכנן לצאת ~20:00 (טיסה מוקדמת למחרת)"}},
+          {time:"21:00", a:{en:"Drop the family at the hotel, then return the car at Klass Wagen (evening return — being coordinated; office ~2 km, shuttle back)",he:"להוריד את המשפחה במלון, ואז להחזיר את הרכב ב-Klass Wagen (החזרה בערב — בתיאום; משרד ~2 ק\"מ, שאטל חזרה)"}},
         ]},
     ],
-    acts:{en:["Leave Vidraru 9:30 (~3 h) · arrive AFI ~12:30","AFI Cotroceni: Primark (Chen) · Fernando + kids at Gymboland · lunch at the mall","Check-in Ramada, drop the family, then return the car at Klass Wagen","Therme București / Galaxy by taxi/Uber (4–5 h, open to 23:00)"],
-          he:["יציאה מווידרארו 9:30 (~3 ש׳) · הגעה ל-AFI ~12:30","AFI Cotroceni: Primark (צ'ן) · פרננדו + ילדים ב-Gymboland · צהריים בקניון","צ'ק-אין Ramada, להוריד את המשפחה, ואז להחזיר את הרכב ב-Klass Wagen","ת'רמה בוקרשט / Galaxy במונית/אובר (4–5 ש׳, פתוח עד 23:00)"]},
+    acts:{en:["Leave Vidraru 9:30 (~3 h) · arrive AFI ~12:30","AFI Cotroceni: Primark (Chen) · Fernando + kids at Gymboland · lunch at the mall","Check-in Ramada (drop bags), then Therme București / Galaxy by car (4–5 h)","Leave Therme ~20:00 · drop the family at the hotel · return the car at Klass Wagen ~21:00 (evening return — being coordinated)"],
+          he:["יציאה מווידרארו 9:30 (~3 ש׳) · הגעה ל-AFI ~12:30","AFI Cotroceni: Primark (צ'ן) · פרננדו + ילדים ב-Gymboland · צהריים בקניון","צ'ק-אין Ramada (להוריד מזוודות), ואז ת'רמה בוקרשט / Galaxy ברכב (4–5 ש׳)","לצאת מת'רמה ~20:00 · להוריד את המשפחה במלון · להחזיר את הרכב ב-Klass Wagen ~21:00 (החזרה בערב — בתיאום)"]},
     attr:[
       {name:{en:"AFI Cotroceni — Primark (Chen) + lunch",he:"AFI Cotroceni — Primark (צ'ן) + צהריים"},
         photo:"afi_cotroceni", url:"https://www.aficotroceni.ro/",
@@ -811,8 +811,8 @@ const CAR = {
   key:"car",
   title:{en:"VW Tiguan or similar", he:"פולקסווגן Tiguan או דומה"},
   det:{
-    en:"Automatic · 5 seats · Klass Wagen · Conf. B41813965 · Total 503.27 ILS · Pick-up Aug 3, 10:00 · Return Aug 12 (after hotel check-in, Otopeni) · office is ~2 km from the terminal, return via their shuttle · weekday hours ~08:30–17:30 — confirm the drop-off time & any after-hours return · ☎ +40 374 779 709",
-    he:"אוטומט · 5 מקומות · Klass Wagen · אישור B41813965 · סך הכל 503.27 ₪ · איסוף 3 באוג׳ 10:00 · החזרה 12 באוג׳ (אחרי הצ'ק-אין במלון, אוטופני) · המשרד ~2 ק\"מ מהטרמינל, החזרה עם השאטל שלהם · שעות חול ~08:30–17:30 — לאשר את שעת ההחזרה והחזרה אחרי שעות · ☎ +40 374 779 709"
+    en:"Automatic · 5 seats · Klass Wagen · Conf. B41813965 · Total 503.27 ILS · Pick-up Aug 3, 10:00 · Return Aug 12 evening (~21:00, after dropping the family at the hotel) · Otopeni · office ~2 km from the terminal, return via their shuttle · weekday hours ~08:30–17:30 → ⚠️ evening/after-hours return being coordinated (email sent) · ☎ +40 374 779 709",
+    he:"אוטומט · 5 מקומות · Klass Wagen · אישור B41813965 · סך הכל 503.27 ₪ · איסוף 3 באוג׳ 10:00 · החזרה בערב 12 באוג׳ (~21:00, אחרי שמורידים את המשפחה במלון) · אוטופני · משרד ~2 ק\"מ מהטרמינל, החזרה עם השאטל שלהם · שעות חול ~08:30–17:30 → ⚠️ החזרה בערב/אחרי שעות בתיאום (נשלח מייל) · ☎ +40 374 779 709"
   },
   mapsQ:"Klass Wagen Otopeni Bucharest Airport",
 };
